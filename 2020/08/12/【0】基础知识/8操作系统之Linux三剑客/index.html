@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <meta charset="utf-8">
+    
+    <title>【8 操作系统】Linux三剑客 | wintrysec</title>
+    
+    
+        <meta name="keywords" content="【8 操作系统】Linux三剑客" />
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="文本分析AWK awk是一种编程语言，用于在linux&#x2F;unix下对文本和数据进行处理 ； 数据可以来自标准输入(stdin)、一个或多个文件，或其它命令的输出；  它支持用户自定义函数和动态正则表达式； awk有很多内建的功能，比如数组、函数等，这是它和C语言的相同之处，灵活性是awk最大的优势   基本语法：awk [options] &#39;Pattern&amp;#123;Action&amp;#125;&#39; f">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【8 操作系统】Linux三剑客">
+<meta property="og:url" content="https://wintrysec.github.io/2020/08/12/%E3%80%900%E3%80%91%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/8%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B9%8BLinux%E4%B8%89%E5%89%91%E5%AE%A2/index.html">
+<meta property="og:site_name" content="wintrysec">
+<meta property="og:description" content="文本分析AWK awk是一种编程语言，用于在linux&#x2F;unix下对文本和数据进行处理 ； 数据可以来自标准输入(stdin)、一个或多个文件，或其它命令的输出；  它支持用户自定义函数和动态正则表达式； awk有很多内建的功能，比如数组、函数等，这是它和C语言的相同之处，灵活性是awk最大的优势   基本语法：awk [options] &#39;Pattern&amp;#123;Action&amp;#125;&#39; f">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-08-12T12:08:00.000Z">
+<meta property="article:modified_time" content="2020-08-12T08:40:56.548Z">
+<meta property="article:author" content="wintrysec">
+<meta name="twitter:card" content="summary">
+    
+
+    
+        <link rel="alternate" href="/atom.xml" title="wintrysec" type="application/atom+xml" />
+    
+
+    
+        <link rel="icon" href="/favicon.ico" />
+    
+
+    
+<link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/libs/open-sans/styles.css">
+
+    
+<link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<script src="/libs/jquery/2.1.3/jquery.min.js"></script>
+
+    
+<script src="/libs/jquery/plugins/cookie/1.4.1/jquery.cookie.js"></script>
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+
+    
+    
+    
+    
+
+
+    
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">wintrysec</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/about">关于</a>
+                
+            </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/about">关于</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+            
+                <aside id="sidebar">
+   
+        
+    <div class="widget-wrap" id='categories'>
+        <h3 class="widget-title">
+            <span>categories</span>
+            &nbsp;
+            <a id='allExpand' href="#">
+                <i class="fa fa-angle-double-down fa-2x"></i>
+            </a>
+        </h3>
+        
+        
+        
+         <ul class="unstyled" id="tree" > 
+                    <li class="directory open">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            【0】基础知识
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/08/12/%E3%80%900%E3%80%91%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/0%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87%E5%B8%B8%E8%AF%86/">【0】网络安全设备常识</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%900%E3%80%91%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/1%E5%AF%86%E7%A0%81%E5%AD%A6%E5%9F%BA%E7%A1%80%E4%B9%8B%E7%8E%B0%E4%BB%A3%E5%AF%86%E7%A0%81%E5%AD%A6/">【1】现代密码学常识</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%900%E3%80%91%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/2%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E4%B9%8BWeb%E5%8A%9F%E8%83%BD/">【2 网络基础】Web应用常识</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%900%E3%80%91%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E4%B9%8BTCP&IP/">【3 网络基础】TCP/IP协议</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%900%E3%80%91%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/4%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E4%B9%8BHTTP/">【4 网络基础】HTTP协议</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%900%E3%80%91%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/5%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E4%B9%8BSSL%E5%8F%8C%E5%90%91%E8%AE%A4%E8%AF%81/">【5 网络基础】SSL双向认证</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%900%E3%80%91%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/6%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E4%B9%8B%E8%B7%AF%E7%94%B1%E5%8D%8F%E8%AE%AE/">【6 网络基础】路由协议</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%900%E3%80%91%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/7%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B9%8BLinux%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/">【7 操作系统】Linux基础命令</a></li>  <li class="file active"><a href="/2020/08/12/%E3%80%900%E3%80%91%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/8%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B9%8BLinux%E4%B8%89%E5%89%91%E5%AE%A2/">【8 操作系统】Linux三剑客</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%900%E3%80%91%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/9%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B9%8BLinux%E5%AE%89%E5%85%A8%E5%8A%A0%E5%9B%BA/">【9 操作系统】Linux安全加固</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%900%E3%80%91%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/10%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B9%8BWindows%E5%AE%89%E5%85%A8%E5%8A%A0%E5%9B%BA/">【10 操作系统】Windows安全加固</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%900%E3%80%91%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/11%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B9%8B%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94%E6%A6%82%E8%BF%B0/">【11 应急响应】应急响应概述</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            【1】Web安全
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/03/29/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/SQL%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E/">SQL注入漏洞</a></li>  <li class="file"><a href="/2020/03/29/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/XSS%E8%B7%A8%E7%AB%99%E8%84%9A%E6%9C%AC%E6%94%BB%E5%87%BB/">XSS跨站脚本攻击</a></li>  <li class="file"><a href="/2020/03/29/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/XML%E5%AE%9E%E4%BD%93%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E/">XML实体注入漏洞</a></li>  <li class="file"><a href="/2020/03/29/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/%E4%BB%A3%E7%A0%81%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E/">命令注入漏洞</a></li>  <li class="file"><a href="/2020/03/29/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0%E6%BC%8F%E6%B4%9E/">请求伪造漏洞</a></li>  <li class="file"><a href="/2020/03/29/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/%E5%90%8C%E6%BA%90%E7%AD%96%E7%95%A5%E5%92%8C%E5%9F%9F%E5%AE%89%E5%85%A8/">同源策略和域安全</a></li>  <li class="file"><a href="/2020/03/29/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86%E6%BC%8F%E6%B4%9E/">文件处理漏洞</a></li>  <li class="file"><a href="/2020/03/29/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E/">文件上传漏洞</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/">反序列化漏洞</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/%E4%BC%9A%E8%AF%9D%E7%AE%A1%E7%90%86%E6%BC%8F%E6%B4%9E/">会话管理漏洞</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E/">逻辑漏洞挖掘</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/Web%E5%AE%89%E5%85%A8-%E6%BA%90%E7%A0%81%E6%B3%84%E6%BC%8F%E6%80%BB%E7%BB%93/">源码泄露总结</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/Web%E5%AE%89%E5%85%A8-%E4%B8%AD%E9%97%B4%E4%BA%BA%E5%92%8CARP%E6%AC%BA%E9%AA%97/">中间人攻击和ARP欺骗</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/Web%E5%AE%89%E5%85%A8-CLRF+SSTI/">CLRF和SSTI模板注入</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/PHP%E5%AE%89%E5%85%A8%E7%89%B9%E6%80%A7/">PHP安全特性</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AE%89%E5%85%A8%E4%B9%8BMySQL%E5%86%99shell/">【数据库】MySQL写shell</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AE%89%E5%85%A8%E4%B9%8BRedis/">【数据库】Redis未授权访问</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AE%89%E5%85%A8%E4%B9%8B%E5%8A%A0%E5%9B%BA/">【数据库】数据库安全加固</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            【2】工具手册
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/03/29/%E3%80%902%E3%80%91%E5%B7%A5%E5%85%B7%E6%89%8B%E5%86%8C/%E5%B7%A5%E5%85%B7%E6%89%8B%E5%86%8C%E4%B9%8BBurpSuite/">BurpSuite简要手册</a></li>  <li class="file"><a href="/2020/03/29/%E3%80%902%E3%80%91%E5%B7%A5%E5%85%B7%E6%89%8B%E5%86%8C/%E5%B7%A5%E5%85%B7%E6%89%8B%E5%86%8C%E4%B9%8BHydra/">Hydra服务弱口令爆破</a></li>  <li class="file"><a href="/2020/03/29/%E3%80%902%E3%80%91%E5%B7%A5%E5%85%B7%E6%89%8B%E5%86%8C/%E5%B7%A5%E5%85%B7%E6%89%8B%E5%86%8C%E4%B9%8BNmap/">nmap端口扫描</a></li>  <li class="file"><a href="/2020/03/29/%E3%80%902%E3%80%91%E5%B7%A5%E5%85%B7%E6%89%8B%E5%86%8C/%E5%B7%A5%E5%85%B7%E6%89%8B%E5%86%8C%E4%B9%8Bsqlmap%E5%A4%87%E5%BF%98/">sqlmap简要手册</a></li>  <li class="file"><a href="/2020/08/11/%E3%80%902%E3%80%91%E5%B7%A5%E5%85%B7%E6%89%8B%E5%86%8C/Metasploit/">Metasploit漏洞利用框架</a></li>  <li class="file"><a href="/2020/08/11/%E3%80%902%E3%80%91%E5%B7%A5%E5%85%B7%E6%89%8B%E5%86%8C/CobaltStrike4.0%E7%94%A8%E6%88%B7%E6%89%8B%E5%86%8C/">CobaltStrike4.0用户手册</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            【3】红蓝对抗
+                        </a>
+                         <ul class="unstyled" id="tree" > 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            【1 红队】边界资产信息收集
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/08/03/%E3%80%903%E3%80%91%E7%BA%A2%E8%93%9D%E5%AF%B9%E6%8A%97/%E3%80%901%20%E7%BA%A2%E9%98%9F%E3%80%91%E8%BE%B9%E7%95%8C%E8%B5%84%E4%BA%A7%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/%E3%80%90%E7%BA%A2%E9%98%9F%E3%80%91%E8%BE%B9%E7%95%8C%E8%B5%84%E4%BA%A7%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/">【红队】 边界资产信息收集</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            【2 红队】常规Web打点漏洞挖掘
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/08/05/%E3%80%903%E3%80%91%E7%BA%A2%E8%93%9D%E5%AF%B9%E6%8A%97/%E3%80%902%20%E7%BA%A2%E9%98%9F%E3%80%91%E5%B8%B8%E8%A7%84Web%E6%89%93%E7%82%B9%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95Checklist/">【红队】常规Web打点-漏洞挖掘</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            【3 红队】构建通道
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/08/05/%E3%80%903%E3%80%91%E7%BA%A2%E8%93%9D%E5%AF%B9%E6%8A%97/%E3%80%903%20%E7%BA%A2%E9%98%9F%E3%80%91%E6%9E%84%E5%BB%BA%E9%80%9A%E9%81%93/%E7%BA%A2%E9%98%9F%E4%B9%8B%E6%9E%84%E5%BB%BA%E9%80%9A%E9%81%93/">【红队】构建通道漫游内网</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            【4 红队】权限维持
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/08/05/%E3%80%903%E3%80%91%E7%BA%A2%E8%93%9D%E5%AF%B9%E6%8A%97/%E3%80%904%20%E7%BA%A2%E9%98%9F%E3%80%91%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81/%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E4%B9%8BWebshell/">【1 红队】权限维持之--WebShell</a></li>  <li class="file"><a href="/2020/08/06/%E3%80%903%E3%80%91%E7%BA%A2%E8%93%9D%E5%AF%B9%E6%8A%97/%E3%80%904%20%E7%BA%A2%E9%98%9F%E3%80%91%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81/%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E4%B9%8BC2/">【2 红队】权限维持之--C2免杀</a></li>  <li class="file"><a href="/2020/08/06/%E3%80%903%E3%80%91%E7%BA%A2%E8%93%9D%E5%AF%B9%E6%8A%97/%E3%80%904%20%E7%BA%A2%E9%98%9F%E3%80%91%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81/%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E4%B9%8B%E6%9D%83%E9%99%90%E6%8F%90%E5%8D%87/">【3 红队】权限维持之--权限提升</a></li>  <li class="file"><a href="/2020/08/06/%E3%80%903%E3%80%91%E7%BA%A2%E8%93%9D%E5%AF%B9%E6%8A%97/%E3%80%904%20%E7%BA%A2%E9%98%9F%E3%80%91%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81/%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E4%B9%8B%E7%B3%BB%E7%BB%9F%E5%90%8E%E9%97%A8/">【4 红队】权限维持之--系统后门</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            【5 红队】横向移动
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/08/09/%E3%80%903%E3%80%91%E7%BA%A2%E8%93%9D%E5%AF%B9%E6%8A%97/%E3%80%905%20%E7%BA%A2%E9%98%9F%E3%80%91%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8/%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8%E4%B9%8B%E5%86%85%E7%BD%91%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/">【1 红队】横向移动之--内网信息收集</a></li>  <li class="file"><a href="/2020/08/09/%E3%80%903%E3%80%91%E7%BA%A2%E8%93%9D%E5%AF%B9%E6%8A%97/%E3%80%905%20%E7%BA%A2%E9%98%9F%E3%80%91%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8/%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8%E4%B9%8B%E6%95%A3%E5%88%97%E5%80%BC%E8%8E%B7%E5%8F%96/">【2 红队】横向移动之--散列值获取</a></li>  <li class="file"><a href="/2020/08/09/%E3%80%903%E3%80%91%E7%BA%A2%E8%93%9D%E5%AF%B9%E6%8A%97/%E3%80%905%20%E7%BA%A2%E9%98%9F%E3%80%91%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8/%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8%E4%B9%8B%E5%9F%9F%E6%B8%97%E9%80%8F/">【3 红队】横向移动之--域渗透</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            【6 红队】日志处理
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/03/29/%E3%80%903%E3%80%91%E7%BA%A2%E8%93%9D%E5%AF%B9%E6%8A%97/%E3%80%906%20%E7%BA%A2%E9%98%9F%E3%80%91%E6%97%A5%E5%BF%97%E5%A4%84%E7%90%86/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E4%B9%8B%E6%97%A5%E5%BF%97%E5%A4%84%E7%90%86/">【6 红队】打扫战场--日志处理</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            【4】WriteUp
+                        </a>
+                         <ul class="unstyled" id="tree" > 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Bugku
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/07/18/%E3%80%904%E3%80%91WriteUp/Bugku/%E5%8F%98%E9%87%8F%E8%A6%86%E7%9B%96/">变量覆盖</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            VulnHub
+                        </a>
+                         <ul class="unstyled" id="tree" > 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            内网
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/07/18/%E3%80%904%E3%80%91WriteUp/VulnHub/%E5%86%85%E7%BD%91/Mr-boot/">MR内网</a></li>  </ul> 
+                    </li> 
+                     <li class="file"><a href="/2020/07/18/%E3%80%904%E3%80%91WriteUp/VulnHub/Mr-boot/">MR</a></li>  </ul> 
+                    </li> 
+                     <li class="file"><a href="/2020/07/18/%E3%80%904%E3%80%91WriteUp/WriteUp/">WirteUp资源推荐</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            【5】中间件安全
+                        </a>
+                         <ul class="unstyled" id="tree" > 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            WebLogic
+                        </a>
+                         <ul class="unstyled" id="tree" > 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            CVE-2017-10271
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/08/12/%E3%80%905%E3%80%91%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%AE%89%E5%85%A8/WebLogic/CVE-2017-10271/CVE-2017-10271/">wls-wsat XMLDecoder反序列化漏洞</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            CVE-2017-3248【POC需要重写】
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/08/12/%E3%80%905%E3%80%91%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%AE%89%E5%85%A8/WebLogic/CVE-2017-3248%E3%80%90POC%E9%9C%80%E8%A6%81%E9%87%8D%E5%86%99%E3%80%91/CVE-2017-3248/">T3协议身份验证可绕过</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            CVE-2018-2628
+                        </a>
+                         <ul class="unstyled" id="tree" > 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            K8飞刀
+                        </a>
+                         <ul class="unstyled" id="tree" > 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            XSS-CSRF
+                        </a>
+                         <ul class="unstyled" id="tree" > 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Scripts
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/08/12/%E3%80%905%E3%80%91%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%AE%89%E5%85%A8/WebLogic/CVE-2018-2628/K8%E9%A3%9E%E5%88%80/XSS-CSRF/Scripts/jquery-1.4.1-vsdoc/"></a></li>  <li class="file"><a href="/2020/08/12/%E3%80%905%E3%80%91%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%AE%89%E5%85%A8/WebLogic/CVE-2018-2628/K8%E9%A3%9E%E5%88%80/XSS-CSRF/Scripts/jquery-1.4.1/"></a></li>  <li class="file"><a href="/2020/08/12/%E3%80%905%E3%80%91%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%AE%89%E5%85%A8/WebLogic/CVE-2018-2628/K8%E9%A3%9E%E5%88%80/XSS-CSRF/Scripts/jquery-1.4.1.min/"></a></li>  </ul> 
+                    </li> 
+                     <li class="file"><a href="/2020/08/12/%E3%80%905%E3%80%91%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%AE%89%E5%85%A8/WebLogic/CVE-2018-2628/K8%E9%A3%9E%E5%88%80/XSS-CSRF/fromCharCode/"></a></li>  <li class="file"><a href="/2020/08/12/%E3%80%905%E3%80%91%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%AE%89%E5%85%A8/WebLogic/CVE-2018-2628/K8%E9%A3%9E%E5%88%80/XSS-CSRF/html%E5%AE%9E%E4%BD%93UTF8/"></a></li>  <li class="file"><a href="/2020/08/12/%E3%80%905%E3%80%91%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%AE%89%E5%85%A8/WebLogic/CVE-2018-2628/K8%E9%A3%9E%E5%88%80/XSS-CSRF/js_escape/"></a></li>  <li class="file"><a href="/2020/08/12/%E3%80%905%E3%80%91%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%AE%89%E5%85%A8/WebLogic/CVE-2018-2628/K8%E9%A3%9E%E5%88%80/XSS-CSRF/js_hex_string/"></a></li>  <li class="file"><a href="/2020/08/12/%E3%80%905%E3%80%91%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%AE%89%E5%85%A8/WebLogic/CVE-2018-2628/K8%E9%A3%9E%E5%88%80/XSS-CSRF/js_unicode/"></a></li>  <li class="file"><a href="/2020/08/12/%E3%80%905%E3%80%91%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%AE%89%E5%85%A8/WebLogic/CVE-2018-2628/K8%E9%A3%9E%E5%88%80/XSS-CSRF/xxx/"></a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                     <li class="file"><a href="/2020/08/12/%E3%80%905%E3%80%91%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%AE%89%E5%85%A8/WebLogic/CVE-2018-2628/CVE-2018-2628/">WLS核心组件-T3协议反序列化RCE</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            CVE-2020-14645
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/08/12/%E3%80%905%E3%80%91%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%AE%89%E5%85%A8/WebLogic/CVE-2020-14645/CVE-2020-14645/">针对gadget cve-2020-2555 绕过利用</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            CVE-2020-2551
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/08/12/%E3%80%905%E3%80%91%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%AE%89%E5%85%A8/WebLogic/CVE-2020-2551/CVE-2020-2551/">Weblogic IIOP反序列化漏洞</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            CVE-2020-2555
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/08/12/%E3%80%905%E3%80%91%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%AE%89%E5%85%A8/WebLogic/CVE-2020-2555/CVE-2020-2555/">Oracle Coherence&WebLogic反序列化命令执行</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            CVE-2020-2883
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/08/12/%E3%80%905%E3%80%91%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%AE%89%E5%85%A8/WebLogic/CVE-2020-2883/CVE-2020-2883/">Weblogic T3 协议反序列化命令执行</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Weblogic SSRF漏洞
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/08/12/%E3%80%905%E3%80%91%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%AE%89%E5%85%A8/WebLogic/Weblogic%20SSRF%E6%BC%8F%E6%B4%9E/Weblogic%20SSRF%E6%BC%8F%E6%B4%9E/">Weblogic SSRF漏洞</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            【0】WebLogic-Server介绍
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/08/12/%E3%80%905%E3%80%91%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%AE%89%E5%85%A8/WebLogic/%E3%80%900%E3%80%91WebLogic-Server%E4%BB%8B%E7%BB%8D/WebLogic-Server%E4%BB%8B%E7%BB%8D/">Weblogic-Server介绍</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            【整合重写】WebLogic漏洞扫描工具
+                        </a>
+                         <ul class="unstyled" id="tree" > 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            weblogicScanner-master
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/08/12/%E3%80%905%E3%80%91%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%AE%89%E5%85%A8/WebLogic/%E3%80%90%E6%95%B4%E5%90%88%E9%87%8D%E5%86%99%E3%80%91WebLogic%E6%BC%8F%E6%B4%9E%E6%89%AB%E6%8F%8F%E5%B7%A5%E5%85%B7/weblogicScanner-master/README/"></a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            后台文件上传漏洞（CVE-2018-2894）
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/08/12/%E3%80%905%E3%80%91%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%AE%89%E5%85%A8/WebLogic/%E5%90%8E%E5%8F%B0%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E%EF%BC%88CVE-2018-2894%EF%BC%89/CVE-2018-2894/">Weblogic 任意文件上传漏洞</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                     </ul> 
+    </div>
+    <script>
+        $(document).ready(function() {
+            var iconFolderOpenClass  = 'fa-folder-open';
+            var iconFolderCloseClass = 'fa-folder';
+            var iconAllExpandClass = 'fa-angle-double-down';
+            var iconAllPackClass = 'fa-angle-double-up';
+            // Handle directory-tree expansion:
+            // 左键单独展开目录
+            $(document).on('click', '#categories a[data-role="directory"]', function (event) {
+                event.preventDefault();
+
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var subtree = $(this).siblings('ul');
+                icon.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if (expanded) {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideUp({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderCloseClass);
+                } else {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideDown({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderOpenClass);
+                }
+            });
+            // 右键展开下属所有目录
+            $('#categories a[data-role="directory"]').bind("contextmenu", function(event){
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var listNode = $(this).siblings('ul');
+                var subtrees = $.merge(listNode.find('li ul'), listNode);
+                var icons = $.merge(listNode.find('.fa'), icon);
+                icons.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if(expanded) {
+                    subtrees.slideUp({ duration: 100 });
+                    icons.addClass(iconFolderCloseClass);
+                } else {
+                    subtrees.slideDown({ duration: 100 });
+                    icons.addClass(iconFolderOpenClass);
+                }
+            })
+            // 展开关闭所有目录按钮
+            $(document).on('click', '#allExpand', function (event) {
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconAllExpandClass);
+                icon.removeClass(iconAllExpandClass).removeClass(iconAllPackClass);
+                if(expanded) {
+                    $('#sidebar .fa.fa-folder').removeClass('fa-folder').addClass('fa-folder-open')
+                    $('#categories li ul').slideDown({ duration: 100 });
+                    icon.addClass(iconAllPackClass);
+                } else {
+                    $('#sidebar .fa.fa-folder-open').removeClass('fa-folder-open').addClass('fa-folder')
+                    $('#categories li ul').slideUp({ duration: 100 });
+                    icon.addClass(iconAllExpandClass);
+                }
+            });  
+        });
+    </script>
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+            
+            <section id="main"><article id="post-【0】基础知识/8操作系统之Linux三剑客" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/%E3%80%900%E3%80%91%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">【0】基础知识</a>
+    </div>
+
+                        
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2020/08/12/%E3%80%900%E3%80%91%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/8%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B9%8BLinux%E4%B8%89%E5%89%91%E5%AE%A2/">
+            <time datetime="2020-08-12T12:08:00.000Z" itemprop="datePublished">2020-08-12</time>
+        </a>
+    </div>
+
+
+                        
+                            <i class="fa fa-bar-chart"></i>
+                            <span id="busuanzi_container_site_pv"><span id="busuanzi_value_page_pv"></span></span>    
+                        
+
+                    </div>
+                
+                
+    
+        <h1 class="article-title" itemprop="name">
+            【8 操作系统】Linux三剑客
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+        
+        
+            <h1 id="文本分析AWK"><a href="#文本分析AWK" class="headerlink" title="文本分析AWK"></a>文本分析AWK</h1><blockquote>
+<p><code>awk</code>是一种编程语言，用于在<code>linux/unix</code>下对文本和数据进行处理 ；</p>
+<p>数据可以来自标准输入(stdin)、一个或多个文件，或其它命令的输出； </p>
+<p>它支持用户自定义函数和动态正则表达式；</p>
+<p>awk有很多内建的功能，比如数组、函数等，这是它和C语言的相同之处，灵活性是awk最大的优势 </p>
+</blockquote>
+<h4 id="基本语法："><a href="#基本语法：" class="headerlink" title="基本语法："></a>基本语法：</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">awk [options] <span class="string">'Pattern&#123;Action&#125;'</span> filename</span><br><span class="line"><span class="built_in">command</span> [选项 参数] <span class="string">'模式&#123;动作&#125;'</span>   文件</span><br></pre></td></tr></table></figure>
+
+<h4 id="常用命令选项："><a href="#常用命令选项：" class="headerlink" title="常用命令选项："></a>常用命令选项：</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">-F fs	<span class="comment">#fs指定命令分隔符，如 -F:  如果没有指定分割符，默认使用空格作为分隔符（或使用-v FS,FS是内置变量）</span></span><br><span class="line">-v var=value	<span class="comment">#赋值一个用户定义变量，将外部变量传递给awk，比如使用-v OFS="+",指定输出分隔符</span></span><br><span class="line">-f script		<span class="comment">#从脚本文件中读取awk命令</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="最简单的用法：只用action"><a href="#最简单的用法：只用action" class="headerlink" title="最简单的用法：只用action"></a>最简单的用法：只用action</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ <span class="built_in">echo</span> <span class="string">"hello world"</span> &gt; <span class="built_in">test</span></span><br><span class="line">$ awk <span class="string">'&#123;print&#125;'</span> <span class="built_in">test</span></span><br><span class="line">hello world</span><br><span class="line">$ awk <span class="string">'&#123;print $0&#125;'</span> <span class="built_in">test</span>		<span class="comment">#$0表示所有域(默认用空格当作分隔符)</span></span><br><span class="line">hello world</span><br><span class="line">$ awk <span class="string">'&#123;print $1&#125;'</span> <span class="built_in">test</span>		<span class="comment">#$1表示第一个域,两个域用逗号隔开$1,$2，去掉逗号或换为空格输出时会没有分隔符显示在一列</span></span><br><span class="line">hello</span><br><span class="line"><span class="comment">##############################</span></span><br><span class="line">df -h | awk <span class="string">'&#123;print $5&#125;'</span>	<span class="comment">#df显示磁盘使用情况，这里使用awk只打印每行的第五列，$NF可以只输出每行的最后一列</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="特殊模式的用法："><a href="#特殊模式的用法：" class="headerlink" title="特殊模式的用法："></a>特殊模式的用法：</h4><blockquote>
+<p>BEGIN 模式指定了处理文本之前需要执行的操作：（BEGIN开始）；不指定文件也能输出（但是后边指定操作也会卡住）</p>
+<p>END 模式指定了处理完所有行之后所需要执行的操作：（END结束）；不指定文件会卡住</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ awk <span class="string">'BEGIN&#123;print "wintrysec"&#125; &#123;print $0&#125; END&#123;print "1080"&#125;'</span> <span class="built_in">test</span></span><br><span class="line">wintrysec</span><br><span class="line">hello world</span><br><span class="line">1080</span><br></pre></td></tr></table></figure>
+
+<h4 id="AWK变量："><a href="#AWK变量：" class="headerlink" title="AWK变量："></a>AWK变量：</h4><p><strong>常用内置变量：</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">FS		<span class="comment">#输入字段分隔符， 默认为空白字符</span></span><br><span class="line">OFS		<span class="comment">#输出字段分隔符， 默认为空白字符</span></span><br><span class="line">RS		<span class="comment">#输入记录分隔符(默认输入是换行符)， 指定输入时的换行符</span></span><br><span class="line">ORS		<span class="comment">#输出记录分隔符（输出换行符），输出时用指定符号代替换行符</span></span><br><span class="line">NF		<span class="comment">#number of Field，当前行的字段的个数(即当前行被分割成了几列)，字段数量</span></span><br><span class="line">NR		<span class="comment">#行号，当前处理的文本行的行号。</span></span><br><span class="line">FNR		<span class="comment">#各文件分别计数的行号，另一个文件从1开始计行数</span></span><br><span class="line">ARGC	<span class="comment">#命令行参数的个数</span></span><br><span class="line">ARGV	<span class="comment">#数组，保存的是命令行所给定的各参数，AGRV[0]是awk</span></span><br><span class="line">FILENAME<span class="comment">#当前文件名</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>自定义变量的两种用法：</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ awk -v name=<span class="string">"wintrysec"</span>,age=19 <span class="string">'BEGIN&#123;print name&#125;'</span>	<span class="comment">#第一种方法用-v选项，多个参数用逗号分隔   不加BENGIN会卡住</span></span><br><span class="line">wintrysec</span><br><span class="line">$ awk <span class="string">'BEGIN&#123;name="wintrysec";age=18;print name,age&#125;'</span>	<span class="comment">#第二种方法，直接在程序中定义，多个参数用分号分隔 </span></span><br><span class="line">wintrysec 18</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="文本批量处理sed"><a href="#文本批量处理sed" class="headerlink" title="文本批量处理sed"></a>文本批量处理sed</h1><blockquote>
+<p>主要用来自动编辑一个或多个文件；简化对文件的反复操作； </p>
+</blockquote>
+<h4 id="命令格式："><a href="#命令格式：" class="headerlink" title="命令格式："></a>命令格式：</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sed [options] <span class="string">'command'</span> file(s)</span><br><span class="line">sed [options] -f scriptfile file(s)</span><br></pre></td></tr></table></figure>
+
+<h4 id="常用选项："><a href="#常用选项：" class="headerlink" title="常用选项："></a>常用选项：</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">-e&lt;script&gt;			<span class="comment">#以选项中的指定的script来处理输入的文本文件；</span></span><br><span class="line">-f&lt;script文件&gt;	 <span class="comment">#以选项中指定的script文件来处理输入的文本文件；</span></span><br><span class="line">-n					<span class="comment">#仅显示script处理后的结果；</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="替换标记："><a href="#替换标记：" class="headerlink" title="替换标记："></a>替换标记：</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">g	<span class="comment">#表示行内全面替换；即替换每一行中的所有匹配</span></span><br><span class="line">p	<span class="comment">#表示打印行。  </span></span><br><span class="line">w	<span class="comment">#表示把行写入一个文件。  </span></span><br><span class="line">x	<span class="comment">#表示互换模板块中的文本和缓冲区中的文本。  </span></span><br><span class="line">y	<span class="comment">#表示把一个字符翻译为另外的字符（但是不用于正则表达式）</span></span><br><span class="line">\1	<span class="comment">#子串匹配标记</span></span><br><span class="line">&amp;	<span class="comment">#已匹配字符串标记</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="常用命令："><a href="#常用命令：" class="headerlink" title="常用命令："></a>常用命令：</h4><blockquote>
+<p>d     删除，删除选择的行。<br>s     替换指定字符<br>p     打印模板块的行。<br>P    (大写) 打印模板块的第一行。</p>
+</blockquote>
+<h4 id="常见用法："><a href="#常见用法：" class="headerlink" title="常见用法："></a>常见用法：</h4><p><strong>替换文本中的字符串 (如linux日志处理，伪造IP)</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sed -i <span class="string">'s/192.168.1.3/192.168.1.4/g'</span> xxx.log	<span class="comment">#-i选项表示直接编辑文件</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>定界符：</strong></p>
+<p>以上命令中字符 / 在sed中作为定界符使用，也可以使用任意的定界符：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sed <span class="string">'s|test|TEXT|g'</span></span><br></pre></td></tr></table></figure>
+
+<p>定界符出现在样式内部时，需要进行转义： </p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sed <span class="string">'s/\/bin/\/usr\/local\/bin/g'</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>删除操作(d命令)：</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sed <span class="string">'/^$/d'</span> file	<span class="comment">#删除空白行</span></span><br><span class="line">sed <span class="string">'2d'</span> file		<span class="comment">#删除文件的第二行</span></span><br><span class="line">sed <span class="string">'2,$d'</span> file		<span class="comment">#删除文件的第2行到末尾所有行</span></span><br><span class="line">sed <span class="string">'$d'</span> file 		<span class="comment">#删除文件最后一行</span></span><br><span class="line">sed <span class="string">'/^test/'</span>d file	<span class="comment">#删除文件中所有开头是test的行</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="常见面试题"><a href="#常见面试题" class="headerlink" title="常见面试题"></a>常见面试题</h4><p>把/oldboy目录以及子目录下所有以扩展名为.sh结尾的文件包含oldboy的字符串全部替换为oldgirl</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">find /oldboy -<span class="built_in">type</span> f -name <span class="string">"*.sh"</span>|xargs sed <span class="string">"s#oldboy#oldgirl#g"</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="grep文本正则匹配"><a href="#grep文本正则匹配" class="headerlink" title="grep文本正则匹配"></a>grep文本正则匹配</h1><p><strong>常见用法：</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">grep <span class="string">"text"</span> file_name		<span class="comment">#返回一个包含text的文本行</span></span><br><span class="line">grep <span class="string">"text"</span> file1 file2		<span class="comment">#在多个文件中查找</span></span><br><span class="line">grep -v <span class="string">"text"</span> file_name	<span class="comment">#-v选项，输出排除text之外的所有行</span></span><br><span class="line">grep -E <span class="string">"[1-9]+"</span>			<span class="comment">#-e选项，使用正则表达式</span></span><br><span class="line">grep -c <span class="string">"text"</span> file_name	<span class="comment">#统计文件中匹配字符串的行数</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h1><p><a href="https://www.jianshu.com/p/952188a96a3e" target="_blank" rel="noopener">三剑客笔试题集合</a></p>
+
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+    
+<nav id="article-nav">
+    
+        <a href="/2020/08/12/%E3%80%900%E3%80%91%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/9%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B9%8BLinux%E5%AE%89%E5%85%A8%E5%8A%A0%E5%9B%BA/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Newer</strong>
+            <div class="article-nav-title">
+                
+                    【9 操作系统】Linux安全加固
+                
+            </div>
+        </a>
+    
+    
+        <a href="/2020/08/12/%E3%80%900%E3%80%91%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/7%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B9%8BLinux%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Older</strong>
+            <div class="article-nav-title">【7 操作系统】Linux基础命令</div>
+        </a>
+    
+</nav>
+
+
+
+
+
+    
+    
+
+
+
+
+<!-- baidu url auto push script -->
+<script type="text/javascript">
+    !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=window.location.href,o=document.referrer;if(!e.test(r)){var n="//api.share.baidu.com/s.gif";o?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var t=new Image;t.src=n}}(window);
+</script>     
+</section>
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            wintrysec &copy; 2020 
+            <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png" /></a>
+            <br> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme - <a href="https://github.com/zthxxx/hexo-theme-Wikitten" target="_blank" rel="noopener">wikitten</a>
+            
+                <br>
+                <span id="busuanzi_container_site_pv"><i class="fa fa-eye"></i> <span id="busuanzi_value_site_pv"></span></span>
+                &nbsp;|&nbsp;
+                <span id="busuanzi_container_site_pv"><i class="fa fa-user"></i> <span id="busuanzi_value_site_uv"></span></span>
+            
+        </div>
+    </div>
+</footer>
+
+        
+
+    
+        
+<script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-share.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-video.min.js"></script>
+
+    
+    
+        
+<script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+
+    
+    
+        <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true,
+            TeX: {
+                equationNumbers: {
+                  autoNumber: 'AMS'
+                }
+            }
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+
+
+<!-- Custom Scripts -->
+
+<script src="/js/main.js"></script>
+
+
+    </div>
+</body>
+</html>

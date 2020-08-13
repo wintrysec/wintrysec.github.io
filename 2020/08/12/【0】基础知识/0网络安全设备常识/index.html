@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <meta charset="utf-8">
+    
+    <title>【0】网络安全设备常识 | wintrysec</title>
+    
+    
+        <meta name="keywords" content="【0】网络安全设备常识" />
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="防火墙简介 网络层的防护设备，依照特殊的规则允许或者限制传输的数据通过 是由软件和硬件设备组合而成，在内部网和外部网之间、专用网和公共网之间的界面上构造的保护屏障 下一代防火墙(NG Firewall)是一款可以全面应对应用层威胁的高性能防火墙，提供网络层应用层一体化防护 防火墙主要用于边界安全的防护的权限控制和安全域的划分 防火墙主要在网络第二到第四层起作用，它的作用在第四到第七层一般很微弱 而">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【0】网络安全设备常识">
+<meta property="og:url" content="https://wintrysec.github.io/2020/08/12/%E3%80%900%E3%80%91%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/0%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87%E5%B8%B8%E8%AF%86/index.html">
+<meta property="og:site_name" content="wintrysec">
+<meta property="og:description" content="防火墙简介 网络层的防护设备，依照特殊的规则允许或者限制传输的数据通过 是由软件和硬件设备组合而成，在内部网和外部网之间、专用网和公共网之间的界面上构造的保护屏障 下一代防火墙(NG Firewall)是一款可以全面应对应用层威胁的高性能防火墙，提供网络层应用层一体化防护 防火墙主要用于边界安全的防护的权限控制和安全域的划分 防火墙主要在网络第二到第四层起作用，它的作用在第四到第七层一般很微弱 而">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-08-12T12:00:00.000Z">
+<meta property="article:modified_time" content="2020-08-12T08:37:32.796Z">
+<meta property="article:author" content="wintrysec">
+<meta name="twitter:card" content="summary">
+    
+
+    
+        <link rel="alternate" href="/atom.xml" title="wintrysec" type="application/atom+xml" />
+    
+
+    
+        <link rel="icon" href="/favicon.ico" />
+    
+
+    
+<link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/libs/open-sans/styles.css">
+
+    
+<link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<script src="/libs/jquery/2.1.3/jquery.min.js"></script>
+
+    
+<script src="/libs/jquery/plugins/cookie/1.4.1/jquery.cookie.js"></script>
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+
+    
+    
+    
+    
+
+
+    
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">wintrysec</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/about">关于</a>
+                
+            </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/about">关于</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+            
+                <aside id="sidebar">
+   
+        
+    <div class="widget-wrap" id='categories'>
+        <h3 class="widget-title">
+            <span>categories</span>
+            &nbsp;
+            <a id='allExpand' href="#">
+                <i class="fa fa-angle-double-down fa-2x"></i>
+            </a>
+        </h3>
+        
+        
+        
+         <ul class="unstyled" id="tree" > 
+                    <li class="directory open">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            【0】基础知识
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file active"><a href="/2020/08/12/%E3%80%900%E3%80%91%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/0%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87%E5%B8%B8%E8%AF%86/">【0】网络安全设备常识</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%900%E3%80%91%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/1%E5%AF%86%E7%A0%81%E5%AD%A6%E5%9F%BA%E7%A1%80%E4%B9%8B%E7%8E%B0%E4%BB%A3%E5%AF%86%E7%A0%81%E5%AD%A6/">【1】现代密码学常识</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%900%E3%80%91%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/2%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E4%B9%8BWeb%E5%8A%9F%E8%83%BD/">【2 网络基础】Web应用常识</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%900%E3%80%91%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E4%B9%8BTCP&IP/">【3 网络基础】TCP/IP协议</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%900%E3%80%91%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/4%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E4%B9%8BHTTP/">【4 网络基础】HTTP协议</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%900%E3%80%91%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/5%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E4%B9%8BSSL%E5%8F%8C%E5%90%91%E8%AE%A4%E8%AF%81/">【5 网络基础】SSL双向认证</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%900%E3%80%91%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/6%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E4%B9%8B%E8%B7%AF%E7%94%B1%E5%8D%8F%E8%AE%AE/">【6 网络基础】路由协议</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%900%E3%80%91%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/7%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B9%8BLinux%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/">【7 操作系统】Linux基础命令</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%900%E3%80%91%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/8%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B9%8BLinux%E4%B8%89%E5%89%91%E5%AE%A2/">【8 操作系统】Linux三剑客</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%900%E3%80%91%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/9%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B9%8BLinux%E5%AE%89%E5%85%A8%E5%8A%A0%E5%9B%BA/">【9 操作系统】Linux安全加固</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%900%E3%80%91%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/10%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B9%8BWindows%E5%AE%89%E5%85%A8%E5%8A%A0%E5%9B%BA/">【10 操作系统】Windows安全加固</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%900%E3%80%91%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/11%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B9%8B%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94%E6%A6%82%E8%BF%B0/">【11 应急响应】应急响应概述</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            【1】Web安全
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/03/29/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/SQL%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E/">SQL注入漏洞</a></li>  <li class="file"><a href="/2020/03/29/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/XSS%E8%B7%A8%E7%AB%99%E8%84%9A%E6%9C%AC%E6%94%BB%E5%87%BB/">XSS跨站脚本攻击</a></li>  <li class="file"><a href="/2020/03/29/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/XML%E5%AE%9E%E4%BD%93%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E/">XML实体注入漏洞</a></li>  <li class="file"><a href="/2020/03/29/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/%E4%BB%A3%E7%A0%81%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E/">命令注入漏洞</a></li>  <li class="file"><a href="/2020/03/29/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0%E6%BC%8F%E6%B4%9E/">请求伪造漏洞</a></li>  <li class="file"><a href="/2020/03/29/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/%E5%90%8C%E6%BA%90%E7%AD%96%E7%95%A5%E5%92%8C%E5%9F%9F%E5%AE%89%E5%85%A8/">同源策略和域安全</a></li>  <li class="file"><a href="/2020/03/29/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86%E6%BC%8F%E6%B4%9E/">文件处理漏洞</a></li>  <li class="file"><a href="/2020/03/29/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E/">文件上传漏洞</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/">反序列化漏洞</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/%E4%BC%9A%E8%AF%9D%E7%AE%A1%E7%90%86%E6%BC%8F%E6%B4%9E/">会话管理漏洞</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E/">逻辑漏洞挖掘</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/Web%E5%AE%89%E5%85%A8-%E6%BA%90%E7%A0%81%E6%B3%84%E6%BC%8F%E6%80%BB%E7%BB%93/">源码泄露总结</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/Web%E5%AE%89%E5%85%A8-%E4%B8%AD%E9%97%B4%E4%BA%BA%E5%92%8CARP%E6%AC%BA%E9%AA%97/">中间人攻击和ARP欺骗</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/Web%E5%AE%89%E5%85%A8-CLRF+SSTI/">CLRF和SSTI模板注入</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/PHP%E5%AE%89%E5%85%A8%E7%89%B9%E6%80%A7/">PHP安全特性</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AE%89%E5%85%A8%E4%B9%8BMySQL%E5%86%99shell/">【数据库】MySQL写shell</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AE%89%E5%85%A8%E4%B9%8BRedis/">【数据库】Redis未授权访问</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AE%89%E5%85%A8%E4%B9%8B%E5%8A%A0%E5%9B%BA/">【数据库】数据库安全加固</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            【2】工具手册
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/03/29/%E3%80%902%E3%80%91%E5%B7%A5%E5%85%B7%E6%89%8B%E5%86%8C/%E5%B7%A5%E5%85%B7%E6%89%8B%E5%86%8C%E4%B9%8BBurpSuite/">BurpSuite简要手册</a></li>  <li class="file"><a href="/2020/03/29/%E3%80%902%E3%80%91%E5%B7%A5%E5%85%B7%E6%89%8B%E5%86%8C/%E5%B7%A5%E5%85%B7%E6%89%8B%E5%86%8C%E4%B9%8BHydra/">Hydra服务弱口令爆破</a></li>  <li class="file"><a href="/2020/03/29/%E3%80%902%E3%80%91%E5%B7%A5%E5%85%B7%E6%89%8B%E5%86%8C/%E5%B7%A5%E5%85%B7%E6%89%8B%E5%86%8C%E4%B9%8BNmap/">nmap端口扫描</a></li>  <li class="file"><a href="/2020/03/29/%E3%80%902%E3%80%91%E5%B7%A5%E5%85%B7%E6%89%8B%E5%86%8C/%E5%B7%A5%E5%85%B7%E6%89%8B%E5%86%8C%E4%B9%8Bsqlmap%E5%A4%87%E5%BF%98/">sqlmap简要手册</a></li>  <li class="file"><a href="/2020/08/11/%E3%80%902%E3%80%91%E5%B7%A5%E5%85%B7%E6%89%8B%E5%86%8C/Metasploit/">Metasploit漏洞利用框架</a></li>  <li class="file"><a href="/2020/08/11/%E3%80%902%E3%80%91%E5%B7%A5%E5%85%B7%E6%89%8B%E5%86%8C/CobaltStrike4.0%E7%94%A8%E6%88%B7%E6%89%8B%E5%86%8C/">CobaltStrike4.0用户手册</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            【3】红蓝对抗
+                        </a>
+                         <ul class="unstyled" id="tree" > 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            【1 红队】边界资产信息收集
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/08/03/%E3%80%903%E3%80%91%E7%BA%A2%E8%93%9D%E5%AF%B9%E6%8A%97/%E3%80%901%20%E7%BA%A2%E9%98%9F%E3%80%91%E8%BE%B9%E7%95%8C%E8%B5%84%E4%BA%A7%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/%E3%80%90%E7%BA%A2%E9%98%9F%E3%80%91%E8%BE%B9%E7%95%8C%E8%B5%84%E4%BA%A7%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/">【红队】 边界资产信息收集</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            【2 红队】常规Web打点漏洞挖掘
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/08/05/%E3%80%903%E3%80%91%E7%BA%A2%E8%93%9D%E5%AF%B9%E6%8A%97/%E3%80%902%20%E7%BA%A2%E9%98%9F%E3%80%91%E5%B8%B8%E8%A7%84Web%E6%89%93%E7%82%B9%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95Checklist/">【红队】常规Web打点-漏洞挖掘</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            【3 红队】构建通道
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/08/05/%E3%80%903%E3%80%91%E7%BA%A2%E8%93%9D%E5%AF%B9%E6%8A%97/%E3%80%903%20%E7%BA%A2%E9%98%9F%E3%80%91%E6%9E%84%E5%BB%BA%E9%80%9A%E9%81%93/%E7%BA%A2%E9%98%9F%E4%B9%8B%E6%9E%84%E5%BB%BA%E9%80%9A%E9%81%93/">【红队】构建通道漫游内网</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            【4 红队】权限维持
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/08/05/%E3%80%903%E3%80%91%E7%BA%A2%E8%93%9D%E5%AF%B9%E6%8A%97/%E3%80%904%20%E7%BA%A2%E9%98%9F%E3%80%91%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81/%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E4%B9%8BWebshell/">【1 红队】权限维持之--WebShell</a></li>  <li class="file"><a href="/2020/08/06/%E3%80%903%E3%80%91%E7%BA%A2%E8%93%9D%E5%AF%B9%E6%8A%97/%E3%80%904%20%E7%BA%A2%E9%98%9F%E3%80%91%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81/%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E4%B9%8BC2/">【2 红队】权限维持之--C2免杀</a></li>  <li class="file"><a href="/2020/08/06/%E3%80%903%E3%80%91%E7%BA%A2%E8%93%9D%E5%AF%B9%E6%8A%97/%E3%80%904%20%E7%BA%A2%E9%98%9F%E3%80%91%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81/%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E4%B9%8B%E6%9D%83%E9%99%90%E6%8F%90%E5%8D%87/">【3 红队】权限维持之--权限提升</a></li>  <li class="file"><a href="/2020/08/06/%E3%80%903%E3%80%91%E7%BA%A2%E8%93%9D%E5%AF%B9%E6%8A%97/%E3%80%904%20%E7%BA%A2%E9%98%9F%E3%80%91%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81/%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E4%B9%8B%E7%B3%BB%E7%BB%9F%E5%90%8E%E9%97%A8/">【4 红队】权限维持之--系统后门</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            【5 红队】横向移动
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/08/09/%E3%80%903%E3%80%91%E7%BA%A2%E8%93%9D%E5%AF%B9%E6%8A%97/%E3%80%905%20%E7%BA%A2%E9%98%9F%E3%80%91%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8/%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8%E4%B9%8B%E5%86%85%E7%BD%91%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/">【1 红队】横向移动之--内网信息收集</a></li>  <li class="file"><a href="/2020/08/09/%E3%80%903%E3%80%91%E7%BA%A2%E8%93%9D%E5%AF%B9%E6%8A%97/%E3%80%905%20%E7%BA%A2%E9%98%9F%E3%80%91%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8/%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8%E4%B9%8B%E6%95%A3%E5%88%97%E5%80%BC%E8%8E%B7%E5%8F%96/">【2 红队】横向移动之--散列值获取</a></li>  <li class="file"><a href="/2020/08/09/%E3%80%903%E3%80%91%E7%BA%A2%E8%93%9D%E5%AF%B9%E6%8A%97/%E3%80%905%20%E7%BA%A2%E9%98%9F%E3%80%91%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8/%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8%E4%B9%8B%E5%9F%9F%E6%B8%97%E9%80%8F/">【3 红队】横向移动之--域渗透</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            【6 红队】日志处理
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/03/29/%E3%80%903%E3%80%91%E7%BA%A2%E8%93%9D%E5%AF%B9%E6%8A%97/%E3%80%906%20%E7%BA%A2%E9%98%9F%E3%80%91%E6%97%A5%E5%BF%97%E5%A4%84%E7%90%86/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E4%B9%8B%E6%97%A5%E5%BF%97%E5%A4%84%E7%90%86/">【6 红队】打扫战场--日志处理</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            【4】WriteUp
+                        </a>
+                         <ul class="unstyled" id="tree" > 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Bugku
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/07/18/%E3%80%904%E3%80%91WriteUp/Bugku/%E5%8F%98%E9%87%8F%E8%A6%86%E7%9B%96/">变量覆盖</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            VulnHub
+                        </a>
+                         <ul class="unstyled" id="tree" > 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            内网
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/07/18/%E3%80%904%E3%80%91WriteUp/VulnHub/%E5%86%85%E7%BD%91/Mr-boot/">MR内网</a></li>  </ul> 
+                    </li> 
+                     <li class="file"><a href="/2020/07/18/%E3%80%904%E3%80%91WriteUp/VulnHub/Mr-boot/">MR</a></li>  </ul> 
+                    </li> 
+                     <li class="file"><a href="/2020/07/18/%E3%80%904%E3%80%91WriteUp/WriteUp/">WirteUp资源推荐</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            【5】中间件安全
+                        </a>
+                         <ul class="unstyled" id="tree" > 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            WebLogic
+                        </a>
+                         <ul class="unstyled" id="tree" > 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            CVE-2017-10271
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/08/12/%E3%80%905%E3%80%91%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%AE%89%E5%85%A8/WebLogic/CVE-2017-10271/CVE-2017-10271/">wls-wsat XMLDecoder反序列化漏洞</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            CVE-2017-3248【POC需要重写】
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/08/12/%E3%80%905%E3%80%91%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%AE%89%E5%85%A8/WebLogic/CVE-2017-3248%E3%80%90POC%E9%9C%80%E8%A6%81%E9%87%8D%E5%86%99%E3%80%91/CVE-2017-3248/">T3协议身份验证可绕过</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            CVE-2018-2628
+                        </a>
+                         <ul class="unstyled" id="tree" > 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            K8飞刀
+                        </a>
+                         <ul class="unstyled" id="tree" > 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            XSS-CSRF
+                        </a>
+                         <ul class="unstyled" id="tree" > 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Scripts
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/08/12/%E3%80%905%E3%80%91%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%AE%89%E5%85%A8/WebLogic/CVE-2018-2628/K8%E9%A3%9E%E5%88%80/XSS-CSRF/Scripts/jquery-1.4.1-vsdoc/"></a></li>  <li class="file"><a href="/2020/08/12/%E3%80%905%E3%80%91%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%AE%89%E5%85%A8/WebLogic/CVE-2018-2628/K8%E9%A3%9E%E5%88%80/XSS-CSRF/Scripts/jquery-1.4.1/"></a></li>  <li class="file"><a href="/2020/08/12/%E3%80%905%E3%80%91%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%AE%89%E5%85%A8/WebLogic/CVE-2018-2628/K8%E9%A3%9E%E5%88%80/XSS-CSRF/Scripts/jquery-1.4.1.min/"></a></li>  </ul> 
+                    </li> 
+                     <li class="file"><a href="/2020/08/12/%E3%80%905%E3%80%91%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%AE%89%E5%85%A8/WebLogic/CVE-2018-2628/K8%E9%A3%9E%E5%88%80/XSS-CSRF/fromCharCode/"></a></li>  <li class="file"><a href="/2020/08/12/%E3%80%905%E3%80%91%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%AE%89%E5%85%A8/WebLogic/CVE-2018-2628/K8%E9%A3%9E%E5%88%80/XSS-CSRF/html%E5%AE%9E%E4%BD%93UTF8/"></a></li>  <li class="file"><a href="/2020/08/12/%E3%80%905%E3%80%91%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%AE%89%E5%85%A8/WebLogic/CVE-2018-2628/K8%E9%A3%9E%E5%88%80/XSS-CSRF/js_escape/"></a></li>  <li class="file"><a href="/2020/08/12/%E3%80%905%E3%80%91%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%AE%89%E5%85%A8/WebLogic/CVE-2018-2628/K8%E9%A3%9E%E5%88%80/XSS-CSRF/js_hex_string/"></a></li>  <li class="file"><a href="/2020/08/12/%E3%80%905%E3%80%91%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%AE%89%E5%85%A8/WebLogic/CVE-2018-2628/K8%E9%A3%9E%E5%88%80/XSS-CSRF/js_unicode/"></a></li>  <li class="file"><a href="/2020/08/12/%E3%80%905%E3%80%91%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%AE%89%E5%85%A8/WebLogic/CVE-2018-2628/K8%E9%A3%9E%E5%88%80/XSS-CSRF/xxx/"></a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                     <li class="file"><a href="/2020/08/12/%E3%80%905%E3%80%91%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%AE%89%E5%85%A8/WebLogic/CVE-2018-2628/CVE-2018-2628/">WLS核心组件-T3协议反序列化RCE</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            CVE-2020-14645
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/08/12/%E3%80%905%E3%80%91%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%AE%89%E5%85%A8/WebLogic/CVE-2020-14645/CVE-2020-14645/">针对gadget cve-2020-2555 绕过利用</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            CVE-2020-2551
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/08/12/%E3%80%905%E3%80%91%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%AE%89%E5%85%A8/WebLogic/CVE-2020-2551/CVE-2020-2551/">Weblogic IIOP反序列化漏洞</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            CVE-2020-2555
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/08/12/%E3%80%905%E3%80%91%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%AE%89%E5%85%A8/WebLogic/CVE-2020-2555/CVE-2020-2555/">Oracle Coherence&WebLogic反序列化命令执行</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            CVE-2020-2883
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/08/12/%E3%80%905%E3%80%91%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%AE%89%E5%85%A8/WebLogic/CVE-2020-2883/CVE-2020-2883/">Weblogic T3 协议反序列化命令执行</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Weblogic SSRF漏洞
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/08/12/%E3%80%905%E3%80%91%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%AE%89%E5%85%A8/WebLogic/Weblogic%20SSRF%E6%BC%8F%E6%B4%9E/Weblogic%20SSRF%E6%BC%8F%E6%B4%9E/">Weblogic SSRF漏洞</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            【0】WebLogic-Server介绍
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/08/12/%E3%80%905%E3%80%91%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%AE%89%E5%85%A8/WebLogic/%E3%80%900%E3%80%91WebLogic-Server%E4%BB%8B%E7%BB%8D/WebLogic-Server%E4%BB%8B%E7%BB%8D/">Weblogic-Server介绍</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            【整合重写】WebLogic漏洞扫描工具
+                        </a>
+                         <ul class="unstyled" id="tree" > 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            weblogicScanner-master
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/08/12/%E3%80%905%E3%80%91%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%AE%89%E5%85%A8/WebLogic/%E3%80%90%E6%95%B4%E5%90%88%E9%87%8D%E5%86%99%E3%80%91WebLogic%E6%BC%8F%E6%B4%9E%E6%89%AB%E6%8F%8F%E5%B7%A5%E5%85%B7/weblogicScanner-master/README/"></a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            后台文件上传漏洞（CVE-2018-2894）
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/08/12/%E3%80%905%E3%80%91%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%AE%89%E5%85%A8/WebLogic/%E5%90%8E%E5%8F%B0%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E%EF%BC%88CVE-2018-2894%EF%BC%89/CVE-2018-2894/">Weblogic 任意文件上传漏洞</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                     </ul> 
+    </div>
+    <script>
+        $(document).ready(function() {
+            var iconFolderOpenClass  = 'fa-folder-open';
+            var iconFolderCloseClass = 'fa-folder';
+            var iconAllExpandClass = 'fa-angle-double-down';
+            var iconAllPackClass = 'fa-angle-double-up';
+            // Handle directory-tree expansion:
+            // 左键单独展开目录
+            $(document).on('click', '#categories a[data-role="directory"]', function (event) {
+                event.preventDefault();
+
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var subtree = $(this).siblings('ul');
+                icon.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if (expanded) {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideUp({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderCloseClass);
+                } else {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideDown({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderOpenClass);
+                }
+            });
+            // 右键展开下属所有目录
+            $('#categories a[data-role="directory"]').bind("contextmenu", function(event){
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var listNode = $(this).siblings('ul');
+                var subtrees = $.merge(listNode.find('li ul'), listNode);
+                var icons = $.merge(listNode.find('.fa'), icon);
+                icons.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if(expanded) {
+                    subtrees.slideUp({ duration: 100 });
+                    icons.addClass(iconFolderCloseClass);
+                } else {
+                    subtrees.slideDown({ duration: 100 });
+                    icons.addClass(iconFolderOpenClass);
+                }
+            })
+            // 展开关闭所有目录按钮
+            $(document).on('click', '#allExpand', function (event) {
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconAllExpandClass);
+                icon.removeClass(iconAllExpandClass).removeClass(iconAllPackClass);
+                if(expanded) {
+                    $('#sidebar .fa.fa-folder').removeClass('fa-folder').addClass('fa-folder-open')
+                    $('#categories li ul').slideDown({ duration: 100 });
+                    icon.addClass(iconAllPackClass);
+                } else {
+                    $('#sidebar .fa.fa-folder-open').removeClass('fa-folder-open').addClass('fa-folder')
+                    $('#categories li ul').slideUp({ duration: 100 });
+                    icon.addClass(iconAllExpandClass);
+                }
+            });  
+        });
+    </script>
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+            
+            <section id="main"><article id="post-【0】基础知识/0网络安全设备常识" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/%E3%80%900%E3%80%91%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">【0】基础知识</a>
+    </div>
+
+                        
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2020/08/12/%E3%80%900%E3%80%91%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/0%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87%E5%B8%B8%E8%AF%86/">
+            <time datetime="2020-08-12T12:00:00.000Z" itemprop="datePublished">2020-08-12</time>
+        </a>
+    </div>
+
+
+                        
+                            <i class="fa fa-bar-chart"></i>
+                            <span id="busuanzi_container_site_pv"><span id="busuanzi_value_page_pv"></span></span>    
+                        
+
+                    </div>
+                
+                
+    
+        <h1 class="article-title" itemprop="name">
+            【0】网络安全设备常识
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+        
+        
+            <h1 id="防火墙"><a href="#防火墙" class="headerlink" title="防火墙"></a>防火墙</h1><p><strong>简介</strong></p>
+<p>网络层的防护设备，依照特殊的规则允许或者限制传输的数据通过</p>
+<p>是由软件和硬件设备组合而成，在内部网和外部网之间、专用网和公共网之间的界面上构造的保护屏障</p>
+<p>下一代防火墙(<strong>NG Firewall</strong>)是一款可以全面应对应用层威胁的高性能防火墙，提供网络层应用层一体化防护</p>
+<p>防火墙主要用于边界安全的防护的权限控制和安全域的划分</p>
+<p>防火墙主要在网络第二到第四层起作用，它的作用在第四到第七层一般很微弱</p>
+<p>而反病毒软件主要在第五到第七层起作用</p>
+<p><strong>防火墙分类</strong></p>
+<blockquote>
+<p><strong>硬件</strong>如华为的硬件防火墙</p>
+<p><strong>软件防火墙</strong>：如微软自带的防火墙、云防火墙如阿里云的ECS规则</p>
+<p><strong>WAF</strong>(Web应用防火墙)：如<a href="http://www.safedog.cn/" target="_blank" rel="noopener">安全狗</a> 、<a href="http://www.d99net.net/index.asp" target="_blank" rel="noopener">D盾</a></p>
+<p><strong>云WAF</strong>：阿里 云盾</p>
+</blockquote>
+<p><strong>功能：</strong></p>
+<p>所谓“防火墙”，是指一种将内部网和公众访问网分开的方法，它实际上是一种隔离技术。<br>单向防护控制，只管进，不管出。所以很多木马从内网网外网连接，这叫反向连接。</p>
+<p><strong>部署：</strong></p>
+<p>部署于内、外网络边界和各个区域之间，用于权限访问控制和安全域划分。</p>
+<p>防火墙的部署主要有三种模式：透明、路由和混合</p>
+<blockquote>
+<p><strong>1.透明模式</strong></p>
+<p>此时防火墙对于子网用户和路由器来说是完全透明的，也就是说，用户完全感觉不到防火墙的存在。</p>
+<p>无需修改任何已有的网络配置，内部网络和外部网络必须处于同一个子网。</p>
+<p><strong>2.路由模式</strong></p>
+<p>当防火墙位于内部网络和外部网络之间时，需要将防火墙与内部网络、外部网络以及DMZ 三个区域相连的接口分别配置成不同网段的IP 地址，重新规划原有的网络拓扑，此时相当于一台路由器。</p>
+<p>采用路由模式时，可以完成ACL 包过滤、ASPF 动态过滤、NAT 转换等功能。然而，路由模式需要对网络拓扑进行修改（内部网络用户需要更改网关、路由器需要更改路由配置等）</p>
+<p><strong>3.混合模式</strong></p>
+<p>防火墙既存在工作在路由模式的接口（接口具有IP 地址），又存在工作在透明模式的接口（接口无IP 地址），则防火墙工作在混合模式下。</p>
+<p>混合模式主要用于透明模式作双机备份的情况，此时启动VRRP（Virtual Router Redundancy Protocol，虚拟路由冗余协议）功能的接口需要配置IP 地址，其它接口不配置IP地址。</p>
+<p>内部网络和外部网络必须处于同一个子网。</p>
+</blockquote>
+<p><strong>功能模块：</strong></p>
+<blockquote>
+<p><strong>NAT：</strong>把内网地址映射到外网</p>
+<p><strong>路由：</strong>路由寻址</p>
+<p><strong>策略：</strong>过滤规则</p>
+</blockquote>
+<h1 id="UTM"><a href="#UTM" class="headerlink" title="UTM"></a>UTM</h1><p> (Unified Threat Management)，<strong>统一威胁管理</strong><br> 具备防火墙、IPS入侵检测、防病毒、防垃圾邮件等综合功能。<br> 同时开启多项功能会大大降低UTM性能、所以主要用于对性能要求不高的中低端领域。<br> 在高端领域，比如电信、金融仍然以防火墙和IPS为主流。 </p>
+<h1 id="负载均衡"><a href="#负载均衡" class="headerlink" title="负载均衡"></a>负载均衡</h1><p>负载均衡（Load Balance）建立在现有网络结构之上，它提供了一种廉价有效透明的方法扩展网络设备和服务器的带宽</p>
+<p>增加吞吐量、加强网络数据处理能力、提高网络的灵活性和可用性。</p>
+<p>把任务分摊到多个操作单元上进行执行，从而共同完成工作任务。</p>
+<p><strong>主要目的</strong>是实现资源的有效利用，分担共同压力，避免资源分布不均。</p>
+<p><strong>部署三种模式：</strong>路由模式、桥接模式、服务直接返回模式。</p>
+<blockquote>
+<p>路由模式部署灵活，越60%用户采用这种方式部署；<br>桥模式不改变现有的网络架构；<br>服务直接返回(DSR)比较适合吞吐量大，特别是内容分发的网络应用。30%用户采用这种模式。</p>
+</blockquote>
+<h1 id="GAP网闸："><a href="#GAP网闸：" class="headerlink" title="GAP网闸："></a>GAP网闸：</h1><p>(安全隔离网闸)<br>安全网闸是一种由带有多种控制功能专用硬件在电路上切断网络之间的链路层连接，并能够在网络间进行安全适度的应用数据交换的网络安全设备。<br>专门用来做数据交换，相比于防火墙，能够对应用数据进行检查，防止泄密、进行病毒和木马检查。<br>物理隔离，只有数据文件的无协议摆渡，阻断具有潜在攻击的一切连接。</p>
+<p>保密单位、科研单位、石化、石油对网闸的需求非常大。要做内外网隔离、大网透传、数据摆渡。<br><strong>安全性高于防火墙，性能不如防火墙。</strong></p>
+<p><strong>主要功能：</strong></p>
+<p>安全隔离、内核防护、协议转换、病毒查杀、访问控制、安全审计、身份认证</p>
+<p><strong>部署：</strong></p>
+<p>部署于不同区域之间物理隔离、不同网络之间物理隔离、网络边界物理隔离，也常用于数据同步、信息发布等。</p>
+<h1 id="VPN虚拟专用网络"><a href="#VPN虚拟专用网络" class="headerlink" title="VPN虚拟专用网络:"></a>VPN虚拟专用网络:</h1><p>(Virtual private network)，在公用网络上建立专用网络,进行加密通讯。<br>VPN网关通过对数据包的加密和数据包目标地址的转换实现远程访问。<br>VPN隧道协议主要有三种：PPTP、L2TP、IPSec<br>常用类型有SSL VPN (以HTTPS为基础的VPN技术，外网访问内网平台)和IPSec VPN</p>
+<h1 id="IDS和IPS"><a href="#IDS和IPS" class="headerlink" title="IDS和IPS"></a>IDS和IPS</h1><p>IDS 专业上讲就是依照一定的安全策略，对网络、系统的运行状况进行监视</p>
+<p>尽可能发现各种攻击企图、攻击行为或者攻击结果，以保证网络系统资源的机密性、完整性和可用性。</p>
+<p>IDS入侵检测系统是一个监听设备，没有跨接在任何链路上，无须网络流量流经它便可以工作。</p>
+<p>因此，对IDS的部署，唯一的要求是：IDS应当挂接在所有所关注流量都必须流经的链路上。</p>
+<p>IPS同时具备检测和防御功能，IPS在入口处就开始检测， 而不是等到进入内部网络后再检测这样，检测效率和内网的安全性都大大提高。</p>
+<p>入侵预防系统专门深入网络数据内部，查找它所认识的攻击代码特征，过滤有害数据流，丢弃有害数据包，并进行记载，以便事后分析。 </p>
+<p>IPS是一种失效既阻断机制，当IPS被攻击失效后， 它会阻断网络连接， 就像防火墙一样， 使被保护资源与外界隔断。 </p>
+<h1 id="HIDS-基于主机的入侵检测系统"><a href="#HIDS-基于主机的入侵检测系统" class="headerlink" title="HIDS 基于主机的入侵检测系统"></a>HIDS 基于主机的入侵检测系统</h1><blockquote>
+<p>作为计算机系统的监视器和分析器，它并不作用于外部接口</p>
+<p>而是专注于系统内部，监视系统全部或部分的动态的行为以及整个计算机系统的状态</p>
+<p>HIDS动态地检查网络数据包、文件、日志等。</p>
+</blockquote>
+<p><a href="https://www.freebuf.com/articles/es/194510.html" target="_blank" rel="noopener">企业安全建设之HIDS</a></p>
+<h1 id="堡垒机"><a href="#堡垒机" class="headerlink" title="堡垒机"></a>堡垒机</h1><p>堡垒机，也叫做运<strong>维安全审计系统</strong></p>
+<p><strong>核心功能：4A</strong></p>
+<blockquote>
+<p>身份验证 Authentication</p>
+<p>账号管理 Account</p>
+<p>授权控制 Authorization</p>
+<p>安全审计 Audit </p>
+</blockquote>
+<p>堡垒机是用来控制哪些人可以登录哪些资产（事先防范和事中控制），以及录像记录登录资产后做了什么事情（事后溯源.）</p>
+<p><a href="https://www.jumpserver.org/" target="_blank" rel="noopener">jumpserver</a> 是全球首款完全开源的堡垒机 。</p>
+<p>应用：比如用堡垒机实现<a href="https://yq.aliyun.com/articles/636281" target="_blank" rel="noopener">单点登录</a></p>
+<h1 id="蜜罐"><a href="#蜜罐" class="headerlink" title="蜜罐"></a>蜜罐</h1><p>蜜罐是一种软件应用系统，用来称当入侵诱饵，引诱黑客前来攻击。</p>
+<p>攻击者入侵后，通过监测与分析，就可以知道他是如何入侵的，利用了什么漏洞和工具。</p>
+<p>有两种基本类型的蜜罐技术：</p>
+<blockquote>
+<ul>
+<li>高交互性蜜罐—设置一个全功能的应用环境，引诱黑客攻击。</li>
+<li>低交互性蜜罐—模拟一个生产环境，所以只能提供有限的信息。</li>
+</ul>
+</blockquote>
+<p><a href="https://ipot.sec-wiki.com/" target="_blank" rel="noopener">一个专注蜜罐技术研究的网站</a></p>
+<p>Github-project：<a href="https://github.com/paralax/awesome-honeypots/blob/master/README_CN.md" target="_blank" rel="noopener">最优秀的蜜罐列表</a></p>
+<h1 id="SOC"><a href="#SOC" class="headerlink" title="SOC"></a>SOC</h1><blockquote>
+<p>SEM，security event management，安全事件管理，指对事件进行实时监控，收集信息差展生通知和告警的行为。</p>
+<p>SIM，security information management，安全信息管理，指对SEM收集和产生的数据进行长期保存以供历史和趋势分析的行为。</p>
+<p>SIEM，security information and event management，安全信息和事件管理，即SEM和SIM的结合体。</p>
+<p>SOC，security operations center，安全运营中心。</p>
+<p>TI，Threat Intelligence，威胁情报。SOC偏重内部网络态势感知，而TI偏重于外部网络态势感知比如新出了什么漏洞、病毒、安全事件等等。</p>
+<p>SA，situational awareness，态势感知。</p>
+<p>SRC，Security Response Center，安全响应中心。狭义上只是一个提交产品漏洞的入口，但广义上包含各种安全系统及系统维护人员。</p>
+</blockquote>
+<p><strong>他们的关系是：</strong>SRC &gt; SA &gt;= SOC [ + TI ] &gt;= SIEM = SEM+SIM。</p>
+<p>一款典型的<strong>SIEM</strong>产品具有以下功能：<strong>资产发现</strong>、<strong>漏洞扫描</strong>、<strong>入侵检测</strong>、<strong>日志存储分析</strong>和<strong>可视化展示</strong></p>
+<p><a href="https://cybersecurity.att.com/products/ossim" target="_blank" rel="noopener">OSSIM</a>，开源安全信息管理系统（Open Source Security Information Management） </p>
+<blockquote>
+<p>在产品形式上和Kali类似是一个基于Debain进行二次开发的Linux发行版</p>
+<p>OSSIM使用Nmap等实现资产发现、使用Nessus等实现漏洞扫描、使用Snort等实现入侵检测</p>
+<p>使用MySQL等进行数据存储，自己实现的部分主要是工具、数据整合和可视化展示 </p>
+</blockquote>
+<p><strong>安装：</strong></p>
+<p>ISO文件下载地址：<a href="https://www.alienvault.com/products/ossim/download" target="_blank" rel="noopener">https://www.alienvault.com/products/ossim/download</a> </p>
+<p>基础配置：CPU—-2*2，内存—-8G，硬盘—-20G以上</p>
+<p>OSSIM包含服务器组件+Sensor，Sensor相当于一个Client</p>
+<p><a href="https://www.secpulse.com/archives/67350.html" target="_blank" rel="noopener">安全脉搏-OSSIM操作实践</a></p>
+
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+    
+<nav id="article-nav">
+    
+        <a href="/2020/08/12/%E3%80%900%E3%80%91%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/1%E5%AF%86%E7%A0%81%E5%AD%A6%E5%9F%BA%E7%A1%80%E4%B9%8B%E7%8E%B0%E4%BB%A3%E5%AF%86%E7%A0%81%E5%AD%A6/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Newer</strong>
+            <div class="article-nav-title">
+                
+                    【1】现代密码学常识
+                
+            </div>
+        </a>
+    
+    
+        <a href="/2020/08/12/%E3%80%905%E3%80%91%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%AE%89%E5%85%A8/WebLogic/%E5%90%8E%E5%8F%B0%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E%EF%BC%88CVE-2018-2894%EF%BC%89/CVE-2018-2894/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Older</strong>
+            <div class="article-nav-title">Weblogic 任意文件上传漏洞</div>
+        </a>
+    
+</nav>
+
+
+
+
+
+    
+    
+
+
+
+
+<!-- baidu url auto push script -->
+<script type="text/javascript">
+    !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=window.location.href,o=document.referrer;if(!e.test(r)){var n="//api.share.baidu.com/s.gif";o?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var t=new Image;t.src=n}}(window);
+</script>     
+</section>
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            wintrysec &copy; 2020 
+            <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png" /></a>
+            <br> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme - <a href="https://github.com/zthxxx/hexo-theme-Wikitten" target="_blank" rel="noopener">wikitten</a>
+            
+                <br>
+                <span id="busuanzi_container_site_pv"><i class="fa fa-eye"></i> <span id="busuanzi_value_site_pv"></span></span>
+                &nbsp;|&nbsp;
+                <span id="busuanzi_container_site_pv"><i class="fa fa-user"></i> <span id="busuanzi_value_site_uv"></span></span>
+            
+        </div>
+    </div>
+</footer>
+
+        
+
+    
+        
+<script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-share.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-video.min.js"></script>
+
+    
+    
+        
+<script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+
+    
+    
+        <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true,
+            TeX: {
+                equationNumbers: {
+                  autoNumber: 'AMS'
+                }
+            }
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+
+
+<!-- Custom Scripts -->
+
+<script src="/js/main.js"></script>
+
+
+    </div>
+</body>
+</html>
