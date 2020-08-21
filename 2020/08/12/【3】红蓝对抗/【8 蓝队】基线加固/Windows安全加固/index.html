@@ -3,22 +3,22 @@
 <head>
     <meta charset="utf-8">
     
-    <title>【10 操作系统】Windows安全加固 | wintrysec</title>
+    <title>【2 蓝队】Windows安全加固 | wintrysec</title>
     
     
-        <meta name="keywords" content="【10 操作系统】Windows安全加固" />
+        <meta name="keywords" content="【2 蓝队】Windows安全加固" />
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <meta name="description" content="账户管理和认证授权1.1 账户默认账户安全  禁用Guest账户。 禁用或删除其他无用账户（建议先禁用账户三个月，待确认没有问题后删除。）   操作步骤  本地用户和组 &gt; 用户 中，双击 Guest 帐户，在属性中选中 帐户已禁用，单击 确定。  按照用户类别分配帐户按照用户分配帐户。根据业务要求，设定不同的用户和用户组。例如，管理员用户，数据库用户，审计用户，来宾用户等。 定期检查并删除">
 <meta property="og:type" content="article">
-<meta property="og:title" content="【10 操作系统】Windows安全加固">
-<meta property="og:url" content="https://wintrysec.github.io/2020/08/12/%E3%80%900%E3%80%91%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/10%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B9%8BWindows%E5%AE%89%E5%85%A8%E5%8A%A0%E5%9B%BA/index.html">
+<meta property="og:title" content="【2 蓝队】Windows安全加固">
+<meta property="og:url" content="https://wintrysec.github.io/2020/08/12/%E3%80%903%E3%80%91%E7%BA%A2%E8%93%9D%E5%AF%B9%E6%8A%97/%E3%80%908%20%E8%93%9D%E9%98%9F%E3%80%91%E5%9F%BA%E7%BA%BF%E5%8A%A0%E5%9B%BA/Windows%E5%AE%89%E5%85%A8%E5%8A%A0%E5%9B%BA/index.html">
 <meta property="og:site_name" content="wintrysec">
 <meta property="og:description" content="账户管理和认证授权1.1 账户默认账户安全  禁用Guest账户。 禁用或删除其他无用账户（建议先禁用账户三个月，待确认没有问题后删除。）   操作步骤  本地用户和组 &gt; 用户 中，双击 Guest 帐户，在属性中选中 帐户已禁用，单击 确定。  按照用户类别分配帐户按照用户分配帐户。根据业务要求，设定不同的用户和用户组。例如，管理员用户，数据库用户，审计用户，来宾用户等。 定期检查并删除">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://wintrysec.github.io/images/wsecxx.png">
 <meta property="article:published_time" content="2020-08-12T14:00:00.000Z">
-<meta property="article:modified_time" content="2020-08-12T08:49:28.631Z">
+<meta property="article:modified_time" content="2020-08-21T08:08:16.159Z">
 <meta property="article:author" content="wintrysec">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://wintrysec.github.io/images/wsecxx.png">
@@ -164,13 +164,13 @@
         
         
          <ul class="unstyled" id="tree" > 
-                    <li class="directory open">
+                    <li class="directory">
                         <a href="#" data-role="directory">
-                            <i class="fa fa-folder-open"></i>
+                            <i class="fa fa-folder"></i>
                             &nbsp;
                             【0】基础知识
                         </a>
-                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/08/12/%E3%80%900%E3%80%91%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/0%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87%E5%B8%B8%E8%AF%86/">【0】网络安全设备常识</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%900%E3%80%91%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/1%E5%AF%86%E7%A0%81%E5%AD%A6%E5%9F%BA%E7%A1%80%E4%B9%8B%E7%8E%B0%E4%BB%A3%E5%AF%86%E7%A0%81%E5%AD%A6/">【1】现代密码学常识</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%900%E3%80%91%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/2%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E4%B9%8BWeb%E5%8A%9F%E8%83%BD/">【2 网络基础】Web应用常识</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%900%E3%80%91%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E4%B9%8BTCP&IP/">【3 网络基础】TCP/IP协议</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%900%E3%80%91%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/4%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E4%B9%8BHTTP/">【4 网络基础】HTTP协议</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%900%E3%80%91%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/5%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E4%B9%8BSSL%E5%8F%8C%E5%90%91%E8%AE%A4%E8%AF%81/">【5 网络基础】SSL双向认证</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%900%E3%80%91%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/6%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E4%B9%8B%E8%B7%AF%E7%94%B1%E5%8D%8F%E8%AE%AE/">【6 网络基础】路由协议</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%900%E3%80%91%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/7%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B9%8BLinux%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/">【7 操作系统】Linux基础命令</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%900%E3%80%91%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/8%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B9%8BLinux%E4%B8%89%E5%89%91%E5%AE%A2/">【8 操作系统】Linux三剑客</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%900%E3%80%91%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/9%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B9%8BLinux%E5%AE%89%E5%85%A8%E5%8A%A0%E5%9B%BA/">【9 操作系统】Linux安全加固</a></li>  <li class="file active"><a href="/2020/08/12/%E3%80%900%E3%80%91%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/10%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B9%8BWindows%E5%AE%89%E5%85%A8%E5%8A%A0%E5%9B%BA/">【10 操作系统】Windows安全加固</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%900%E3%80%91%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/11%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B9%8B%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94%E6%A6%82%E8%BF%B0/">【11 应急响应】应急响应概述</a></li>  </ul> 
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/08/12/%E3%80%900%E3%80%91%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/0%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87%E5%B8%B8%E8%AF%86/">【0】网络安全设备常识</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%900%E3%80%91%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/1%E5%AF%86%E7%A0%81%E5%AD%A6%E5%9F%BA%E7%A1%80%E4%B9%8B%E7%8E%B0%E4%BB%A3%E5%AF%86%E7%A0%81%E5%AD%A6/">【1】现代密码学常识</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%900%E3%80%91%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/2%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E4%B9%8BWeb%E5%8A%9F%E8%83%BD/">【2 网络基础】Web应用常识</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%900%E3%80%91%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E4%B9%8BTCP&IP/">【3 网络基础】TCP/IP协议</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%900%E3%80%91%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/4%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E4%B9%8BHTTP/">【4 网络基础】HTTP协议</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%900%E3%80%91%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/5%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E4%B9%8BSSL%E5%8F%8C%E5%90%91%E8%AE%A4%E8%AF%81/">【5 网络基础】SSL双向认证</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%900%E3%80%91%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/6%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E4%B9%8B%E8%B7%AF%E7%94%B1%E5%8D%8F%E8%AE%AE/">【6 网络基础】路由协议</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%900%E3%80%91%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/7%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B9%8BLinux%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/">【7 操作系统】Linux基础命令</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%900%E3%80%91%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/8%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B9%8BLinux%E4%B8%89%E5%89%91%E5%AE%A2/">【8 操作系统】Linux三剑客</a></li>  </ul> 
                     </li> 
                     
                     <li class="directory">
@@ -191,9 +191,9 @@
                          <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/03/29/%E3%80%902%E3%80%91%E5%B7%A5%E5%85%B7%E6%89%8B%E5%86%8C/%E5%B7%A5%E5%85%B7%E6%89%8B%E5%86%8C%E4%B9%8BBurpSuite/">BurpSuite简要手册</a></li>  <li class="file"><a href="/2020/03/29/%E3%80%902%E3%80%91%E5%B7%A5%E5%85%B7%E6%89%8B%E5%86%8C/%E5%B7%A5%E5%85%B7%E6%89%8B%E5%86%8C%E4%B9%8BHydra/">Hydra服务弱口令爆破</a></li>  <li class="file"><a href="/2020/03/29/%E3%80%902%E3%80%91%E5%B7%A5%E5%85%B7%E6%89%8B%E5%86%8C/%E5%B7%A5%E5%85%B7%E6%89%8B%E5%86%8C%E4%B9%8BNmap/">nmap端口扫描</a></li>  <li class="file"><a href="/2020/03/29/%E3%80%902%E3%80%91%E5%B7%A5%E5%85%B7%E6%89%8B%E5%86%8C/%E5%B7%A5%E5%85%B7%E6%89%8B%E5%86%8C%E4%B9%8Bsqlmap%E5%A4%87%E5%BF%98/">sqlmap简要手册</a></li>  <li class="file"><a href="/2020/08/11/%E3%80%902%E3%80%91%E5%B7%A5%E5%85%B7%E6%89%8B%E5%86%8C/Metasploit/">Metasploit漏洞利用框架</a></li>  <li class="file"><a href="/2020/08/11/%E3%80%902%E3%80%91%E5%B7%A5%E5%85%B7%E6%89%8B%E5%86%8C/CobaltStrike4.0%E7%94%A8%E6%88%B7%E6%89%8B%E5%86%8C/">CobaltStrike4.0用户手册</a></li>  </ul> 
                     </li> 
                     
-                    <li class="directory">
+                    <li class="directory open">
                         <a href="#" data-role="directory">
-                            <i class="fa fa-folder"></i>
+                            <i class="fa fa-folder-open"></i>
                             &nbsp;
                             【3】红蓝对抗
                         </a>
@@ -250,6 +250,51 @@
                             【6 红队】日志处理
                         </a>
                          <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/03/29/%E3%80%903%E3%80%91%E7%BA%A2%E8%93%9D%E5%AF%B9%E6%8A%97/%E3%80%906%20%E7%BA%A2%E9%98%9F%E3%80%91%E6%97%A5%E5%BF%97%E5%A4%84%E7%90%86/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E4%B9%8B%E6%97%A5%E5%BF%97%E5%A4%84%E7%90%86/">【6 红队】打扫战场--日志处理</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            【7 蓝队】资产梳理
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/08/21/%E3%80%903%E3%80%91%E7%BA%A2%E8%93%9D%E5%AF%B9%E6%8A%97/%E3%80%907%20%E8%93%9D%E9%98%9F%E3%80%91%E8%B5%84%E4%BA%A7%E6%A2%B3%E7%90%86/%E3%80%90%E8%93%9D%E9%98%9F%E3%80%91%E8%B5%84%E4%BA%A7%E6%A2%B3%E7%90%86/">【蓝队】资产梳理</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory open">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            【8 蓝队】基线加固
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/08/12/%E3%80%903%E3%80%91%E7%BA%A2%E8%93%9D%E5%AF%B9%E6%8A%97/%E3%80%908%20%E8%93%9D%E9%98%9F%E3%80%91%E5%9F%BA%E7%BA%BF%E5%8A%A0%E5%9B%BA/Linux%E5%AE%89%E5%85%A8%E5%8A%A0%E5%9B%BA/">【1 蓝队】Linux安全加固</a></li>  <li class="file active"><a href="/2020/08/12/%E3%80%903%E3%80%91%E7%BA%A2%E8%93%9D%E5%AF%B9%E6%8A%97/%E3%80%908%20%E8%93%9D%E9%98%9F%E3%80%91%E5%9F%BA%E7%BA%BF%E5%8A%A0%E5%9B%BA/Windows%E5%AE%89%E5%85%A8%E5%8A%A0%E5%9B%BA/">【2 蓝队】Windows安全加固</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            【9 蓝队】设备监控研判
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/08/21/%E3%80%903%E3%80%91%E7%BA%A2%E8%93%9D%E5%AF%B9%E6%8A%97/%E3%80%909%20%E8%93%9D%E9%98%9F%E3%80%91%E8%AE%BE%E5%A4%87%E7%9B%91%E6%8E%A7%E7%A0%94%E5%88%A4/%E3%80%90%E8%93%9D%E9%98%9F%E3%80%91%E8%AE%BE%E5%A4%87%E7%9B%91%E6%8E%A7%E7%A0%94%E5%88%A4/">【蓝队】设备监控--研判</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            【十 蓝队】应急响应
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/08/12/%E3%80%903%E3%80%91%E7%BA%A2%E8%93%9D%E5%AF%B9%E6%8A%97/%E3%80%90%E5%8D%81%20%E8%93%9D%E9%98%9F%E3%80%91%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/">【蓝队】应急响应</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            【十一、蓝队】溯源反制
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/08/21/%E3%80%903%E3%80%91%E7%BA%A2%E8%93%9D%E5%AF%B9%E6%8A%97/%E3%80%90%E5%8D%81%E4%B8%80%E3%80%81%E8%93%9D%E9%98%9F%E3%80%91%E6%BA%AF%E6%BA%90%E5%8F%8D%E5%88%B6/%E3%80%90%E8%93%9D%E9%98%9F%E3%80%91%E6%BA%AF%E6%BA%90%E5%8F%8D%E5%88%B6/">【蓝队】溯源反制</a></li>  </ul> 
                     </li> 
                      </ul> 
                     </li> 
@@ -407,15 +452,6 @@
                         <a href="#" data-role="directory">
                             <i class="fa fa-folder"></i>
                             &nbsp;
-                            【0】WebLogic-Server介绍
-                        </a>
-                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/08/12/%E3%80%905%E3%80%91%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%AE%89%E5%85%A8/WebLogic/%E3%80%900%E3%80%91WebLogic-Server%E4%BB%8B%E7%BB%8D/WebLogic-Server%E4%BB%8B%E7%BB%8D/">Weblogic-Server介绍</a></li>  </ul> 
-                    </li> 
-                    
-                    <li class="directory">
-                        <a href="#" data-role="directory">
-                            <i class="fa fa-folder"></i>
-                            &nbsp;
                             【整合重写】WebLogic漏洞扫描工具
                         </a>
                          <ul class="unstyled" id="tree" > 
@@ -438,7 +474,7 @@
                         </a>
                          <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/08/12/%E3%80%905%E3%80%91%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%AE%89%E5%85%A8/WebLogic/%E5%90%8E%E5%8F%B0%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E%EF%BC%88CVE-2018-2894%EF%BC%89/CVE-2018-2894/">Weblogic 任意文件上传漏洞</a></li>  </ul> 
                     </li> 
-                     </ul> 
+                     <li class="file"><a href="/2020/07/28/%E3%80%905%E3%80%91%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%AE%89%E5%85%A8/WebLogic/WebLogic-Server%E4%BB%8B%E7%BB%8D/">Weblogic-Server介绍</a></li>  </ul> 
                     </li> 
                      </ul> 
                     </li> 
@@ -513,7 +549,7 @@
     <div id="toTop" class="fa fa-angle-up"></div>
 </aside>
             
-            <section id="main"><article id="post-【0】基础知识/10操作系统之Windows安全加固" class="article article-type-post" itemscope itemprop="blogPost">
+            <section id="main"><article id="post-【3】红蓝对抗/【8 蓝队】基线加固/Windows安全加固" class="article article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
         
         
@@ -523,14 +559,14 @@
                         
     <div class="article-category">
     	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/%E3%80%900%E3%80%91%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">【0】基础知识</a>
+        <a class="article-category-link" href="/categories/%E3%80%903%E3%80%91%E7%BA%A2%E8%93%9D%E5%AF%B9%E6%8A%97/">【3】红蓝对抗</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/%E3%80%903%E3%80%91%E7%BA%A2%E8%93%9D%E5%AF%B9%E6%8A%97/%E3%80%908-%E8%93%9D%E9%98%9F%E3%80%91%E5%9F%BA%E7%BA%BF%E5%8A%A0%E5%9B%BA/">【8 蓝队】基线加固</a>
     </div>
 
                         
                         
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/2020/08/12/%E3%80%900%E3%80%91%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/10%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B9%8BWindows%E5%AE%89%E5%85%A8%E5%8A%A0%E5%9B%BA/">
+        <a href="/2020/08/12/%E3%80%903%E3%80%91%E7%BA%A2%E8%93%9D%E5%AF%B9%E6%8A%97/%E3%80%908%20%E8%93%9D%E9%98%9F%E3%80%91%E5%9F%BA%E7%BA%BF%E5%8A%A0%E5%9B%BA/Windows%E5%AE%89%E5%85%A8%E5%8A%A0%E5%9B%BA/">
             <time datetime="2020-08-12T14:00:00.000Z" itemprop="datePublished">2020-08-12</time>
         </a>
     </div>
@@ -546,7 +582,7 @@
                 
     
         <h1 class="article-title" itemprop="name">
-            【10 操作系统】Windows安全加固
+            【2 蓝队】Windows安全加固
         </h1>
     
 
@@ -891,9 +927,9 @@
         </a>
     
     
-        <a href="/2020/08/12/%E3%80%900%E3%80%91%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/11%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B9%8B%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94%E6%A6%82%E8%BF%B0/" id="article-nav-older" class="article-nav-link-wrap">
+        <a href="/2020/08/12/%E3%80%903%E3%80%91%E7%BA%A2%E8%93%9D%E5%AF%B9%E6%8A%97/%E3%80%90%E5%8D%81%20%E8%93%9D%E9%98%9F%E3%80%91%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/" id="article-nav-older" class="article-nav-link-wrap">
             <strong class="article-nav-caption">Older</strong>
-            <div class="article-nav-title">【11 应急响应】应急响应概述</div>
+            <div class="article-nav-title">【蓝队】应急响应</div>
         </a>
     
 </nav>
