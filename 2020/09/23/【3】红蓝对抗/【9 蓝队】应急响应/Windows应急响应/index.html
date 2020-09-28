@@ -9,15 +9,15 @@
         <meta name="keywords" content="Windows入侵排查" />
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="的">
+    <meta name="description" content="检查系统账号#查询当前登录系统的会话query user#把用户踢出会话logoff ID  打开lusrmgr.msc，查看是否有新增&#x2F;可疑的账号 用D盾 -&gt; 查看服务器是否存在隐藏账号、克隆账号 查看网络连接#查看本机所有的tcp,udp端口连接及其对应的pid#可用findstr过滤，类似Linux的grep命令netstat -ano#打印路由表route print#查看网络代理">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Windows入侵排查">
-<meta property="og:url" content="https://wintrysec.github.io/2020/09/23/%E3%80%903%E3%80%91%E7%BA%A2%E8%93%9D%E5%AF%B9%E6%8A%97/%E3%80%909%20%E8%93%9D%E9%98%9F%E3%80%91%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/Windows%E5%BA%94%E6%80%A5%E7%9B%B8%E5%BA%94/index.html">
+<meta property="og:url" content="https://wintrysec.github.io/2020/09/23/%E3%80%903%E3%80%91%E7%BA%A2%E8%93%9D%E5%AF%B9%E6%8A%97/%E3%80%909%20%E8%93%9D%E9%98%9F%E3%80%91%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/Windows%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/index.html">
 <meta property="og:site_name" content="wintrysec">
-<meta property="og:description" content="的">
+<meta property="og:description" content="检查系统账号#查询当前登录系统的会话query user#把用户踢出会话logoff ID  打开lusrmgr.msc，查看是否有新增&#x2F;可疑的账号 用D盾 -&gt; 查看服务器是否存在隐藏账号、克隆账号 查看网络连接#查看本机所有的tcp,udp端口连接及其对应的pid#可用findstr过滤，类似Linux的grep命令netstat -ano#打印路由表route print#查看网络代理">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-09-23T09:27:22.570Z">
-<meta property="article:modified_time" content="2020-09-23T09:28:10.016Z">
+<meta property="article:modified_time" content="2020-09-23T12:53:27.534Z">
 <meta property="article:author" content="wintrysec">
 <meta name="twitter:card" content="summary">
     
@@ -177,7 +177,7 @@
                             &nbsp;
                             【1】Web安全
                         </a>
-                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/08/12/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/%E4%BC%9A%E8%AF%9D%E7%AE%A1%E7%90%86%E6%BC%8F%E6%B4%9E/">会话管理漏洞</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E/">逻辑漏洞挖掘</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/Web%E5%AE%89%E5%85%A8-%E6%BA%90%E7%A0%81%E6%B3%84%E6%BC%8F%E6%80%BB%E7%BB%93/">源码泄露总结</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/Web%E5%AE%89%E5%85%A8-%E4%B8%AD%E9%97%B4%E4%BA%BA%E5%92%8CARP%E6%AC%BA%E9%AA%97/">中间人攻击和ARP欺骗</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/Web%E5%AE%89%E5%85%A8-CLRF+SSTI/">CLRF和SSTI模板注入</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/PHP%E5%AE%89%E5%85%A8%E7%89%B9%E6%80%A7/">PHP安全特性</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AE%89%E5%85%A8%E4%B9%8BMySQL%E5%86%99shell/">【数据库】MySQL写shell</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AE%89%E5%85%A8%E4%B9%8BRedis/">【数据库】Redis未授权访问</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AE%89%E5%85%A8%E4%B9%8B%E5%8A%A0%E5%9B%BA/">【数据库】数据库安全加固</a></li>  <li class="file"><a href="/2020/09/07/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/SQL%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E/">SQL注入漏洞</a></li>  <li class="file"><a href="/2020/09/07/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/XML%E5%AE%9E%E4%BD%93%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E/">XML实体注入漏洞</a></li>  <li class="file"><a href="/2020/09/07/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/XSS%E8%B7%A8%E7%AB%99%E8%84%9A%E6%9C%AC%E6%94%BB%E5%87%BB/">XSS跨站脚本攻击</a></li>  <li class="file"><a href="/2020/09/07/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/">反序列化漏洞</a></li>  <li class="file"><a href="/2020/09/07/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/%E5%90%8C%E6%BA%90%E7%AD%96%E7%95%A5%E5%92%8C%E5%9F%9F%E5%AE%89%E5%85%A8/">同源策略和域安全</a></li>  <li class="file"><a href="/2020/09/07/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E/">文件上传漏洞</a></li>  <li class="file"><a href="/2020/09/07/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0%E6%BC%8F%E6%B4%9E/">请求伪造漏洞</a></li>  <li class="file"><a href="/2020/09/07/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86%E6%BC%8F%E6%B4%9E/">文件处理漏洞</a></li>  <li class="file"><a href="/2020/09/07/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/%E4%BB%A3%E7%A0%81%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E/">命令注入漏洞</a></li>  </ul> 
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/08/12/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/%E4%BC%9A%E8%AF%9D%E7%AE%A1%E7%90%86%E6%BC%8F%E6%B4%9E/">会话管理漏洞</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E/">逻辑漏洞挖掘</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/Web%E5%AE%89%E5%85%A8-%E6%BA%90%E7%A0%81%E6%B3%84%E6%BC%8F%E6%80%BB%E7%BB%93/">源码泄露总结</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/Web%E5%AE%89%E5%85%A8-%E4%B8%AD%E9%97%B4%E4%BA%BA%E5%92%8CARP%E6%AC%BA%E9%AA%97/">中间人攻击和ARP欺骗</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/Web%E5%AE%89%E5%85%A8-CLRF+SSTI/">CLRF和SSTI模板注入</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/PHP%E5%AE%89%E5%85%A8%E7%89%B9%E6%80%A7/">PHP安全特性</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AE%89%E5%85%A8%E4%B9%8BMySQL%E5%86%99shell/">【数据库】MySQL写shell</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AE%89%E5%85%A8%E4%B9%8BRedis/">【数据库】Redis未授权访问</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AE%89%E5%85%A8%E4%B9%8B%E5%8A%A0%E5%9B%BA/">【数据库】数据库安全加固</a></li>  <li class="file"><a href="/2020/09/07/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/SQL%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E/">SQL注入漏洞</a></li>  <li class="file"><a href="/2020/09/07/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/%E4%BB%A3%E7%A0%81%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E/">命令注入漏洞</a></li>  <li class="file"><a href="/2020/09/07/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/XML%E5%AE%9E%E4%BD%93%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E/">XML实体注入漏洞</a></li>  <li class="file"><a href="/2020/09/07/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/%E5%90%8C%E6%BA%90%E7%AD%96%E7%95%A5%E5%92%8C%E5%9F%9F%E5%AE%89%E5%85%A8/">同源策略和域安全</a></li>  <li class="file"><a href="/2020/09/07/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/XSS%E8%B7%A8%E7%AB%99%E8%84%9A%E6%9C%AC%E6%94%BB%E5%87%BB/">XSS跨站脚本攻击</a></li>  <li class="file"><a href="/2020/09/07/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/">反序列化漏洞</a></li>  <li class="file"><a href="/2020/09/07/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E/">文件上传漏洞</a></li>  <li class="file"><a href="/2020/09/07/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86%E6%BC%8F%E6%B4%9E/">文件处理漏洞</a></li>  <li class="file"><a href="/2020/09/07/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0%E6%BC%8F%E6%B4%9E/">请求伪造漏洞</a></li>  </ul> 
                     </li> 
                     
                     <li class="directory">
@@ -186,7 +186,7 @@
                             &nbsp;
                             【2】工具手册
                         </a>
-                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/09/07/%E3%80%902%E3%80%91%E5%B7%A5%E5%85%B7%E6%89%8B%E5%86%8C/CobaltStrike4.0%E7%94%A8%E6%88%B7%E6%89%8B%E5%86%8C/">CobaltStrike4.0用户手册</a></li>  <li class="file"><a href="/2020/09/07/%E3%80%902%E3%80%91%E5%B7%A5%E5%85%B7%E6%89%8B%E5%86%8C/%E5%B7%A5%E5%85%B7%E6%89%8B%E5%86%8C%E4%B9%8BHydra/">Hydra服务弱口令爆破</a></li>  <li class="file"><a href="/2020/09/07/%E3%80%902%E3%80%91%E5%B7%A5%E5%85%B7%E6%89%8B%E5%86%8C/Metasploit/">Metasploit漏洞利用框架</a></li>  <li class="file"><a href="/2020/09/07/%E3%80%902%E3%80%91%E5%B7%A5%E5%85%B7%E6%89%8B%E5%86%8C/%E5%B7%A5%E5%85%B7%E6%89%8B%E5%86%8C%E4%B9%8BBurpSuite/">BurpSuite简要手册</a></li>  <li class="file"><a href="/2020/09/07/%E3%80%902%E3%80%91%E5%B7%A5%E5%85%B7%E6%89%8B%E5%86%8C/%E5%B7%A5%E5%85%B7%E6%89%8B%E5%86%8C%E4%B9%8BNmap/">nmap端口扫描</a></li>  <li class="file"><a href="/2020/09/07/%E3%80%902%E3%80%91%E5%B7%A5%E5%85%B7%E6%89%8B%E5%86%8C/%E5%B7%A5%E5%85%B7%E6%89%8B%E5%86%8C%E4%B9%8Bsqlmap%E5%A4%87%E5%BF%98/">sqlmap简要手册</a></li>  </ul> 
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/09/07/%E3%80%902%E3%80%91%E5%B7%A5%E5%85%B7%E6%89%8B%E5%86%8C/CobaltStrike4.0%E7%94%A8%E6%88%B7%E6%89%8B%E5%86%8C/">CobaltStrike4.0用户手册</a></li>  <li class="file"><a href="/2020/09/07/%E3%80%902%E3%80%91%E5%B7%A5%E5%85%B7%E6%89%8B%E5%86%8C/%E5%B7%A5%E5%85%B7%E6%89%8B%E5%86%8C%E4%B9%8BBurpSuite/">BurpSuite简要手册</a></li>  <li class="file"><a href="/2020/09/07/%E3%80%902%E3%80%91%E5%B7%A5%E5%85%B7%E6%89%8B%E5%86%8C/Metasploit/">Metasploit漏洞利用框架</a></li>  <li class="file"><a href="/2020/09/07/%E3%80%902%E3%80%91%E5%B7%A5%E5%85%B7%E6%89%8B%E5%86%8C/%E5%B7%A5%E5%85%B7%E6%89%8B%E5%86%8C%E4%B9%8BHydra/">Hydra服务弱口令爆破</a></li>  <li class="file"><a href="/2020/09/07/%E3%80%902%E3%80%91%E5%B7%A5%E5%85%B7%E6%89%8B%E5%86%8C/%E5%B7%A5%E5%85%B7%E6%89%8B%E5%86%8C%E4%B9%8BNmap/">nmap端口扫描</a></li>  <li class="file"><a href="/2020/09/07/%E3%80%902%E3%80%91%E5%B7%A5%E5%85%B7%E6%89%8B%E5%86%8C/%E5%B7%A5%E5%85%B7%E6%89%8B%E5%86%8C%E4%B9%8Bsqlmap%E5%A4%87%E5%BF%98/">sqlmap简要手册</a></li>  </ul> 
                     </li> 
                     
                     <li class="directory open">
@@ -229,7 +229,7 @@
                             &nbsp;
                             【4 红队】权限维持
                         </a>
-                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/09/07/%E3%80%903%E3%80%91%E7%BA%A2%E8%93%9D%E5%AF%B9%E6%8A%97/%E3%80%904%20%E7%BA%A2%E9%98%9F%E3%80%91%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81/%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E4%B9%8BC2/">【2 红队】权限维持之--C2免杀</a></li>  <li class="file"><a href="/2020/09/07/%E3%80%903%E3%80%91%E7%BA%A2%E8%93%9D%E5%AF%B9%E6%8A%97/%E3%80%904%20%E7%BA%A2%E9%98%9F%E3%80%91%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81/%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E4%B9%8B%E7%B3%BB%E7%BB%9F%E5%90%8E%E9%97%A8/">【4 红队】权限维持之--系统后门</a></li>  <li class="file"><a href="/2020/09/07/%E3%80%903%E3%80%91%E7%BA%A2%E8%93%9D%E5%AF%B9%E6%8A%97/%E3%80%904%20%E7%BA%A2%E9%98%9F%E3%80%91%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81/%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E4%B9%8BWebshell/">【1 红队】权限维持之--WebShell</a></li>  <li class="file"><a href="/2020/09/07/%E3%80%903%E3%80%91%E7%BA%A2%E8%93%9D%E5%AF%B9%E6%8A%97/%E3%80%904%20%E7%BA%A2%E9%98%9F%E3%80%91%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81/%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E4%B9%8B%E6%9D%83%E9%99%90%E6%8F%90%E5%8D%87/">【3 红队】权限维持之--权限提升</a></li>  </ul> 
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/09/07/%E3%80%903%E3%80%91%E7%BA%A2%E8%93%9D%E5%AF%B9%E6%8A%97/%E3%80%904%20%E7%BA%A2%E9%98%9F%E3%80%91%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81/%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E4%B9%8BC2/">【2 红队】权限维持之--C2免杀</a></li>  <li class="file"><a href="/2020/09/07/%E3%80%903%E3%80%91%E7%BA%A2%E8%93%9D%E5%AF%B9%E6%8A%97/%E3%80%904%20%E7%BA%A2%E9%98%9F%E3%80%91%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81/%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E4%B9%8BWebshell/">【1 红队】权限维持之--WebShell</a></li>  <li class="file"><a href="/2020/09/07/%E3%80%903%E3%80%91%E7%BA%A2%E8%93%9D%E5%AF%B9%E6%8A%97/%E3%80%904%20%E7%BA%A2%E9%98%9F%E3%80%91%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81/%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E4%B9%8B%E7%B3%BB%E7%BB%9F%E5%90%8E%E9%97%A8/">【4 红队】权限维持之--系统后门</a></li>  <li class="file"><a href="/2020/09/07/%E3%80%903%E3%80%91%E7%BA%A2%E8%93%9D%E5%AF%B9%E6%8A%97/%E3%80%904%20%E7%BA%A2%E9%98%9F%E3%80%91%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81/%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81%E4%B9%8B%E6%9D%83%E9%99%90%E6%8F%90%E5%8D%87/">【3 红队】权限维持之--权限提升</a></li>  </ul> 
                     </li> 
                     
                     <li class="directory">
@@ -238,7 +238,7 @@
                             &nbsp;
                             【5 红队】横向移动
                         </a>
-                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/09/07/%E3%80%903%E3%80%91%E7%BA%A2%E8%93%9D%E5%AF%B9%E6%8A%97/%E3%80%905%20%E7%BA%A2%E9%98%9F%E3%80%91%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8/%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8%E4%B9%8B%E5%86%85%E7%BD%91%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/">【1 红队】横向移动之--内网信息收集</a></li>  <li class="file"><a href="/2020/09/07/%E3%80%903%E3%80%91%E7%BA%A2%E8%93%9D%E5%AF%B9%E6%8A%97/%E3%80%905%20%E7%BA%A2%E9%98%9F%E3%80%91%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8/%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8%E4%B9%8B%E5%9F%9F%E6%B8%97%E9%80%8F/">【3 红队】横向移动之--域渗透</a></li>  <li class="file"><a href="/2020/09/07/%E3%80%903%E3%80%91%E7%BA%A2%E8%93%9D%E5%AF%B9%E6%8A%97/%E3%80%905%20%E7%BA%A2%E9%98%9F%E3%80%91%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8/%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8%E4%B9%8B%E6%95%A3%E5%88%97%E5%80%BC%E8%8E%B7%E5%8F%96/">【2 红队】横向移动之--散列值获取</a></li>  </ul> 
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/09/07/%E3%80%903%E3%80%91%E7%BA%A2%E8%93%9D%E5%AF%B9%E6%8A%97/%E3%80%905%20%E7%BA%A2%E9%98%9F%E3%80%91%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8/%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8%E4%B9%8B%E5%86%85%E7%BD%91%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/">【1 红队】横向移动之--内网信息收集</a></li>  <li class="file"><a href="/2020/09/07/%E3%80%903%E3%80%91%E7%BA%A2%E8%93%9D%E5%AF%B9%E6%8A%97/%E3%80%905%20%E7%BA%A2%E9%98%9F%E3%80%91%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8/%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8%E4%B9%8B%E6%95%A3%E5%88%97%E5%80%BC%E8%8E%B7%E5%8F%96/">【2 红队】横向移动之--散列值获取</a></li>  <li class="file"><a href="/2020/09/07/%E3%80%903%E3%80%91%E7%BA%A2%E8%93%9D%E5%AF%B9%E6%8A%97/%E3%80%905%20%E7%BA%A2%E9%98%9F%E3%80%91%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8/%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8%E4%B9%8B%E5%9F%9F%E6%B8%97%E9%80%8F/">【3 红队】横向移动之--域渗透</a></li>  </ul> 
                     </li> 
                     
                     <li class="directory">
@@ -256,7 +256,7 @@
                             &nbsp;
                             【7 蓝队】防守策略
                         </a>
-                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/09/07/%E3%80%903%E3%80%91%E7%BA%A2%E8%93%9D%E5%AF%B9%E6%8A%97/%E3%80%907%20%E8%93%9D%E9%98%9F%E3%80%91%E9%98%B2%E5%AE%88%E7%AD%96%E7%95%A5/%E3%80%90%E8%93%9D%E9%98%9F%E3%80%91%E9%98%B2%E5%AE%88%E7%AD%96%E7%95%A5/">【蓝队】防守策略</a></li>  </ul> 
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/09/07/%E3%80%903%E3%80%91%E7%BA%A2%E8%93%9D%E5%AF%B9%E6%8A%97/%E3%80%907%20%E8%93%9D%E9%98%9F%E3%80%91%E9%98%B2%E5%AE%88%E7%AD%96%E7%95%A5/%E3%80%90%E8%93%9D%E9%98%9F%E3%80%91%E9%98%B2%E5%AE%88%E7%AD%96%E7%95%A5/">【蓝队】2020攻防演练防守心得</a></li>  </ul> 
                     </li> 
                     
                     <li class="directory">
@@ -274,7 +274,7 @@
                             &nbsp;
                             【9 蓝队】应急响应
                         </a>
-                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/08/12/%E3%80%903%E3%80%91%E7%BA%A2%E8%93%9D%E5%AF%B9%E6%8A%97/%E3%80%909%20%E8%93%9D%E9%98%9F%E3%80%91%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/">【蓝队】应急响应模型</a></li>  <li class="file"><a href="/2020/09/23/%E3%80%903%E3%80%91%E7%BA%A2%E8%93%9D%E5%AF%B9%E6%8A%97/%E3%80%909%20%E8%93%9D%E9%98%9F%E3%80%91%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/Linux%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/">【蓝队】Linux入侵排查</a></li>  <li class="file active"><a href="/2020/09/23/%E3%80%903%E3%80%91%E7%BA%A2%E8%93%9D%E5%AF%B9%E6%8A%97/%E3%80%909%20%E8%93%9D%E9%98%9F%E3%80%91%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/Windows%E5%BA%94%E6%80%A5%E7%9B%B8%E5%BA%94/">Windows入侵排查</a></li>  <li class="file"><a href="/2020/09/23/%E3%80%903%E3%80%91%E7%BA%A2%E8%93%9D%E5%AF%B9%E6%8A%97/%E3%80%909%20%E8%93%9D%E9%98%9F%E3%80%91%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/Webshell%E6%8E%92%E6%9F%A5/"></a></li>  </ul> 
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/08/12/%E3%80%903%E3%80%91%E7%BA%A2%E8%93%9D%E5%AF%B9%E6%8A%97/%E3%80%909%20%E8%93%9D%E9%98%9F%E3%80%91%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/">【蓝队】应急响应模型</a></li>  <li class="file"><a href="/2020/09/23/%E3%80%903%E3%80%91%E7%BA%A2%E8%93%9D%E5%AF%B9%E6%8A%97/%E3%80%909%20%E8%93%9D%E9%98%9F%E3%80%91%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/Linux%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/">【蓝队】Linux入侵排查</a></li>  <li class="file active"><a href="/2020/09/23/%E3%80%903%E3%80%91%E7%BA%A2%E8%93%9D%E5%AF%B9%E6%8A%97/%E3%80%909%20%E8%93%9D%E9%98%9F%E3%80%91%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/Windows%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/">Windows入侵排查</a></li>  <li class="file"><a href="/2020/09/23/%E3%80%903%E3%80%91%E7%BA%A2%E8%93%9D%E5%AF%B9%E6%8A%97/%E3%80%909%20%E8%93%9D%E9%98%9F%E3%80%91%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/Webshell%E6%8E%92%E6%9F%A5/"></a></li>  </ul> 
                     </li> 
                      </ul> 
                     </li> 
@@ -385,7 +385,7 @@
     <div id="toTop" class="fa fa-angle-up"></div>
 </aside>
             
-            <section id="main"><article id="post-【3】红蓝对抗/【9 蓝队】应急响应/Windows应急相应" class="article article-type-post" itemscope itemprop="blogPost">
+            <section id="main"><article id="post-【3】红蓝对抗/【9 蓝队】应急响应/Windows应急响应" class="article article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
         
         
@@ -402,7 +402,7 @@
                         
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/2020/09/23/%E3%80%903%E3%80%91%E7%BA%A2%E8%93%9D%E5%AF%B9%E6%8A%97/%E3%80%909%20%E8%93%9D%E9%98%9F%E3%80%91%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/Windows%E5%BA%94%E6%80%A5%E7%9B%B8%E5%BA%94/">
+        <a href="/2020/09/23/%E3%80%903%E3%80%91%E7%BA%A2%E8%93%9D%E5%AF%B9%E6%8A%97/%E3%80%909%20%E8%93%9D%E9%98%9F%E3%80%91%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/Windows%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/">
             <time datetime="2020-09-23T09:27:22.570Z" itemprop="datePublished">2020-09-23</time>
         </a>
     </div>
@@ -431,7 +431,126 @@
             
         
         
-            <h2 id="的"><a href="#的" class="headerlink" title="的"></a>的</h2>
+            <h2 id="检查系统账号"><a href="#检查系统账号" class="headerlink" title="检查系统账号"></a>检查系统账号</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#查询当前登录系统的会话</span></span><br><span class="line">query user</span><br><span class="line"></span><br><span class="line"><span class="comment">#把用户踢出会话</span></span><br><span class="line">logoff ID</span><br></pre></td></tr></table></figure>
+
+<p>打开<code>lusrmgr.msc</code>，查看是否有新增/可疑的账号</p>
+<p>用D盾 -&gt; 查看服务器是否存在隐藏账号、克隆账号</p>
+<h2 id="查看网络连接"><a href="#查看网络连接" class="headerlink" title="查看网络连接"></a>查看网络连接</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#查看本机所有的tcp,udp端口连接及其对应的pid</span></span><br><span class="line"><span class="comment">#可用findstr过滤，类似Linux的grep命令</span></span><br><span class="line">netstat -ano</span><br><span class="line"></span><br><span class="line"><span class="comment">#打印路由表</span></span><br><span class="line">route <span class="built_in">print</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#查看网络代理配置情况</span></span><br><span class="line">REG QUERY <span class="string">"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Internet Settings"</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="检查进程"><a href="#检查进程" class="headerlink" title="检查进程"></a>检查进程</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#列出所有进程</span></span><br><span class="line">tasklist</span><br><span class="line"></span><br><span class="line"><span class="comment">#强制停止某进程</span></span><br><span class="line">taskkill /T /F /PID</span><br></pre></td></tr></table></figure>
+
+<h2 id="检查启动项"><a href="#检查启动项" class="headerlink" title="检查启动项"></a>检查启动项</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#查看系统开机时间</span></span><br><span class="line">net statistics workstation</span><br><span class="line"></span><br><span class="line"><span class="comment">#查看系统计划任务</span></span><br><span class="line">schtasks /query /fo LIST /v</span><br><span class="line"></span><br><span class="line"><span class="comment">#查看程序启动信息</span></span><br><span class="line">wmic startup get <span class="built_in">command</span>,caption</span><br><span class="line"></span><br><span class="line"><span class="comment">#查看主机服务信息</span></span><br><span class="line">wmic service list brief</span><br></pre></td></tr></table></figure>
+
+<h2 id="检查浏览器访问记录"><a href="#检查浏览器访问记录" class="headerlink" title="检查浏览器访问记录"></a>检查浏览器访问记录</h2><p>直接打开浏览器查看</p>
+<h2 id="杀软工具"><a href="#杀软工具" class="headerlink" title="杀软工具"></a>杀软工具</h2><p>火绒-火绒剑：<a href="https://www.huorong.cn/" target="_blank" rel="noopener">https://www.huorong.cn/</a></p>
+<p>卡巴斯基：<a href="http://devbuilds.kaspersky-labs.com/kvrt/latest/full/" target="_blank" rel="noopener">http://devbuilds.kaspersky-labs.com/kvrt/latest/full/</a></p>
+<h2 id="系统日志审计"><a href="#系统日志审计" class="headerlink" title="系统日志审计"></a>系统日志审计</h2><p>运行框输入<code>eventvwr.msc</code>，打开事件查看器</p>
+<p>导出应用程序日志、安全日志、系统日志，利用<a href="https://www.microsoft.com/en-us/download/details.aspx?id=24659" target="_blank" rel="noopener">Log Parser</a>+<a href="https://gallery.technet.microsoft.com/Log-Parser-Studio-cd458765" target="_blank" rel="noopener">Log Parser Studio</a>进行分析。</p>
+<p><strong>系统日志</strong></p>
+<blockquote>
+<p>记录操作系统组件产生的事件，主要包括驱动程序、系统组件和应用软件的崩溃以及数据丢失错误等。<br>系统日志中记录的时间类型由Windows NT/2000操作系统预先定义。<br>默认位置：<code>%SystemRoot%System32WinevtLogsSystem.evtx</code></p>
+</blockquote>
+<p><strong>应用程序日志</strong></p>
+<blockquote>
+<p>包含由应用程序或系统程序记录的事件，主要记录程序运行方面的事件<br>例如数据库程序可以在应用程序日志中记录文件错误，程序开发人员可以自行决定监视哪些事件。<br>如果某个应用程序出现崩溃情况，那么我们可以从程序事件日志中找到相应的记录，也许会有助于你解决问题。<br>默认位置：<code>%SystemRoot%System32WinevtLogsApplication.evtx</code></p>
+</blockquote>
+<p><strong>安全日志</strong></p>
+<blockquote>
+<p>记录系统的安全审计事件，包含各种类型的登录日志、对象访问日志、进程追踪日志、特权使用、帐号管理、策略变更、系统事件。<br>安全日志也是调查取证中最常用到的日志。<br>默认设置下，安全性日志是关闭的，管理员可以使用组策略来启动安全性日志<br>或者在注册表中设置审核策略，以便当安全性日志满后使系统停止响应。<br>默认位置：<code>%SystemRoot%System32WinevtLogsSecurity.evtx</code></p>
+</blockquote>
+<p>系统和应用程序日志存储着故障排除信息，对于系统管理员更为有用。</p>
+<p>安全日志记录着事件审计信息，包括用户验证（登录、远程访问等）和特定用户在认证后对系统做了什么，对于调查人员而言，更有帮助。</p>
+<h2 id="事件日志分析"><a href="#事件日志分析" class="headerlink" title="事件日志分析"></a>事件日志分析</h2><p><strong>对于Windows事件日志分析，不同的EVENT ID代表了不同的意义</strong></p>
+<table>
+<thead>
+<tr>
+<th align="left">事件ID</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">4624</td>
+<td align="left">登录成功</td>
+</tr>
+<tr>
+<td align="left">4625</td>
+<td align="left">登录失败</td>
+</tr>
+<tr>
+<td align="left">4634</td>
+<td align="left">注销成功</td>
+</tr>
+<tr>
+<td align="left">4647</td>
+<td align="left">用户启动的注销</td>
+</tr>
+<tr>
+<td align="left">4672</td>
+<td align="left">使用超级用户（如管理员）进行登录</td>
+</tr>
+<tr>
+<td align="left">4720</td>
+<td align="left">创建用户</td>
+</tr>
+</tbody></table>
+<p><strong>每个成功登录的事件都会标记一个登录类型，不同登录类型代表不同的方式：</strong></p>
+<table>
+<thead>
+<tr>
+<th align="left">登录类型</th>
+<th align="left">描述</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">2</td>
+<td align="left">c（Interactive）</td>
+<td align="left">用户在本地进行登录。</td>
+</tr>
+<tr>
+<td align="left">3</td>
+<td align="left">网络（Network）</td>
+<td align="left">最常见的情况就是连接到共享文件夹或共享打印机时。</td>
+</tr>
+<tr>
+<td align="left">4</td>
+<td align="left">批处理（Batch）</td>
+<td align="left">通常表明某计划任务启动。</td>
+</tr>
+<tr>
+<td align="left">5</td>
+<td align="left">服务（Service）</td>
+<td align="left">每种服务都被配置在某个特定的用户账号下运行。</td>
+</tr>
+<tr>
+<td align="left">7</td>
+<td align="left">解锁（Unlock）</td>
+<td align="left">屏保解锁。</td>
+</tr>
+<tr>
+<td align="left">8</td>
+<td align="left">网络明文（NetworkCleartext）</td>
+<td align="left">登录的密码在网络上是通过明文传输的，如FTP。</td>
+</tr>
+<tr>
+<td align="left">9</td>
+<td align="left">新凭证（NewCredentials）</td>
+<td align="left">使用带/Netonly参数的RUNAS命令运行一个程序。</td>
+</tr>
+<tr>
+<td align="left">10</td>
+<td align="left">远程交互，(RemoteInteractive）</td>
+<td align="left">通过终端服务、远程桌面或远程协助访问计算机。</td>
+</tr>
+<tr>
+<td align="left">11</td>
+<td align="left">缓存交互（CachedInteractive）</td>
+<td align="left">以一个域用户登录而又没有域控制器可</td>
+</tr>
+</tbody></table>
+<hr>
+<p><a href="https://support.microsoft.com/zh-cn/help/977519/description-of-security-events-in-windows-7-and-in-windows-server-2008" target="_blank" rel="noopener">更多事件ID说明</a></p>
+
             </div>
         
         <footer class="article-footer">
