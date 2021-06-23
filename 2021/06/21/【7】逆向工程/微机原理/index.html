@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <meta charset="utf-8">
+    
+    <title>微机原理 | wintrysec</title>
+    
+    
+        <meta name="keywords" content="微机原理" />
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="微机原理微机性能指标 1）CPU类型：CPU型号决定了微机系统的档次 2）字长：CPU一次可以同时传送和处理的数码的位数，直接关系到计算机的计算精度、寻址速度和处理能力；字长越长，表示一次处理范围越大，性能越好 3）主频：计算机的时钟频率。CPU单位时间内(秒)发出的脉冲数，吉赫(GHz);主频越高运算越快。 4）内存容量：内存储器可容纳的二进制信息总量。以字节B(Byte)表示，8位二进制为1字">
+<meta property="og:type" content="article">
+<meta property="og:title" content="微机原理">
+<meta property="og:url" content="https://wintrysec.github.io/2021/06/21/%E3%80%907%E3%80%91%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B/%E5%BE%AE%E6%9C%BA%E5%8E%9F%E7%90%86/index.html">
+<meta property="og:site_name" content="wintrysec">
+<meta property="og:description" content="微机原理微机性能指标 1）CPU类型：CPU型号决定了微机系统的档次 2）字长：CPU一次可以同时传送和处理的数码的位数，直接关系到计算机的计算精度、寻址速度和处理能力；字长越长，表示一次处理范围越大，性能越好 3）主频：计算机的时钟频率。CPU单位时间内(秒)发出的脉冲数，吉赫(GHz);主频越高运算越快。 4）内存容量：内存储器可容纳的二进制信息总量。以字节B(Byte)表示，8位二进制为1字">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-06-21T02:10:33.183Z">
+<meta property="article:modified_time" content="2021-06-20T11:23:37.854Z">
+<meta property="article:author" content="wintrysec">
+<meta name="twitter:card" content="summary">
+    
+
+    
+        <link rel="alternate" href="/atom.xml" title="wintrysec" type="application/atom+xml" />
+    
+
+    
+        <link rel="icon" href="/favicon.ico" />
+    
+
+    
+<link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/libs/open-sans/styles.css">
+
+    
+<link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<script src="/libs/jquery/2.1.3/jquery.min.js"></script>
+
+    
+<script src="/libs/jquery/plugins/cookie/1.4.1/jquery.cookie.js"></script>
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+
+    
+    
+    
+    
+
+
+    
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">wintrysec</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/about">关于</a>
+                
+            </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/about">关于</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+            
+                <aside id="sidebar">
+   
+        
+    <div class="widget-wrap" id='categories'>
+        <h3 class="widget-title">
+            <span>categories</span>
+            &nbsp;
+            <a id='allExpand' href="#">
+                <i class="fa fa-angle-double-down fa-2x"></i>
+            </a>
+        </h3>
+        
+        
+        
+         <ul class="unstyled" id="tree" > 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            【0】基础知识
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/08/12/%E3%80%900%E3%80%91%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/0%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87%E5%B8%B8%E8%AF%86/">【0】网络安全设备常识</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%900%E3%80%91%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/1%E5%AF%86%E7%A0%81%E5%AD%A6%E5%9F%BA%E7%A1%80%E4%B9%8B%E7%8E%B0%E4%BB%A3%E5%AF%86%E7%A0%81%E5%AD%A6/">【1】现代密码学常识</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%900%E3%80%91%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/2%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E4%B9%8BWeb%E5%8A%9F%E8%83%BD/">【2 网络基础】Web应用常识</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%900%E3%80%91%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E4%B9%8BTCP&IP/">【3 网络基础】TCP/IP协议</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%900%E3%80%91%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/4%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E4%B9%8BHTTP/">【4 网络基础】HTTP协议</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%900%E3%80%91%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/5%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E4%B9%8BSSL%E5%8F%8C%E5%90%91%E8%AE%A4%E8%AF%81/">【5 网络基础】SSL双向认证</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%900%E3%80%91%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/6%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E4%B9%8B%E8%B7%AF%E7%94%B1%E5%8D%8F%E8%AE%AE/">【6 网络基础】路由协议</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%900%E3%80%91%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/7%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B9%8BLinux%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/">【7 操作系统】Linux基础命令</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%900%E3%80%91%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/8%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B9%8BLinux%E4%B8%89%E5%89%91%E5%AE%A2/">【8 操作系统】Linux三剑客</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            【1】Web安全
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/01/22/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE%E6%80%BB%E7%BB%93/">未授权访问总结</a></li>  <li class="file"><a href="/2020/01/22/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2%E6%BC%8F%E6%B4%9E/">信息泄露漏洞</a></li>  <li class="file"><a href="/2020/01/22/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E/">文件上传漏洞</a></li>  <li class="file"><a href="/2020/01/22/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E/">文件包含漏洞</a></li>  <li class="file"><a href="/2020/01/22/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/%E5%91%BD%E4%BB%A4%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E/">命令注入漏洞</a></li>  <li class="file"><a href="/2020/01/22/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/%E5%B8%B8%E8%A7%81%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E/">常见逻辑漏洞</a></li>  <li class="file"><a href="/2020/01/22/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0%E6%BC%8F%E6%B4%9E/">请求伪造漏洞</a></li>  <li class="file"><a href="/2020/01/22/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/%E5%90%8C%E6%BA%90%E7%AD%96%E7%95%A5%E5%92%8C%E5%9F%9F%E5%AE%89%E5%85%A8/">同源策略和域安全</a></li>  <li class="file"><a href="/2020/01/22/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/XSS%E8%B7%A8%E7%AB%99%E8%84%9A%E6%9C%AC%E6%94%BB%E5%87%BB/">XSS 跨站脚本漏洞</a></li>  <li class="file"><a href="/2020/01/22/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/XML%E5%AE%9E%E4%BD%93%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E/">XML实体注入漏洞</a></li>  <li class="file"><a href="/2020/01/22/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/SQL%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E/">SQL注入漏洞</a></li>  <li class="file"><a href="/2020/01/22/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/MySQL%E5%86%99shell/">MySQL写shell</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            【2】工具手册
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/01/22/%E3%80%902%E3%80%91%E5%B7%A5%E5%85%B7%E6%89%8B%E5%86%8C/CobaltStrike/">CobaltStrike速查手册</a></li>  <li class="file"><a href="/2021/06/21/%E3%80%902%E3%80%91%E5%B7%A5%E5%85%B7%E6%89%8B%E5%86%8C/Metasploit/">Metasploit漏洞利用框架</a></li>  <li class="file"><a href="/2021/06/21/%E3%80%902%E3%80%91%E5%B7%A5%E5%85%B7%E6%89%8B%E5%86%8C/%E5%B7%A5%E5%85%B7%E6%89%8B%E5%86%8C%E4%B9%8BBurpSuite/">BurpSuite简要手册</a></li>  <li class="file"><a href="/2021/06/21/%E3%80%902%E3%80%91%E5%B7%A5%E5%85%B7%E6%89%8B%E5%86%8C/%E5%B7%A5%E5%85%B7%E6%89%8B%E5%86%8C%E4%B9%8BNmap/">nmap端口扫描</a></li>  <li class="file"><a href="/2021/06/21/%E3%80%902%E3%80%91%E5%B7%A5%E5%85%B7%E6%89%8B%E5%86%8C/%E5%B7%A5%E5%85%B7%E6%89%8B%E5%86%8C%E4%B9%8Bsqlmap%E5%A4%87%E5%BF%98/">sqlmap简要手册</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            【3】攻防对抗
+                        </a>
+                         <ul class="unstyled" id="tree" > 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            【1】边界资产信息收集和打点
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2021/06/21/%E3%80%903%E3%80%91%E6%94%BB%E9%98%B2%E5%AF%B9%E6%8A%97/%E3%80%901%E3%80%91%E8%BE%B9%E7%95%8C%E8%B5%84%E4%BA%A7%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86%E5%92%8C%E6%89%93%E7%82%B9/%E8%BE%B9%E7%95%8C%E6%89%93%E7%82%B9/">互联网边界打点</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            【2】构建通道
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2021/06/21/%E3%80%903%E3%80%91%E6%94%BB%E9%98%B2%E5%AF%B9%E6%8A%97/%E3%80%902%E3%80%91%E6%9E%84%E5%BB%BA%E9%80%9A%E9%81%93/agent/">构建通道漫游内网</a></li>  <li class="file"><a href="/2021/06/21/%E3%80%903%E3%80%91%E6%94%BB%E9%98%B2%E5%AF%B9%E6%8A%97/%E3%80%902%E3%80%91%E6%9E%84%E5%BB%BA%E9%80%9A%E9%81%93/%E6%9E%84%E5%BB%BA%E9%80%9A%E9%81%93/">构建通道漫游内网</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            【3】权限提升
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2021/06/21/%E3%80%903%E3%80%91%E6%94%BB%E9%98%B2%E5%AF%B9%E6%8A%97/%E3%80%903%E3%80%91%E6%9D%83%E9%99%90%E6%8F%90%E5%8D%87/to-root/">权限提升</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            【4】权限维持
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2021/06/21/%E3%80%903%E3%80%91%E6%94%BB%E9%98%B2%E5%AF%B9%E6%8A%97/%E3%80%904%E3%80%91%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81/hold-root/">权限维持</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            【5】横向移动
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2021/06/21/%E3%80%903%E3%80%91%E6%94%BB%E9%98%B2%E5%AF%B9%E6%8A%97/%E3%80%905%E3%80%91%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8/%E5%86%85%E7%BD%91%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/">内网信息收集</a></li>  <li class="file"><a href="/2021/06/21/%E3%80%903%E3%80%91%E6%94%BB%E9%98%B2%E5%AF%B9%E6%8A%97/%E3%80%905%E3%80%91%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8/%E6%9C%AC%E6%9C%BA%E5%AF%86%E7%A0%81%E5%92%8C%E6%95%A3%E5%88%97%E5%80%BC%E8%8E%B7%E5%8F%96/">本机密码和散列值获取</a></li>  <li class="file"><a href="/2021/06/21/%E3%80%903%E3%80%91%E6%94%BB%E9%98%B2%E5%AF%B9%E6%8A%97/%E3%80%905%E3%80%91%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8/%E6%A8%AA%E5%90%91%E6%8B%93%E5%B1%95%E6%9D%83%E9%99%90/">横向获取主机权限</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            【6】日志处理
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2021/06/21/%E3%80%903%E3%80%91%E6%94%BB%E9%98%B2%E5%AF%B9%E6%8A%97/%E3%80%906%E3%80%91%E6%97%A5%E5%BF%97%E5%A4%84%E7%90%86/log-action/">日志处理</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            【7 蓝队】防守策略
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2021/06/21/%E3%80%903%E3%80%91%E6%94%BB%E9%98%B2%E5%AF%B9%E6%8A%97/%E3%80%907%20%E8%93%9D%E9%98%9F%E3%80%91%E9%98%B2%E5%AE%88%E7%AD%96%E7%95%A5/%E9%98%B2%E5%AE%88%E7%AD%96%E7%95%A5/">2020攻防演练防守策略</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            【8 蓝队】基线加固
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/08/12/%E3%80%903%E3%80%91%E6%94%BB%E9%98%B2%E5%AF%B9%E6%8A%97/%E3%80%908%20%E8%93%9D%E9%98%9F%E3%80%91%E5%9F%BA%E7%BA%BF%E5%8A%A0%E5%9B%BA/Linux%E5%AE%89%E5%85%A8%E5%8A%A0%E5%9B%BA/">Linux安全加固</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%903%E3%80%91%E6%94%BB%E9%98%B2%E5%AF%B9%E6%8A%97/%E3%80%908%20%E8%93%9D%E9%98%9F%E3%80%91%E5%9F%BA%E7%BA%BF%E5%8A%A0%E5%9B%BA/Windows%E5%AE%89%E5%85%A8%E5%8A%A0%E5%9B%BA/">Windows安全加固</a></li>  <li class="file"><a href="/2020/08/12/%E3%80%903%E3%80%91%E6%94%BB%E9%98%B2%E5%AF%B9%E6%8A%97/%E3%80%908%20%E8%93%9D%E9%98%9F%E3%80%91%E5%9F%BA%E7%BA%BF%E5%8A%A0%E5%9B%BA/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AE%89%E5%85%A8%E5%8A%A0%E5%9B%BA/">数据库安全加固</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            【9 蓝队】应急响应
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2020/08/12/%E3%80%903%E3%80%91%E6%94%BB%E9%98%B2%E5%AF%B9%E6%8A%97/%E3%80%909%20%E8%93%9D%E9%98%9F%E3%80%91%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/">应急响应模型</a></li>  <li class="file"><a href="/2021/06/21/%E3%80%903%E3%80%91%E6%94%BB%E9%98%B2%E5%AF%B9%E6%8A%97/%E3%80%909%20%E8%93%9D%E9%98%9F%E3%80%91%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/kill-webshell/">【防守方】Webshell排查</a></li>  <li class="file"><a href="/2021/06/21/%E3%80%903%E3%80%91%E6%94%BB%E9%98%B2%E5%AF%B9%E6%8A%97/%E3%80%909%20%E8%93%9D%E9%98%9F%E3%80%91%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/linux-emergency-response/">【防守方】Linux应急响应</a></li>  <li class="file"><a href="/2021/06/21/%E3%80%903%E3%80%91%E6%94%BB%E9%98%B2%E5%AF%B9%E6%8A%97/%E3%80%909%20%E8%93%9D%E9%98%9F%E3%80%91%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/windows-emergency-response/">【防守方】Windows应急响应</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            【4】域渗透
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2021/06/09/%E3%80%904%E3%80%91%E5%9F%9F%E6%B8%97%E9%80%8F/%E5%9F%9F%E7%8E%AF%E5%A2%83%E5%9F%BA%E7%A1%80/">域环境基础</a></li>  <li class="file"><a href="/2021/06/09/%E3%80%904%E3%80%91%E5%9F%9F%E6%B8%97%E9%80%8F/%E5%9F%9F%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/">域信息收集</a></li>  <li class="file"><a href="/2021/06/09/%E3%80%904%E3%80%91%E5%9F%9F%E6%B8%97%E9%80%8F/Hash%E4%BC%A0%E9%80%92%E6%94%BB%E5%87%BB/">Hash传递攻击</a></li>  <li class="file"><a href="/2021/06/09/%E3%80%904%E3%80%91%E5%9F%9F%E6%B8%97%E9%80%8F/%E7%A5%A8%E6%8D%AE%E4%BC%A0%E9%80%92%E6%94%BB%E5%87%BB/">票据传递攻击</a></li>  <li class="file"><a href="/2021/06/09/%E3%80%904%E3%80%91%E5%9F%9F%E6%B8%97%E9%80%8F/%E9%BB%84%E9%87%91%E7%A5%A8%E6%8D%AE%E5%92%8C%E7%99%BD%E9%93%B6%E7%A5%A8%E6%8D%AE/">黄金票据和白银票据</a></li>  <li class="file"><a href="/2021/06/09/%E3%80%904%E3%80%91%E5%9F%9F%E6%B8%97%E9%80%8F/%E6%8C%87%E5%AE%9A%E4%B8%BB%E6%9C%BA%E4%B8%8A%E7%BA%BF/">指定主机上线</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            【5】渗透测试
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2021/06/21/%E3%80%905%E3%80%91%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/WAF_Bypass/"></a></li>  <li class="file"><a href="/2021/06/21/%E3%80%905%E3%80%91%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95CheckList/">渗透测试CheckList</a></li>  <li class="file"><a href="/2021/06/21/%E3%80%905%E3%80%91%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/%E6%BC%8F%E6%B4%9E%E6%89%AB%E6%8F%8F%E5%99%A8/">漏洞扫描器</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory open">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            【7】逆向工程
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file active"><a href="/2021/06/21/%E3%80%907%E3%80%91%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B/%E5%BE%AE%E6%9C%BA%E5%8E%9F%E7%90%86/">微机原理</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+    </div>
+    <script>
+        $(document).ready(function() {
+            var iconFolderOpenClass  = 'fa-folder-open';
+            var iconFolderCloseClass = 'fa-folder';
+            var iconAllExpandClass = 'fa-angle-double-down';
+            var iconAllPackClass = 'fa-angle-double-up';
+            // Handle directory-tree expansion:
+            // 左键单独展开目录
+            $(document).on('click', '#categories a[data-role="directory"]', function (event) {
+                event.preventDefault();
+
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var subtree = $(this).siblings('ul');
+                icon.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if (expanded) {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideUp({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderCloseClass);
+                } else {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideDown({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderOpenClass);
+                }
+            });
+            // 右键展开下属所有目录
+            $('#categories a[data-role="directory"]').bind("contextmenu", function(event){
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var listNode = $(this).siblings('ul');
+                var subtrees = $.merge(listNode.find('li ul'), listNode);
+                var icons = $.merge(listNode.find('.fa'), icon);
+                icons.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if(expanded) {
+                    subtrees.slideUp({ duration: 100 });
+                    icons.addClass(iconFolderCloseClass);
+                } else {
+                    subtrees.slideDown({ duration: 100 });
+                    icons.addClass(iconFolderOpenClass);
+                }
+            })
+            // 展开关闭所有目录按钮
+            $(document).on('click', '#allExpand', function (event) {
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconAllExpandClass);
+                icon.removeClass(iconAllExpandClass).removeClass(iconAllPackClass);
+                if(expanded) {
+                    $('#sidebar .fa.fa-folder').removeClass('fa-folder').addClass('fa-folder-open')
+                    $('#categories li ul').slideDown({ duration: 100 });
+                    icon.addClass(iconAllPackClass);
+                } else {
+                    $('#sidebar .fa.fa-folder-open').removeClass('fa-folder-open').addClass('fa-folder')
+                    $('#categories li ul').slideUp({ duration: 100 });
+                    icon.addClass(iconAllExpandClass);
+                }
+            });  
+        });
+    </script>
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+            
+            <section id="main"><article id="post-【7】逆向工程/微机原理" class="article article-type-post" itemscope itemprop="blogPost">
+    
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/%E3%80%907%E3%80%91%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B/">【7】逆向工程</a>
+    </div>
+
+                        
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2021/06/21/%E3%80%907%E3%80%91%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B/%E5%BE%AE%E6%9C%BA%E5%8E%9F%E7%90%86/">
+            <time datetime="2021-06-21T02:10:33.183Z" itemprop="datePublished">2021-06-21</time>
+        </a>
+    </div>
+
+
+                        
+                            <i class="fa fa-bar-chart"></i>
+                            <span id="busuanzi_container_site_pv"><span id="busuanzi_value_page_pv"></span></span>    
+                        
+
+                    </div>
+                
+                
+    
+        <h1 class="article-title" itemprop="name">
+            微机原理
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            <div id="toc" class="toc-article">
+                <!-- <strong class="toc-title">文章目录</strong> -->
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#微机原理"><span class="toc-text">微机原理</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#微机性能指标"><span class="toc-text">微机性能指标</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#微型计算机的组成"><span class="toc-text">微型计算机的组成</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总线"><span class="toc-text">总线</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#机器数的表示与编码"><span class="toc-text">机器数的表示与编码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#机器数的运算"><span class="toc-text">机器数的运算</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#微型计算机的工作过程"><span class="toc-text">微型计算机的工作过程</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#CPU体系架构"><span class="toc-text">CPU体系架构</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#RISC与CISC"><span class="toc-text">RISC与CISC</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8088-8086微处理器功能结构"><span class="toc-text">8088&#x2F;8086微处理器功能结构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#一、总线接口部件-BIU"><span class="toc-text">一、总线接口部件(BIU)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二、执行部件-EU"><span class="toc-text">二、执行部件(EU)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#寄存器结构"><span class="toc-text">寄存器结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#存储器系统"><span class="toc-text">存储器系统</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#标志寄存器"><span class="toc-text">标志寄存器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8086寻址"><span class="toc-text">8086寻址</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#全七类寻址方式"><span class="toc-text">全七类寻址方式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#问题"><span class="toc-text">问题</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#常用汇编指令"><span class="toc-text">常用汇编指令</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、传送类指令"><span class="toc-text">一、传送类指令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-数据传送指令"><span class="toc-text">1.数据传送指令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-有效地址传送指令LEA"><span class="toc-text">2.有效地址传送指令LEA</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-堆栈指针操作指令"><span class="toc-text">3.堆栈指针操作指令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-输入输出指令"><span class="toc-text">4.输入输出指令</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、算数运算类指令"><span class="toc-text">二、算数运算类指令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-加法指令"><span class="toc-text">1.加法指令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-减法指令"><span class="toc-text">2.减法指令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-类型扩展指令"><span class="toc-text">3.类型扩展指令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-乘法指令"><span class="toc-text">4.乘法指令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-除法指令"><span class="toc-text">5.除法指令</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、位操作指令"><span class="toc-text">三、位操作指令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#四、串操作指令"><span class="toc-text">四、串操作指令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#五、控制转移类指令"><span class="toc-text">五、控制转移类指令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#六、处理器控制类指令"><span class="toc-text">六、处理器控制类指令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#七、汇编指令伪指令"><span class="toc-text">七、汇编指令伪指令</span></a></li></ol></li></ol>
+                </div>
+            
+        
+        
+            <h1 id="微机原理"><a href="#微机原理" class="headerlink" title="微机原理"></a>微机原理</h1><h2 id="微机性能指标"><a href="#微机性能指标" class="headerlink" title="微机性能指标"></a>微机性能指标</h2><blockquote>
+<p>1）CPU类型：CPU型号决定了微机系统的档次</p>
+<p>2）字长：CPU一次可以同时传送和处理的数码的位数，直接关系到计算机的计算精度、寻址速度和处理能力；字长越长，表示一次处理范围越大，性能越好</p>
+<p>3）主频：计算机的时钟频率。CPU单位时间内(秒)发出的脉冲数，吉赫(GHz);主频越高运算越快。</p>
+<p>4）内存容量：内存储器可容纳的二进制信息总量。以字节B(Byte)表示，8位二进制为1字节，1024B=1KB。</p>
+</blockquote>
+<h2 id="微型计算机的组成"><a href="#微型计算机的组成" class="headerlink" title="微型计算机的组成"></a>微型计算机的组成</h2><p>微机包括硬件系统和软件系统；硬件系统是组成微机的各种物理设备包括主机和外设。主机以微处理器为基础，配以存储器及I/O设备。计算机硬件5个基本组成部分：<strong>运算器、控制器、存储器、输入设备、输出设备</strong></p>
+<p><strong>微处理器</strong>：一片或几片大规模集成电路组成的，具有运算和控制功能的中央处理单元。主要由算数逻辑部件ALU、寄存器和控制器CU组成。</p>
+<p>现代计算机能实现自动化的信息处理，是由于采用了冯.诺依曼“存储程序”工作原理。主板是计算机各种部件相互连接的纽带和桥梁。</p>
+<p><strong>寄存器与触发器的关系</strong>：</p>
+<p>由于一个触发器能够存储一位二进制码，所以把n个触发器的时钟端口连接起来就能构成一个存储n位二进制码的寄存器。</p>
+<h2 id="总线"><a href="#总线" class="headerlink" title="总线"></a>总线</h2><p>bus 是计算机系统各部件之间相互连接，传送信息的公共通道，由一组物理导线组成。<br>一次传输信息的位数称为总线的宽度。</p>
+<p>按照传送信息类型可以分为：数据总线，地址总线和控制总线。</p>
+<p><strong>片内总线</strong>：</p>
+<p>芯片内部各部件之间的数据传输，例如CPU内控制器、运算器和各个寄存器之间的信息传输</p>
+<blockquote>
+<p>系统总线：CPU和主存、CPU和接口之间的信息传输。<br>数据总线：(Data Bus)为双向线，用于实现在CPU、存储器、I/O接口之间的数据传送；<br>数据总线的宽度等于计算机的字长<br>地址总线：(Address)为单向线，用于传送CPU所要访问的存储单元和I/O端口的地址信息。地址总线的位数决定了系统所能直接访的问存储空间的容量。</p>
+</blockquote>
+<p><strong>控制总线</strong>：(Control Bus)为双向线，用于控制总线上的操作和数据传送的方向；实现微处理器与外部逻辑部件之间的同步操作。<br><strong>外部总线</strong>：<br>连接外部设备，如SCSI，IDE，USB(属于串口)</p>
+<h2 id="机器数的表示与编码"><a href="#机器数的表示与编码" class="headerlink" title="机器数的表示与编码"></a>机器数的表示与编码</h2><p><strong>1.原码表示法</strong>：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">最高位表示符号，&quot;0正，1负&quot;，其它n位表示数值的绝对值-0&#x3D;1 0000000</span><br><span class="line">例如：</span><br><span class="line">设机器字长为8位，求X1&#x3D;0.1011B，X2&#x3D;-0.1011B的原码表示</span><br><span class="line">[x1]&#x3D;0 1011000        [X2]&#x3D;1 1011000</span><br><span class="line">设机器字长为8位，求X3&#x3D;1011B，X4&#x3D;-1011B的原码表示</span><br><span class="line">[X3]&#x3D;0 0001011       [X4]&#x3D;1 0001011</span><br></pre></td></tr></table></figure>
+
+<p><strong>2.反码表示法</strong>：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">正数的反码与其原码相同，负数的反码是对其原码符号位不变其它位取反。</span><br><span class="line">-0的反码&#x3D;1 1111111</span><br></pre></td></tr></table></figure>
+
+<p><strong>3.补码表示法</strong>：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">正数的补码与原码相同，负数的补码，由其原码符号位不变，其它位取反，末尾位加1求得。</span><br><span class="line">在计算机系统中，存储有符号整数时，用该整数的补码进行存储，0的原码、补码都是0。</span><br></pre></td></tr></table></figure>
+
+<p><strong>4.移码表示法：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">由[X补]求[X移]的规则：数值位不变，符号位取反</span><br><span class="line">浮点数的阶码部分一般采用整数形式的移码表示。</span><br><span class="line">0的移码对0的补码取反&#x3D;1 0000000</span><br></pre></td></tr></table></figure>
+
+<h2 id="机器数的运算"><a href="#机器数的运算" class="headerlink" title="机器数的运算"></a>机器数的运算</h2><p><strong>1.算数运算</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">补码运算的公式：</span><br><span class="line">[X补]+[Y补]&#x3D;[X+Y补]</span><br><span class="line">[X补-Y补]&#x3D;[X补]+[-Y补]</span><br><span class="line">[Y补]--&gt;[-Y补]：包含符号位，各位取反，末尾加1</span><br></pre></td></tr></table></figure>
+
+<p><strong>2.溢出的概念</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">两正数相加，变负数，上溢(大于机器所能表示的最大数)</span><br><span class="line">两负数相加，变正数，下溢(小于机器所能表示的最小数)</span><br></pre></td></tr></table></figure>
+
+<h2 id="微型计算机的工作过程"><a href="#微型计算机的工作过程" class="headerlink" title="微型计算机的工作过程"></a>微型计算机的工作过程</h2><p>微型计算机的五大部分相互配合，协同工作。根据冯.诺依曼的设计，计算机应能自动执行程序，执行程序又归结为逐条执行指令，分为以下五个步骤：</p>
+<p>1.取指令：从存储器某个地址单元中取出要执行的指令送到指令寄存器暂存</p>
+<p>2.分析指令：把保存在指令寄存器中的指令送到指令译码器中，译出该指令对应的微操作信号，控制各个部件的操作</p>
+<p>3.取操作数：如果需要，发出取数据命令，到存储器取出需要的操作数</p>
+<p>4.执行指令：根据指令译码，向各个部件发出相应控制信号，完成指令规定的各种操作</p>
+<p>5.保存结果：如果需要保存计算结果，则把结果保存到指定的存储器单元中。</p>
+<p>完成一条指令所需要的时间称为指令周期。一个指令周期往往包含多个总线周期，一个总线周期又包含多个时钟周期，时钟周期是计算机中最小的时间单位。</p>
+<p><strong>冯.诺依曼计算机的基本设计思想</strong></p>
+<blockquote>
+<p>采用存储程序的方式，编制好的程序和数据存放在同一存储器中，<br>计算机可以在无人干预的情况下自动完成逐条取出指令和执行指令的任务；<br>在机器内部，指令和数据均以二进制码表示，指令在存储器中按执行顺序存放</p>
+</blockquote>
+<p><strong>“存储程序控制”的概念</strong></p>
+<blockquote>
+<p>程序输入到计算机中，存储在内存储器中（存储原理），在运行时，控制器按地址顺序取出存放在内存储器中的指令（按地址顺序访问指令），然后分析指令，执行指令的功能，遇到转移指令时，则转移到转移地址，再按地址顺序访问指令（程序控制）。</p>
+</blockquote>
+<h1 id="CPU体系架构"><a href="#CPU体系架构" class="headerlink" title="CPU体系架构"></a>CPU体系架构</h1><h2 id="RISC与CISC"><a href="#RISC与CISC" class="headerlink" title="RISC与CISC"></a>RISC与CISC</h2><p><code>Reduced Instruction Set Computer</code><br><code>Complex Instruction Set Computer</code></p>
+<p><code>RISC</code>( 精简指令集计算机 )和<code>CISC</code>( 复杂指令集计算机 )是当前CPU的两种架构。<br>它们的区别在于不同的CPU设计理念和方法。</p>
+<p>早期的CPU全部是CISC架构，它的设计目的是要用最少的机器语言指令来完成所需的计算任务。<br>比如对于乘法运算，在CISC架构的CPU上，您可能需要这样一条指令：<br><code>MUL ADDRA, ADDRB</code></p>
+<p>就可以将ADDRA和ADDRB中的数相乘并将结果储存在ADDRA中。</p>
+<p>将ADDRA, ADDRB中的数据读入寄存器，相乘和将结果写回内存的操作全部依赖于CPU中设计的逻辑来实现。<br>这种架构会增加CPU结构的复杂性和对CPU工艺的要求，但对于编译器的开发十分有利。</p>
+<p>比如上面的例子，C程序中的a*=b就可以直接编译为一条乘法指令。</p>
+<p>今天只有Intel及其兼容CPU还在使用CISC架构。</p>
+<hr>
+<p>RISC架构要求软件来指定各个操作步骤。</p>
+<p>上面的例子如果要在RISC架构上实现，将ADDRA, ADDRB中的数据读入寄存器，相乘和将结果写回内存的操作都必须由软件来实现</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">MOV A, ADDRA; </span><br><span class="line">MOV B, ADDRB;</span><br><span class="line">MUL A, B; </span><br><span class="line">STR ADDRA, A</span><br></pre></td></tr></table></figure>
+
+<p>这种架构可以降低CPU的复杂性以及允许在同样的工艺水平下生产出功能更强大的CPU，但对于编译器的设计有更高的要求。</p>
+<h2 id="8088-8086微处理器功能结构"><a href="#8088-8086微处理器功能结构" class="headerlink" title="8088/8086微处理器功能结构"></a>8088/8086微处理器功能结构</h2><h3 id="一、总线接口部件-BIU"><a href="#一、总线接口部件-BIU" class="headerlink" title="一、总线接口部件(BIU)"></a>一、总线接口部件(BIU)</h3><p>(1)功能</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">从内存取指令送到指令队列CPU执行指令时，</span><br><span class="line">总线接口部件要配合执行部件为指定的内存单元或者外设端口收发数据</span><br></pre></td></tr></table></figure>
+
+<p>(2)组成</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">4个段地址寄存器，即：</span><br><span class="line">CS，16位代码段寄存器</span><br><span class="line">DS，16位数据段寄存器</span><br><span class="line">ES，16位附加段寄存器</span><br><span class="line">SS，16位堆栈段寄存器</span><br><span class="line">16位指令指针寄存器</span><br><span class="line">20位地址加法寄存器</span><br><span class="line">4&#x2F;6字节的指令队列缓冲器</span><br></pre></td></tr></table></figure>
+
+<p>(3)BIU指令队列和20位地址加法器作用</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">指令队列，指令一个一个预先排队等候传唤，称为流水线技术</span><br><span class="line">减少了CPU取指令等待的时间，提高了CPU的效率</span><br><span class="line"></span><br><span class="line">加法寄存器用来产生20位地址</span><br><span class="line">8086可用20位地址寻址1MB内存空间</span><br><span class="line">但8086内部所有的寄存器都是16位的，</span><br><span class="line">所以需要一个附加机构来根据16位寄存器提供的信息计算出20位的物理地址</span><br><span class="line">这个机构就是20位的地址加法器</span><br></pre></td></tr></table></figure>
+
+<h3 id="二、执行部件-EU"><a href="#二、执行部件-EU" class="headerlink" title="二、执行部件(EU)"></a>二、执行部件(EU)</h3><p>1.功能</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">从指令队列中取出指令</span><br><span class="line">对指令进行译码</span><br><span class="line">发出相应的传送数据或算数运算的控制信号</span><br><span class="line">接收由总线接口部件传来的数据，或把数据传送到总线接口部件</span><br><span class="line">进行算数运算</span><br></pre></td></tr></table></figure>
+
+<p>2.组成</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">AX，BX，CX，DX--既可作为16位寄存器也可作为8位寄存器，</span><br><span class="line">分别为AH、BH、CH、DH、AL、BL、CL、DL</span><br><span class="line"></span><br><span class="line">AX又称为累加器，8086指令系统许多指令都通过累加器动作来执行</span><br><span class="line">AH为16位累加器，AL为8位累加器</span><br></pre></td></tr></table></figure>
+
+<p>(2)四个专用寄存器</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">基址指针寄存器BP</span><br><span class="line">堆栈指针寄存器SP</span><br><span class="line">源变址寄存器SI</span><br><span class="line">目的变址寄存器DI</span><br></pre></td></tr></table></figure>
+
+<p>(3)算数逻辑单元ALU</p>
+<p>`它是16位运算器，可用于8位或16位二进制算数和逻辑运算，也可按指令的寻址方式计算寻址寄存器所需的16位偏移量。</p>
+<p>(4)数据暂存运算器</p>
+<p>`协助ALU完成运算，暂存参加运算的数据</p>
+<p>(5)EU控制电路。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">从指令队列取出指令操作码</span><br><span class="line">通过电路译码，发出相应控制命令</span><br><span class="line">控制ALU的数据的流向。</span><br><span class="line"></span><br><span class="line">如果是运算操作，操作数经过暂存寄存器送入ALU</span><br><span class="line">运算结果经过ALU数据总线送到相应寄存器，</span><br><span class="line">同时标志寄存器PSW根据运算结果改变状态</span><br></pre></td></tr></table></figure>
+
+<p>(6)标志寄存器</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">标志寄存器共有16位其中7位未用。</span><br><span class="line">其中6个标志位反应CPU指令运行后的运行状态信息</span><br><span class="line">SF、ZF、PF、CF、AF、OF这些标志位，</span><br><span class="line">用于根据指令执行后的操作结果进行判断转移。</span><br><span class="line">3个控制标志：DF、IF、TF</span><br><span class="line">程序员可通过指令设置控制标志，有专门的标志对控制标志置0或置1</span><br></pre></td></tr></table></figure>
+
+<h2 id="寄存器结构"><a href="#寄存器结构" class="headerlink" title="寄存器结构"></a>寄存器结构</h2><p><strong>1.通用数据寄存器</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ABCD-X、16位可用作8位寄存器，分高低位</span><br><span class="line">AX作为累加器</span><br><span class="line">BX作为基址寄存器</span><br><span class="line">CX作为计数寄存器</span><br><span class="line">DX作为数据寄存器</span><br></pre></td></tr></table></figure>
+
+<p><strong>2.指针变址寄存器</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">分为两个指针寄存器SP(stack pointer)、BP(base pointer)</span><br><span class="line">和两个变址寄存器SI(source index)、DI(destination index)</span><br><span class="line">这组寄存器通常用来存放存储单元的16位偏移地址</span><br><span class="line">偏移地址：相对起始地址的距离</span><br></pre></td></tr></table></figure>
+
+<p>(1)指针寄存器</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SP用来指示栈顶的偏移地址</span><br><span class="line">BP存放位于堆栈段中一个数据区的&quot;基址&quot;的偏移量</span><br></pre></td></tr></table></figure>
+
+<p>(2)变址寄存器</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SI存放源操作数地址的偏移量</span><br><span class="line">DI存放目标操作数地址的偏移量</span><br></pre></td></tr></table></figure>
+
+<p><strong>3.段寄存器(segment registers)</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">CS、DS、SS、ES</span><br><span class="line">代码段、数据段、堆栈段、附加段</span><br><span class="line">这些寄存器指明了一个特定的现行段，用来存放各段的段基址</span><br></pre></td></tr></table></figure>
+
+<p><strong>4.指令指针</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">IP(instruction pointer)为16位指令指针</span><br><span class="line">ip的内容总是只想BIU将要取的下一条指令代码的16位偏移地址。</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="存储器系统"><a href="#存储器系统" class="headerlink" title="存储器系统"></a>存储器系统</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">RAM（random access memory）随机存储内存</span><br><span class="line">ROM（Read-Only Memory）只读内存</span><br></pre></td></tr></table></figure>
+
+<p><strong>RAM有两种:</strong><br><strong>（1）SRAM(静态RAM)</strong></p>
+<blockquote>
+<p>它采用触发器电路构成一个二进制位信息的存储单元，<br>这种触发器一般由6个晶体管组成，<br>它读出采用单边读出的原理，写入采用双边写入原理；</p>
+</blockquote>
+<p><strong>（2） DRAM（动态RAM</strong>）</p>
+<blockquote>
+<p>它集成度高，内部存储单元按矩阵形式排列成存储体，<br>通常采用行，列地址复合选择寻址法。</p>
+</blockquote>
+<p><strong>ROM有5种</strong></p>
+<blockquote>
+<p>固定掩摸编程ROM<br>可编程PROM<br>紫外光擦除可编程EPROM<br>电可檫除的可编程EEPROM<br>闪速存储器</p>
+</blockquote>
+<p><strong>8086对存储器的管理为什么采用分段的方法？</strong></p>
+<p>8086是一个16位的结构，采用分段管理办法可形成超过16位的存储器物理地址，<br>扩大对存储器的寻址范围 (1MB，20位地址)。<br>若不用分段方法，16位地址只能寻址64KB空间。</p>
+<p><strong>存储器采用分段方法进行组织有哪些好处？</strong></p>
+<p>8086微处理器CPU中寄存器都是16位，16位的地址只能访问大小为64KB以内的内存。</p>
+<p><strong>8086系统的物理地址由20根地址线形成，怎样用16位数据处理能力实现20位地址的寻址呢？</strong><br>要做到对20位地址空间进行访问，就需要两部分地址<br>在8086系统中，就是由段地址和偏移地址组成的。<br>而这两个地址都是16位，将这两个地址采用相加的方式组成20位地址去访问存储器。</p>
+<p>在8086系统的地址形成中，当段地址确定后，该段的寻址范围就已经确定，其容量不大于64KB。</p>
+<p>同时，通过修改段寄存器的内容，可达到逻辑段在整个1MB空间中浮动。</p>
+<p>各个逻辑段之间可以紧密相连，可以中间有间隔，也可以相互重叠。</p>
+<p>采用段基址和偏移地址方式组成物理地址的优点是：<br>满足对8086系统的1MB存储空间的访问，<br>同时在大部分指令中只要提供16位的偏移地址即可。</p>
+<h2 id="标志寄存器"><a href="#标志寄存器" class="headerlink" title="标志寄存器"></a>标志寄存器</h2><p>6个状态标志位的功能</p>
+<p><strong>CF(Carry Flag)——进位标志位。</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">当执行一个加法(或减法)运算，使最高位产生进位(或借位)时</span><br><span class="line">CF为1，则为0。</span><br></pre></td></tr></table></figure>
+
+<p><strong>PF(Parity Flag)——奇偶标志位。</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">该标志位反映运算结果中1的个数是偶数还是奇数。</span><br><span class="line">当指令执行结果的低8位中含有偶数个1时</span><br><span class="line">PF&#x3D;1；否则PF&#x3D;0。</span><br></pre></td></tr></table></figure>
+
+<p><strong>AF(Auxiliary carry Flag)——辅助进位标志位。</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">当执行一个加法(或减法)运算，使结果的低4位向高4位有进位(或借位)时，</span><br><span class="line">AF&#x3D;1；否则AF&#x3D;0。</span><br></pre></td></tr></table></figure>
+
+<p><strong>ZF(Zero Flag)——零标志位。</strong><br>若当前的运算结果为零，ZF=1；否则ZF=0。</p>
+<p><strong>SF(Sign Flag)——符号标志位。</strong><br>它和运算结果的最高位相同。</p>
+<p><strong>OF(Overflow Flag)——溢出标志位。</strong><br>当补码运算有溢出时，OF=1；否则OF=0。</p>
+<hr>
+<p><strong>3个控制标志位用来控制CPU的操作，由指令进行置位和复位。</strong></p>
+<p><strong>DF(Direction Flag)——方向标志位。</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">它用以指定字符串处理时的方向，</span><br><span class="line">当该位置“1”时，字符串以递减顺序处理，即地址以从高到低顺序递减。</span><br><span class="line">反之，则以递增顺序处理。</span><br></pre></td></tr></table></figure>
+
+<p><strong>IF(Interrupt enable Flag)——中断允许标志位。</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">它用来控制8086是否允许接收外部中断请求。</span><br><span class="line">若IF&#x3D;1，8086能响应外部中断，反之则不响应外部中断。</span><br><span class="line">注意：IF的状态不影响非屏蔽中断请求(NMI)和CPU内部中断请求</span><br></pre></td></tr></table></figure>
+
+<p><strong>TF(Trap Flag)——跟踪标志位。</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">它是为调试程序而设定的陷阱控制位。</span><br><span class="line">当该位置“1”时，8086 CPU处于单步状态，</span><br><span class="line">此时CPU每执行完一条指令就自动产生一次内部中断。</span><br><span class="line">当该位复位后，CPU恢复正常工作。</span><br></pre></td></tr></table></figure>
+
+<h2 id="8086寻址"><a href="#8086寻址" class="headerlink" title="8086寻址"></a>8086寻址</h2><p>汇编语言指令由操作码和操作数两部分组成。</p>
+<p>操作码说明指令的功能，即计算机要执行的具体操作</p>
+<p>如：传送、移位、运算等，是指令中不可缺少的组成部分</p>
+<p>操作数是指令执行的参与者，即各种操作的对象。</p>
+<p>有些指令不需要操作数，有些指令有一个或两个操作数。</p>
+<p>有一个操作数的叫单操作数，有两个操作数的叫双操作数。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">操作码   目的操作数,源操作数</span><br><span class="line">MOV EAX,00401000</span><br></pre></td></tr></table></figure>
+
+<p>要指令执行，就要找到指令中的操作数</p>
+<p>要找到操作数，就要找到存放操作数的地址</p>
+<p>寻找指令中的操作数地址的方式叫做寻址方式</p>
+<h3 id="全七类寻址方式"><a href="#全七类寻址方式" class="headerlink" title="全七类寻址方式"></a>全七类寻址方式</h3><p><strong>1.立即寻址</strong><br>操作数以字节形式紧跟在操作码后边，常用于给CPU中的寄存器或存储单元赋值，立即数只能用作源操作数，不能作为目的操作数。</p>
+<p>例子：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">MOV AL,56H        将立即数56H,送入8位寄存器AL</span><br><span class="line">MOV AX,1234H    将16位立即数1234H,送16位寄存器AX</span><br></pre></td></tr></table></figure>
+
+<p><strong>2.寄存器寻址</strong><br>操作数存放在CPU的寄存器中，寄存器可以是16位也可以是8位，不用执行寻找操作数的总线周期，执行速度最快。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">MOV AX，BX</span><br></pre></td></tr></table></figure>
+
+<p><strong>3.存储器寻址</strong></p>
+<p>操作数放在存储器中，除代码段之外的所有段数据。这种存储方式中，指令给出的是存放该操作数的存储单元的地址或产生该存储单元地址的表达试。</p>
+<p>CPU执行指令时，首先根据操作数字段提供的地址信息，由执行单元EU计算出有效地址EA，再由总线接口单元BIU，根据物理地址公式”<code>PA=段首地址X10H+有效地址</code>“计算出物理地址。</p>
+<p>然后到物理地址对应的内存单元取出操作数，执行对该数的操作</p>
+<p>存储器寻址根据计算偏移地址的方法不同分为以下5种</p>
+<p><strong>(1)直接寻址</strong><br>这种寻址方式是从存储器中寻找操作数最简单的一种，指令中直接给出的是该操作数在存储器中的有效地址；其物理地址为：<br><code>PA=段首地址X10H+EA</code> </p>
+<p>段首地址默认使用<code>DS段寄存器</code>，EA为指令中给出的有效地址</p>
+<p>例子：</p>
+<p><code>MOV AX，[2000H]</code></p>
+<p>若操作数不在数据段,则应在指令中使用段跨越前缀，指明使用的数据在哪一个段</p>
+<p>例如：</p>
+<p><code>MOV AX,ES:[2000H]</code></p>
+<p>该指令将物理地址为<code>PA=(ES)X10H+2000H</code>单元的值送AX</p>
+<p><strong>(2)寄存器间接寻址</strong></p>
+<p>操作数的有效地址由指令中指定的寄存器BX，BP，SI或DI的内容指定。<br>可分为下面两种情况</p>
+<p>①SI，DI或BX寄存器间接寻址，通常操作数实在数据段DS中，因此，<br>他们的物理地址是<code>PA=(DS)X10H+EA</code></p>
+<p>例：<br><code>MOV AX,[BX]</code></p>
+<p>设(DS)=2000H,（BX）=1000H,则该操作数的物理地址为：<br><code>PA=2000HX10H+1000H=21000H</code></p>
+<p>这条指令的执行结果是把内存单元21000H中的数据送到AX寄存器中</p>
+<p>②若是寄存器间接寻址，则该操作数在堆栈段SS中，即以堆栈段寄存器SS<br>与BP组合形成操作数的物理地址：<code>PA=(SS)X10H+(BP)</code></p>
+<p>例：<br><code>MOV BX,[BP]</code><br>设(SS)=1000H，(BP)=1500H,则<code>PA=1000Hx10H+1500H=11500H</code><br>该操作数把11500H存储单元的内容送到BX寄存器</p>
+<p><strong>(3)寄存器相对寻址</strong><br>这种寻址方式的操作数存放在存储器中的内存单元中，是以基址寄存器(BX或BP)或变址寄存器(DI或SI)的内容为基地址；然后在这个地址上加上8位或16位的位移量Disp，形成真正操作数的有效地址EA</p>
+<p>当寄存器为BX、SI、DI时，用段寄存器DS的内容作为段基地址，则物理地址:<br><code>PA=(DS)X10H+(BX)/(SI)/(DI)+Disp8/Disp16</code></p>
+<p>若寄存器为BP，则段寄存器SS的内容作为段首地址，则物理地址为:<br><code>PA=(SS)X10H+(BP)+Disp8/Disp16</code></p>
+<p>例：<br><code>MOV DI,[BX+2]</code></p>
+<p><strong>(4)基址变址寻址</strong><br>操作数存放在内存单元中，其偏移地址是基址寄存器的内容加上变址寄存器的内容之和。</p>
+<blockquote>
+<p>若基址寄存器为BX，则段寄存器为DS；<br>若基址寄存器为BP，则段寄存器为SS；</p>
+</blockquote>
+<p>则操作数物理地址为：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">PA&#x3D;(DS)X10H+(BX)+(SI)&#x2F;(DI) </span><br><span class="line">或</span><br><span class="line">PA&#x3D;(SS)X10H+(BP)+(SI)&#x2F;(DI)</span><br><span class="line"></span><br><span class="line">MOV DX,[BP][SI]</span><br></pre></td></tr></table></figure>
+
+<p><strong>(5)相对基址变址寻址</strong><br>操作数存放在内存单元中，其中有效地址由指令指定的基址寄存器加变址寄存器的内容在加上指令中的8位或16位偏移量Disp得到，</p>
+<p>其中物理地址为：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">PA&#x3D;(DS)X10H+(BX)+(SI)&#x2F;(DI)+Disp </span><br><span class="line">或</span><br><span class="line">PA&#x3D;(SS)X10H+(BP)+(SI)&#x2F;(DI)+Disp</span><br></pre></td></tr></table></figure>
+
+<p>例：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">MOV AX,MAS[BX][SI]      ;MAS为符号地址</span><br><span class="line">MOV DX,5[BX][DI]            ;将偏移地址为5+(BX)+(DI)所指的单元的值送DX</span><br></pre></td></tr></table></figure>
+
+<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p><strong>8086指令队列的作用</strong></p>
+<p>在执行指令的同时从内存中取了一条指令或下几条指令，取来的指令放在指令队列中这样它就不需要象以往的计算机那样让CPU轮番进行取指和执行的工作，从而提高CPU的利用率。</p>
+<p><strong>8086/8088CPU有哪几个状态标志位，有哪几个控制标志位？其意义各是什么？</strong></p>
+<p>状态标志位有6个：ZF、SF、CF、OF、AF、PF。<br>其意思是用来反映指令执行的特征，通常是由CPU根据指令执行结果自动设置的；<br>控制标志位有3个：DF、IF、TF。<br>它是由程序通过执行特定的指令来设置的，以控制指令的操作方式。</p>
+<p><strong>8086/8088微处理器内部有哪些寄存器，他们的主要作用是什么？</strong></p>
+<p>执行部件有8个16位寄存器，AX、BX、CX、DX、SP、BP、DI、SI，<br>AX、BX、CX、DX一般作为通用数据寄存器。<br>SP为堆栈指针存器<br>BP、DI、SI在间接寻址时作为地址寄存器或变址寄存器。<br>总线接口部件设有段寄存器CS、DS、SS、ES和指令指针寄存器IP。<br>段寄存器存放段地址，与偏移地址共同形成存储器的物理地址。<br>IP的内容为下一条将要执行指令的偏移地址，与CS共同形成下一条指令的物理地址。</p>
+<p><strong>INTR、INTA、NMI、ALE、HOLD、HLDA引脚的名称</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">INTR 可屏蔽请求信号</span><br><span class="line">INTA 中断请求信号</span><br><span class="line">NMI 可屏蔽中断请求信号</span><br><span class="line">ALE 地址锁存允许信号</span><br><span class="line">HOLD 总线请求信号</span><br><span class="line">HLDA 总线请求响应信号</span><br></pre></td></tr></table></figure>
+
+<p><strong>什么是中断？什么是中断向量？中断向量表的地址范围？</strong></p>
+<p>中断就是CPU在执行当前程序时由于内外部事件引起CPU暂时停止当前正在执行的程序而转向执行请求CPU暂时停止的内外部事件的服务程序，该程序处理完后又返回继续执行被停止的程序；中断向量是中断处理子程序的入口地址；地址范围是00000H-003FFH。</p>
+<p><strong>中断向量表的功能是什么？若中断向量号分为1AH和20H，则他们的中断向量在中断向量表的什么位置上？</strong></p>
+<p>中断向量表的功能是当中断源发出中断请求时，即可查找该表，找出其中断向量，就可转入相应的中断服务子程序。1AH在中断向量表的位置是1AH×4=68H在中断向量表0000H：0068H处；20H在中断向量表的位置是80H在中断向量表0000H：0080H处。</p>
+<p><strong>通常解决中断优先级的方法有哪几种？</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">3种</span><br><span class="line">软件查询确定优先级</span><br><span class="line">硬件优先级排队电路确定优先级</span><br><span class="line">中断屏蔽接口电路</span><br></pre></td></tr></table></figure>
+
+<p><strong>CPU响应可屏蔽中断的条件是什么？</strong></p>
+<p>（1）CPU必须处于开中断状态IF=1<br>（2）CPU现行指令执行结束<br>（3）没有其他优先级高的中断请求。<br>（没有内部中断，没有非屏蔽中断，没有总线请求)</p>
+<p><strong>以可屏蔽中断为例，说明一次完整的中断过程主要包括哪些环节？</strong></p>
+<p>中断请求：外设通过硬件信号的形式、向处理器引脚发送有效请求信号。</p>
+<p>中断响应：在满足一定条件时，处理器进入中断响应总线周期。</p>
+<p>关中断：处理器在响应中断后会自动关闭中断。</p>
+<p>断点保护：处理器在响应中断后将自动保护断点地址。</p>
+<p>中断源识别：处理器识别出当前究竟是哪个中断源提出了请求，并明确与之相应的中断服务程序所在主存位置。</p>
+<p>现场保护：对处理器执行程序有影响的工作环境（主要是寄存器）进行保护。</p>
+<p>中断服务：处理器执行相应的中断服务程序，进行数据传送等处理工作。</p>
+<p>恢复现场：完成中断服务后，恢复处理器原来的工作环境。</p>
+<p>开中断：处理器允许新的可屏蔽中断。</p>
+<p>中断返回：处理器执行中断返回指令，程序返回断点继续执行原来的程序。</p>
+<p><strong>在中断响应过程中，8086往8259A发的两个INTA信号分别起什么作用？</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">在中断响应过程中，CPU向8259A的INTR引脚发2个负脉冲。</span><br><span class="line">作用：</span><br><span class="line">第一个负脉冲通知8259A ，CPU允许中断请求，要求送中断类型；</span><br><span class="line">第二个负脉冲，8259传输中断类型码。</span><br></pre></td></tr></table></figure>
+
+<h1 id="常用汇编指令"><a href="#常用汇编指令" class="headerlink" title="常用汇编指令"></a>常用汇编指令</h1><p>汇编语言指令大致分为以下几类</p>
+<blockquote>
+<p>一、传送类指令<br>二、算数运算类指令<br>三、位操作指令<br>四、串操作指令<br>五、控制转移类指令<br>六、处理器控制类指令<br>七、汇编指令伪指令</p>
+</blockquote>
+<hr>
+<h2 id="一、传送类指令"><a href="#一、传送类指令" class="headerlink" title="一、传送类指令"></a>一、传送类指令</h2><h3 id="1-数据传送指令"><a href="#1-数据传送指令" class="headerlink" title="1.数据传送指令"></a><strong>1.数据传送指令</strong></h3><p><strong>（1） MOV 目的操作数，源操作数</strong><br><code>将源操作数送到目的操作数，目的和源的数的长度要相同，否则会长度不匹配</code><br><strong>（2）XCHG 传送指令</strong><br><code>XCHG 目的操作数，源操作数 //把源和目的操作数交换数值</code></p>
+<h3 id="2-有效地址传送指令LEA"><a href="#2-有效地址传送指令LEA" class="headerlink" title="2.有效地址传送指令LEA"></a><strong>2.有效地址传送指令LEA</strong></h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">LEA 目的操作数，源操作数</span><br><span class="line">把源操作数的偏移地址送目的操作数，</span><br><span class="line">源操作数必须是一个内存操作数，</span><br><span class="line">目的操作数必须是16位通用寄存器</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-堆栈指针操作指令"><a href="#3-堆栈指针操作指令" class="headerlink" title="3.堆栈指针操作指令"></a><strong>3.堆栈指针操作指令</strong></h3><p>堆栈是一块特殊的存储器区域，这块区域是以先进后出的方式工作，系统为此提供了特殊的指针SP，和段寄存器SS<br>主要特点是：<br>（1）堆栈是以字方式操作的<br><strong>（2）压入堆栈</strong>。<br>①先修改指针：<code>SP=SP -2</code><br>②再存入一个字<br><strong>（3）弹出堆栈。</strong><br>①先弹出一个字<br>②再修改指针：<code>SP=SP +2</code></p>
+<p><strong>（4）入栈指令PUSH</strong><br>格式：PUSH 操作数<br>该指令为数据入栈指令<br>即将操作数指定的一个字节的内容传送至SP所指的栈顶<br>寻址方式有寄存器寻址(段寄存器SS除外)和存储器寻址，<br>不能用立即数作操作数。<br>该指令不影响标志位。</p>
+<p>过程：<br>首先，堆栈<code>SP=SP-2</code><br>然后，操作数的高位字节——&gt;存入((SP)+1)单元中<br>操作数的低位字节——&gt;送入(SP)</p>
+<p><strong>（5）出栈指令：POP</strong><br>POP 操作数<br>将SP所指的栈顶内容传送至操作数指定的一个字。</p>
+<p><strong>寻址方式有：</strong><br>寄存器寻址(段寄存器SS除外)和存储器寻址<br>不能用立即数作操作数。<br>该指令不影响标志位。</p>
+<p><strong>过程：</strong><br>首先堆栈((SP)+1)单元字节——&gt;操作数的高字节位，<br>(SP)单元字节——&gt;操作数的低位字节。<br>然后<code>SP=SP-2</code></p>
+<h3 id="4-输入输出指令"><a href="#4-输入输出指令" class="headerlink" title="4.输入输出指令"></a><strong>4.输入输出指令</strong></h3><p><strong>（1）IN 输入指令</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">IN AL,N     ; （N）——&gt;AL</span><br><span class="line">IN AX,N     ;  （N+1:N）——&gt;AX</span><br><span class="line">IN AL,63H  ; 将端口地址为63H的一个字节内容输入到AL</span><br><span class="line">IN AX,55H  ;将两个相邻端口地址58H和59H的16位数据输入到AX</span><br></pre></td></tr></table></figure>
+
+<p><strong>（2）OUT 输出指令</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">OUT N,AL  ；（AL）字节——&gt;N端口地址的单元中</span><br><span class="line">OUT N,AX  ；（AX）字——&gt;N+1和N端口地址的单元中</span><br><span class="line"></span><br><span class="line">OUT 66H,AL  ；将AL内容送端口地址66H的单元中</span><br><span class="line">OUT 66H,AX  ；将AX内容送66H和67H端口地址的单元中</span><br></pre></td></tr></table></figure>
+
+<p><strong>！注意：</strong></p>
+<blockquote>
+<p>在汇编语言中，端口地址小于256(十六进制00H~FFH)时<br>可以直接在指令中写出端口地址<br>如果端口地址大于256，先将端口地址送入DX寄存器中，<br>然后在IN或OUT指令中用DX代表端口地址。</p>
+</blockquote>
+<hr>
+<h2 id="二、算数运算类指令"><a href="#二、算数运算类指令" class="headerlink" title="二、算数运算类指令"></a><strong>二、算数运算类指令</strong></h2><p>参加运算的可以是无符号数或带符号数，带符号的数以补码的形式存放或参与运算</p>
+<h3 id="1-加法指令"><a href="#1-加法指令" class="headerlink" title="1.加法指令"></a><strong>1.加法指令</strong></h3><p><strong>（1）ADD 目的操作数,源操作数</strong><br>目的操作数+源操作数——&gt;目的操作数<br><strong>（2）ADC带进位的加法指令</strong><br>ADC 目的操作数,源操作数<br>目的操作数+源操作数+CF——&gt;目的操作数<br><strong>例子：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">MOV AH，0     ；0——&gt;AH</span><br><span class="line">MOV AL，92H ；92H——&gt;AL</span><br><span class="line">ADD AL，86H  ；92H+86H&#x3D;18H——&gt;AL，CF&#x3D;1</span><br><span class="line">ADC AH，0      ；(AH)+0+CF&#x3D;0+0+1&#x3D;1——&gt;AH，即01H&#x3D;AH</span><br></pre></td></tr></table></figure>
+
+<p><strong>（3）INC 加|指令</strong><br>INC 操作数 //操作数加1，结果送操作数<br>操作数可以是任意一个8或16位的通用寄存器或存储单元，不能是立即数<br>指令中操作数当作无符号数时，主要用于计数器计数或修改指针地址的值。<br>如：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">INC DI   ；(DI)&#x3D;DI+1</span><br><span class="line">INC CX  ；(CX)&#x3D;CX+1</span><br></pre></td></tr></table></figure>
+
+<p><strong>说明</strong>：除了指令INC对标志位CF不影响外，其它加法指令对标志位的影响如下</p>
+<blockquote>
+<p>①CF：两个数相加，最高有效位有进位时，即字节运算超出无符号输的范围<br>0<del>255，字运算超出无符号数的范围0</del>65535时，CF=1，否则CF=0.<br>故两个无符号数相加时，可用CF值来判断是否超出了无符号数的表示范围<br>如果CF=1表示此无符号数加法运算结果发生了溢出。<br>②PF：运算结果以二进制数表示时，若”1”的个数为偶数时PF=1，否则PF=0<br>③AF：运算中D3向D4有进位时，AF=1，否则为0<br>④ZF：运算结果为0时，ZF=1；否则ZF=0<br>⑤SF：运算结果最高位为1时，SF=1，否则为0<br>⑥OF：当两个操作数的符号相同，而相加的结果的符号与操作数的符号相反时<br>OF=1，否则OF=0。该标志位用来判断带符号数相加的溢出</p>
+</blockquote>
+<p><strong>例如：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ADD AL，30H      ；（AH）+30H ——&gt; AL</span><br><span class="line">ADD AX，3000H  ；（AX）+3000H ——&gt; AX</span><br><span class="line">ADD BX，[SI]        ；（BX）+((SI))——&gt;BX</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-减法指令"><a href="#2-减法指令" class="headerlink" title="2.减法指令"></a><strong>2.减法指令</strong></h3><p><strong>（1）SUB</strong><br><code>SUB 目的操作数，源操作数</code><br>目的操作数=目的操作数-源操作数<br><strong>（2）SBB 带错位的减法指令</strong><br><code>SBB 目的操作数，源操作数</code><br>目的操作数=目的操作数-源操作数-CF<br><strong>（3）DEC 减1指令 格式：DEC 操作数</strong><br><code>DEC DI ；DI=(DI)-1</code><br><strong>（4）NEG 求补指令</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">NEG 操作数   &#x2F;&#x2F;0-操作数的内容后结果回送操作数</span><br><span class="line">MOV DI，05H</span><br><span class="line">NEG DI      ；DI&#x3D;0-(DI)&#x3D;0-05H&#x3D;0FBH</span><br></pre></td></tr></table></figure>
+
+<p><strong>（5）CMP 比较指令</strong><br>CMP 目的操作数，源操作数<br>执行时目的操作数与源操作数相减，只根据结果设置标志位<br>操作数均保持原值不变</p>
+<h3 id="3-类型扩展指令"><a href="#3-类型扩展指令" class="headerlink" title="3.类型扩展指令"></a><strong>3.类型扩展指令</strong></h3><p>为了解决操作数长度的匹配，有时需要把数据类型进行扩展。<br>主要有把字节扩展成字，把字扩展成双字</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">CBW：字节扩展成字</span><br><span class="line">CWD：字扩展成双字</span><br></pre></td></tr></table></figure>
+
+<p><strong>例子：</strong><br><strong>正数的扩展</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">MOV AL，52H</span><br><span class="line">CBW    ；执行指令后，AX&#x3D;0052H</span><br><span class="line">CWD    ；执行指令后，DX&#x3D;0000H，AX&#x3D;0052H</span><br></pre></td></tr></table></figure>
+
+<p><strong>负数的扩展</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">MOV AL，86H</span><br><span class="line">CBW   ；执行指令后，AX&#x3D;FF86H</span><br><span class="line">CWD   ；执行指令后，DX&#x3D;FFFFH，FF86H</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-乘法指令"><a href="#4-乘法指令" class="headerlink" title="4.乘法指令"></a><strong>4.乘法指令</strong></h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">MUL ：无符号数乘法</span><br><span class="line">IMUL：带符号数乘法</span><br></pre></td></tr></table></figure>
+
+<p>目的操作数必须是累加器，不必在指令中写出。<br><strong>例子：</strong><br><strong>无符号数乘法</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">MOV AL，05H</span><br><span class="line">MOV BL，06H</span><br><span class="line">MUL BL      &#x2F;&#x2F;执行结果AX&#x3D;30&#x3D;001EH</span><br></pre></td></tr></table></figure>
+
+<p><strong>有符号数乘法</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">MOV AL，-5</span><br><span class="line">MOV BL，+6</span><br><span class="line">IMUL BL  &#x2F;&#x2F;AX&#x3D;-30&#x3D;FFE2H</span><br></pre></td></tr></table></figure>
+
+<h3 id="5-除法指令"><a href="#5-除法指令" class="headerlink" title="5.除法指令"></a><strong>5.除法指令</strong></h3><p><strong>DIV：无符号除法</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SRC(源操作数)为字节时，AL&#x3D;AX&#x2F;SRC的商，AH&#x3D;AX&#x2F;SRC的余数</span><br><span class="line">SRC为字时：AX&#x3D;(DX,AX)&#x2F;SRC的商，DX&#x3D;(DX,AX)&#x2F;SRC的余数</span><br></pre></td></tr></table></figure>
+
+<p>商和余数都是无符号数。<br><strong>IDIV：有符号除法</strong><br>操作同上类似，目的操作数必须是累加器AX和DX，不必写出。</p>
+<hr>
+<h2 id="三、位操作指令"><a href="#三、位操作指令" class="headerlink" title="三、位操作指令"></a><strong>三、位操作指令</strong></h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">AND 与运算.</span><br><span class="line">or 或运算.</span><br><span class="line">XOR 异或运算.</span><br><span class="line">NOT 取反.</span><br><span class="line">TEST 测试.(两操作数作与运算,仅修改标志位,不回送结果).</span><br><span class="line">SHL 逻辑左移.</span><br><span class="line">SAL 算术左移.(&#x3D;SHL)</span><br><span class="line">SHR 逻辑右移.</span><br><span class="line">SAR 算术右移.(&#x3D;SHR)</span><br><span class="line">ROL 循环左移.</span><br><span class="line">ROR 循环右移.</span><br><span class="line">RCL 通过进位的循环左移.</span><br><span class="line">RCR 通过进位的循环右移.</span><br><span class="line">以上八种移位指令,其移位次数可达255次.</span><br><span class="line">移位一次时, 可直接用操作码. 如 SHL AX,1.</span><br><span class="line">移位&gt;1次时, 则由寄存器CL给出移位次数.</span><br><span class="line">如 MOV CL,04</span><br><span class="line">SHL AX,CL</span><br></pre></td></tr></table></figure>
+
+<h2 id="四、串操作指令"><a href="#四、串操作指令" class="headerlink" title="四、串操作指令"></a><strong>四、串操作指令</strong></h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">DS:SI 源串段寄存器 :源串变址.</span><br><span class="line">ES:DI 目标串段寄存器:目标串变址.</span><br><span class="line">CX 重复次数计数器.</span><br><span class="line">AL&#x2F;AX 扫描值.</span><br><span class="line">D标志 0表示重复操作中SI和DI应自动增量; 1表示应自动减量.</span><br><span class="line">Z标志 用来控制扫描或比较操作的结束.</span><br><span class="line">MOVS 串传送.</span><br><span class="line">( MOVSB 传送字符. MOVSW 传送字. MOVSD 传送双字. )</span><br><span class="line">CMPS 串比较.</span><br><span class="line">( CMPSB 比较字符. CMPSW 比较字. )</span><br><span class="line">SCAS 串扫描.</span><br><span class="line">把AL或AX的内容与目标串作比较,比较结果反映在标志位.</span><br><span class="line">LODS 装入串.</span><br><span class="line">把源串中的元素(字或字节)逐一装入AL或AX中.</span><br><span class="line">( LODSB 传送字符. LODSW 传送字. LODSD 传送双字. )</span><br><span class="line">STOS 保存串.</span><br><span class="line">是LODS的逆过程.</span><br><span class="line">REP 当CX&#x2F;ECX&lt;&gt;0时重复.，也就是直到CX&#x3D;0时结束</span><br><span class="line">REPE&#x2F;REPZ 当ZF&#x3D;1或比较结果相等,且CX&#x2F;ECX&lt;&gt;0时重复.</span><br><span class="line">REPNE&#x2F;REPNZ 当ZF&#x3D;0或比较结果不相等,且CX&#x2F;ECX&lt;&gt;0时重复.</span><br><span class="line">REPC 当CF&#x3D;1且CX&#x2F;ECX&lt;&gt;0时重复.</span><br><span class="line">REPNC 当CF&#x3D;0且CX&#x2F;ECX&lt;&gt;0时重复.</span><br></pre></td></tr></table></figure>
+
+<h2 id="五、控制转移类指令"><a href="#五、控制转移类指令" class="headerlink" title="五、控制转移类指令"></a><strong>五、控制转移类指令</strong></h2><p><strong>1&gt;无条件转移指令 (长转移)</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">JMP 无条件转移指令</span><br><span class="line">CALL 过程调用</span><br><span class="line">RET&#x2F;RETF过程返回.</span><br></pre></td></tr></table></figure>
+
+<p><strong>2&gt;条件转移指令 (短转移,-128到+127的距离内)</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">( 当且仅当(SF XOR OF)&#x3D;1时,OP1&lt;OP2 )</span><br><span class="line">JA&#x2F;JNBE 不小于或不等于时转移.</span><br><span class="line">JAE&#x2F;JNB 大于或等于转移.</span><br><span class="line">JB&#x2F;JNAE 小于转移.</span><br><span class="line">JBE&#x2F;JNA 小于或等于转移.</span><br><span class="line">以上四条,测试无符号整数运算的结果(标志C和Z).</span><br><span class="line">JG&#x2F;JNLE 大于转移.</span><br><span class="line">JGE&#x2F;JNL 大于或等于转移.</span><br><span class="line">JL&#x2F;JNGE 小于转移.</span><br><span class="line">JLE&#x2F;JNG 小于或等于转移.</span><br><span class="line">以上四条,测试带符号整数运算的结果(标志S,O和Z).</span><br><span class="line">JE&#x2F;JZ 等于转移.</span><br><span class="line">JNE&#x2F;JNZ 不等于时转移.</span><br><span class="line">JC 有进位时转移.</span><br><span class="line">JNC 无进位时转移.</span><br><span class="line">JNO 不溢出时转移.</span><br><span class="line">JNP&#x2F;JPO 奇偶性为奇数时转移.</span><br><span class="line">JNS 符号位为 &quot;0&quot; 时转移.</span><br><span class="line">JO 溢出转移.</span><br><span class="line">JP&#x2F;JPE 奇偶性为偶数时转移.</span><br><span class="line">JS 符号位为 &quot;1&quot; 时转移.</span><br></pre></td></tr></table></figure>
+
+<p><strong>3&gt;循环控制指令(短转移)</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">LOOP CX不为零时循环.</span><br><span class="line">LOOPE&#x2F;LOOPZ CX不为零且标志Z&#x3D;1时循环.</span><br><span class="line">LOOPNE&#x2F;LOOPNZ CX不为零且标志Z&#x3D;0时循环.</span><br><span class="line">JCXZ CX为零时转移.</span><br><span class="line">JECXZ ECX为零时转移.</span><br></pre></td></tr></table></figure>
+
+<p><strong>4&gt;中断指令</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">INT 中断指令</span><br><span class="line">INTO 溢出中断</span><br><span class="line">IRET 中断返回</span><br></pre></td></tr></table></figure>
+
+<h2 id="六、处理器控制类指令"><a href="#六、处理器控制类指令" class="headerlink" title="六、处理器控制类指令"></a><strong>六、处理器控制类指令</strong></h2><p>处理器控制类指令只能完成对CPU的简单控制功能。<br>共有12条<br><strong>对标志位操作</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">CLC（进位位置0指令）</span><br><span class="line">CMC（进位位求反指令）</span><br><span class="line">STC（进位位置为1指令）</span><br><span class="line">CLD（方向标志置1指令）</span><br><span class="line">STD（方向标志位置1指令）</span><br><span class="line">CLI（中断标志置0指令）</span><br><span class="line">STI（中断标志置1指令）</span><br></pre></td></tr></table></figure>
+
+<p><strong>同步控制</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">WAIT（等待）</span><br><span class="line">ESC（交权）</span><br><span class="line">LOCK（封锁总线）</span><br></pre></td></tr></table></figure>
+
+<p><strong>其他</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">NOP（无操作）</span><br><span class="line">HLT（暂停）</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="七、汇编指令伪指令"><a href="#七、汇编指令伪指令" class="headerlink" title="七、汇编指令伪指令"></a><strong>七、汇编指令伪指令</strong></h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">DW 定义字(2字节).</span><br><span class="line">PROC 定义过程.</span><br><span class="line">ENDP 过程结束.</span><br><span class="line">SEGMENT 定义段.</span><br><span class="line">ASSUME 建立段寄存器寻址.</span><br><span class="line">ENDS 段结束.</span><br><span class="line">END 程序结束.</span><br></pre></td></tr></table></figure>
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+    
+<nav id="article-nav">
+    
+    
+        <a href="/2021/06/21/%E3%80%905%E3%80%91%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/%E6%BC%8F%E6%B4%9E%E6%89%AB%E6%8F%8F%E5%99%A8/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Older</strong>
+            <div class="article-nav-title">漏洞扫描器</div>
+        </a>
+    
+</nav>
+
+
+
+
+
+    
+    
+
+
+
+
+<!-- baidu url auto push script -->
+<script type="text/javascript">
+    !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=window.location.href,o=document.referrer;if(!e.test(r)){var n="//api.share.baidu.com/s.gif";o?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var t=new Image;t.src=n}}(window);
+</script>     
+
+
+</section>
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            wintrysec &copy; 2021 
+            <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png" /></a>
+            <br> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme - <a href="https://github.com/zthxxx/hexo-theme-Wikitten" target="_blank" rel="noopener">wikitten</a>
+            
+                <br>
+                <span id="busuanzi_container_site_pv"><i class="fa fa-eye"></i> <span id="busuanzi_value_site_pv"></span></span>
+                &nbsp;|&nbsp;
+                <span id="busuanzi_container_site_pv"><i class="fa fa-user"></i> <span id="busuanzi_value_site_uv"></span></span>
+            
+        </div>
+    </div>
+</footer>
+
+        
+
+    
+        
+<script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-share.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-video.min.js"></script>
+
+    
+    
+        
+<script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+
+    
+    
+        <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true,
+            TeX: {
+                equationNumbers: {
+                  autoNumber: 'AMS'
+                }
+            }
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+
+
+<!-- Custom Scripts -->
+
+<script src="/js/main.js"></script>
+
+
+    </div>
+</body>
+</html>
