@@ -207,7 +207,7 @@
                             &nbsp;
                             【2】构建通道
                         </a>
-                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2021/06/21/%E3%80%903%E3%80%91%E6%94%BB%E9%98%B2%E5%AF%B9%E6%8A%97/%E3%80%902%E3%80%91%E6%9E%84%E5%BB%BA%E9%80%9A%E9%81%93/agent/">构建通道漫游内网</a></li>  <li class="file"><a href="/2021/06/21/%E3%80%903%E3%80%91%E6%94%BB%E9%98%B2%E5%AF%B9%E6%8A%97/%E3%80%902%E3%80%91%E6%9E%84%E5%BB%BA%E9%80%9A%E9%81%93/%E6%9E%84%E5%BB%BA%E9%80%9A%E9%81%93/">构建通道漫游内网</a></li>  </ul> 
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2021/06/21/%E3%80%903%E3%80%91%E6%94%BB%E9%98%B2%E5%AF%B9%E6%8A%97/%E3%80%902%E3%80%91%E6%9E%84%E5%BB%BA%E9%80%9A%E9%81%93/agent/">构建通道漫游内网</a></li>  </ul> 
                     </li> 
                     
                     <li class="directory">
@@ -290,7 +290,7 @@
                             &nbsp;
                             【5】渗透测试
                         </a>
-                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2021/06/21/%E3%80%905%E3%80%91%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/WAF_Bypass/"></a></li>  <li class="file"><a href="/2021/06/21/%E3%80%905%E3%80%91%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95CheckList/">渗透测试CheckList</a></li>  <li class="file"><a href="/2021/06/21/%E3%80%905%E3%80%91%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/%E6%BC%8F%E6%B4%9E%E6%89%AB%E6%8F%8F%E5%99%A8/">漏洞扫描器</a></li>  </ul> 
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2021/06/21/%E3%80%905%E3%80%91%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/%E6%BC%8F%E6%B4%9E%E6%89%AB%E6%8F%8F%E5%99%A8/">漏洞扫描器</a></li>  <li class="file"><a href="/2021/06/21/%E3%80%905%E3%80%91%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95CheckList/">渗透测试CheckList</a></li>  <li class="file"><a href="/2021/06/21/%E3%80%905%E3%80%91%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/WAF%E7%BB%95%E8%BF%87/">WAF_Bypass</a></li>  </ul> 
                     </li> 
                     
                     <li class="directory">
@@ -373,98 +373,6 @@
 </aside>
             
             <section id="main">
-        <article id="post-【1】Web安全/MySQL写shell" class="article article-type-post" itemscope itemprop="blogPost">
-    
-    <div class="article-inner">
-        
-        
-            <header class="article-header">
-                
-                    <div class="article-meta">
-                        
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/">【1】Web安全</a>
-    </div>
-
-                        
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/2020/01/22/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/MySQL%E5%86%99shell/">
-            <time datetime="2020-01-22T12:11:00.000Z" itemprop="datePublished">2020-01-22</time>
-        </a>
-    </div>
-
-
-                        
-                            <i class="fa fa-bar-chart"></i>
-                            <span id="busuanzi_container_site_pv"><span id="busuanzi_value_page_pv"></span></span>    
-                        
-
-                    </div>
-                
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/2020/01/22/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/MySQL%E5%86%99shell/">MySQL写shell</a>
-        </h1>
-    
-
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-        
-            
-                
-                
-                    
-                    
-                
-                    
-                    
-                
-                    
-                    
-                
-                    
-                    
-                
-                    
-                    
-                
-                
-                    
-                    <p><p><strong>MySQL注入点，用工具对目标站直接写入一句话，需要哪些条件？</strong></p>
-<p>root权限以及网站的绝对路径</p>
-<h2 id="outfile和dumpfile写shell"><a href="#outfile和dumpfile写shell" class="headerlink" title="outfile和dumpfile写shell"></a>outfile和dumpfile写shell</h2><h3 id="利用条件"><a href="#利用条件" class="headerlink" title="利用条件"></a>利用条件</h3><p>过滤了单引号into outfile还能用吗？不能，GPC要off才行，可以测试Hex编码</p>
-<blockquote>
-<ol>
-<p>
-                
-            
-        
-        
-            </div>   
-            <div class="article-more-link">
-                <a href="/2020/01/22/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/MySQL%E5%86%99shell/#more">Read More</a>
-            </div>
-        
-        <footer class="article-footer">
-        </footer>
-    </div>
-</article>
-
-
-
-
-
-
-
-
-    
         <article id="post-【1】Web安全/SQL注入漏洞" class="article article-type-post" itemscope itemprop="blogPost">
     
     <div class="article-inner">
@@ -1109,6 +1017,98 @@
 
 
     
+        <article id="post-【2】工具手册/CobaltStrike" class="article article-type-post" itemscope itemprop="blogPost">
+    
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/%E3%80%902%E3%80%91%E5%B7%A5%E5%85%B7%E6%89%8B%E5%86%8C/">【2】工具手册</a>
+    </div>
+
+                        
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2020/01/22/%E3%80%902%E3%80%91%E5%B7%A5%E5%85%B7%E6%89%8B%E5%86%8C/CobaltStrike/">
+            <time datetime="2020-01-22T12:03:00.000Z" itemprop="datePublished">2020-01-22</time>
+        </a>
+    </div>
+
+
+                        
+                            <i class="fa fa-bar-chart"></i>
+                            <span id="busuanzi_container_site_pv"><span id="busuanzi_value_page_pv"></span></span>    
+                        
+
+                    </div>
+                
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/2020/01/22/%E3%80%902%E3%80%91%E5%B7%A5%E5%85%B7%E6%89%8B%E5%86%8C/CobaltStrike/">CobaltStrike速查手册</a>
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+                
+                
+                    
+                    
+                
+                    
+                    
+                
+                    
+                    
+                
+                    
+                    
+                
+                    
+                    
+                
+                
+                    
+                    <p><h1 id="基础常用功能"><a href="#基础常用功能" class="headerlink" title="基础常用功能"></a>基础常用功能</h1><h2 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h2><p>搭建团队服务器</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">./teamserver VPS-IP password</span><br></pre></td></tr></table></figure>
+
+<h2 id="Host-File"><a href="#Host-File" class="headerlink" title="Host File"></a>Host File</h2><p>托管主机文件</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Attacks-&gt; Web Drive-by -&gt; Host File</span><br></pre></td></tr></table></figure>
+<p>
+                
+            
+        
+        
+            </div>   
+            <div class="article-more-link">
+                <a href="/2020/01/22/%E3%80%902%E3%80%91%E5%B7%A5%E5%85%B7%E6%89%8B%E5%86%8C/CobaltStrike/#more">Read More</a>
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+
+
+
+
+
+
+    
         <article id="post-【1】Web安全/文件包含漏洞" class="article article-type-post" itemscope itemprop="blogPost">
     
     <div class="article-inner">
@@ -1201,7 +1201,7 @@
 
 
     
-        <article id="post-【2】工具手册/CobaltStrike" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-【1】Web安全/文件上传漏洞" class="article article-type-post" itemscope itemprop="blogPost">
     
     <div class="article-inner">
         
@@ -1212,15 +1212,15 @@
                         
     <div class="article-category">
     	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/%E3%80%902%E3%80%91%E5%B7%A5%E5%85%B7%E6%89%8B%E5%86%8C/">【2】工具手册</a>
+        <a class="article-category-link" href="/categories/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/">【1】Web安全</a>
     </div>
 
                         
                         
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/2020/01/22/%E3%80%902%E3%80%91%E5%B7%A5%E5%85%B7%E6%89%8B%E5%86%8C/CobaltStrike/">
-            <time datetime="2020-01-22T12:03:00.000Z" itemprop="datePublished">2020-01-22</time>
+        <a href="/2020/01/22/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E/">
+            <time datetime="2020-01-22T12:02:00.000Z" itemprop="datePublished">2020-01-22</time>
         </a>
     </div>
 
@@ -1235,7 +1235,7 @@
                 
     
         <h1 itemprop="name">
-            <a class="article-title" href="/2020/01/22/%E3%80%902%E3%80%91%E5%B7%A5%E5%85%B7%E6%89%8B%E5%86%8C/CobaltStrike/">CobaltStrike速查手册</a>
+            <a class="article-title" href="/2020/01/22/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E/">文件上传漏洞</a>
         </h1>
     
 
@@ -1265,11 +1265,11 @@
                 
                 
                     
-                    <p><h1 id="基础常用功能"><a href="#基础常用功能" class="headerlink" title="基础常用功能"></a>基础常用功能</h1><h2 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h2><p>搭建团队服务器</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">./teamserver VPS-IP password</span><br></pre></td></tr></table></figure>
-
-<h2 id="Host-File"><a href="#Host-File" class="headerlink" title="Host File"></a>Host File</h2><p>托管主机文件</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Attacks-&gt; Web Drive-by -&gt; Host File</span><br></pre></td></tr></table></figure>
+                    <p><h2 id="客户端校验"><a href="#客户端校验" class="headerlink" title="客户端校验"></a>客户端校验</h2><p><strong>检测</strong></p>
+<p>Javascript校验后缀名（一般只校验后缀名）</p>
+<p><strong>绕过</strong></p>
+<p>开Burp代理，随便点击浏览“”选择文件，但是还没点击“上传”，就弹出警告框，说明流量没经过burp代理；所以非常可能是客户端JavaScript检测。</p>
+<p>直接把木马改成<code>.gif</code>后缀上传，BurpSuite拦包修改后缀名</p>
 <p>
                 
             
@@ -1277,7 +1277,7 @@
         
             </div>   
             <div class="article-more-link">
-                <a href="/2020/01/22/%E3%80%902%E3%80%91%E5%B7%A5%E5%85%B7%E6%89%8B%E5%86%8C/CobaltStrike/#more">Read More</a>
+                <a href="/2020/01/22/%E3%80%901%E3%80%91Web%E5%AE%89%E5%85%A8/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E/#more">Read More</a>
             </div>
         
         <footer class="article-footer">
