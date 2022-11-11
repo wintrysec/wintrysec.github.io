@@ -1,0 +1,1 @@
+import{_ as a}from"./_plugin-vue_export-helper.cdc0426e.js";import{o as t,c as o,a as e,b as r}from"./app.0f6a2e4c.js";const c={},n=e("h2",{id:"why",tabindex:"-1"},[e("a",{class:"header-anchor",href:"#why","aria-hidden":"true"},"#"),r(" Why")],-1),s=[n];function _(d,h){return t(),o("div",null,s)}const m=a(c,[["render",_],["__file","namp.html.vue"]]);export{m as default};

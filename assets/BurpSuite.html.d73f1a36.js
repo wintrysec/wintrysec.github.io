@@ -1,0 +1,1 @@
+import{_ as t}from"./_plugin-vue_export-helper.cdc0426e.js";import{o as r,c as a,a as e,b as o}from"./app.0f6a2e4c.js";const c={},s=e("h2",{id:"why",tabindex:"-1"},[e("a",{class:"header-anchor",href:"#why","aria-hidden":"true"},"#"),o(" Why")],-1),n=[s];function _(i,d){return r(),a("div",null,n)}const u=t(c,[["render",_],["__file","BurpSuite.html.vue"]]);export{u as default};
