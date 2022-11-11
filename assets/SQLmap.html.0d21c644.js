@@ -1,0 +1,1 @@
+import{_ as a}from"./_plugin-vue_export-helper.cdc0426e.js";import{o as t,c as o,a as e,b as r}from"./app.433cfde8.js";const c={},s=e("h2",{id:"why",tabindex:"-1"},[e("a",{class:"header-anchor",href:"#why","aria-hidden":"true"},"#"),r(" Why")],-1),n=[s];function _(d,h){return t(),o("div",null,n)}const m=a(c,[["render",_],["__file","SQLmap.html.vue"]]);export{m as default};

@@ -1,1 +1,0 @@
-import{_ as t}from"./_plugin-vue_export-helper.cdc0426e.js";import{o as a,c as o,a as e,b as r}from"./app.0f6a2e4c.js";const s={},c=e("h2",{id:"why",tabindex:"-1"},[e("a",{class:"header-anchor",href:"#why","aria-hidden":"true"},"#"),r(" Why")],-1),n=[c];function _(i,d){return a(),o("div",null,n)}const f=t(s,[["render",_],["__file","Metasploit.html.vue"]]);export{f as default};
