@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Markmap</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+}
+#mindmap {
+  display: block;
+  width: 100vw;
+  height: 100vh;
+}
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/markmap-toolbar@0.14.3/dist/style.css">
+</head>
+<body>
+<svg id="mindmap"></svg>
+<script src="https://cdn.jsdelivr.net/npm/d3@6.7.0"></script><script src="https://cdn.jsdelivr.net/npm/markmap-view@0.14.3"></script><script src="https://cdn.jsdelivr.net/npm/markmap-toolbar@0.14.3/dist/index.umd.min.js"></script><script>(r => {
+                setTimeout(r);
+              })(() => {
+  const {
+    markmap,
+    mm
+  } = window;
+  // const toolbar = new markmap.Toolbar();
+  // toolbar.attach(mm);
+  // const el = toolbar.render();
+  el.setAttribute('style', 'position:absolute;bottom:20px;right:20px');
+  document.body.append(el);
+})</script><script>((getMarkmap, getOptions, root, jsonOptions) => {
+        const markmap = getMarkmap();
+        window.mm = markmap.Markmap.create('svg#mindmap', (getOptions || markmap.deriveOptions)(jsonOptions), root);
+      })(() => window.markmap,null,{"type":"heading","depth":0,"payload":{"lines":[0,1]},"content":"信息收集","children":[{"type":"heading","depth":1,"payload":{"lines":[1,2]},"content":"组织架构（<a href=\"https://www.tianyancha.com/\">天眼查</a>）","children":[{"type":"list_item","depth":2,"payload":{"lines":[2,3]},"content":"分支机构（<a href=\"https://beian.miit.gov.cn/#/Integrated/recordQuery\">IPC备案</a> 查域名）"},{"type":"list_item","depth":2,"payload":{"lines":[3,4]},"content":"域名 <a href=\"https://www.hostinger.com.hk/whois\">Whois查询</a>"},{"type":"list_item","depth":2,"payload":{"lines":[4,5]},"content":"微信小程序、APP"},{"type":"list_item","depth":2,"payload":{"lines":[5,6]},"content":"供应链-软件开发商（社工、获取源码）"}]},{"type":"heading","depth":1,"payload":{"lines":[6,7]},"content":"子域名资产","children":[{"type":"list_item","depth":2,"payload":{"lines":[7,8]},"content":"子域名枚举","children":[{"type":"list_item","depth":3,"payload":{"lines":[8,9]},"content":"<a href=\"https://www.dnsgrep.cn/ip\">DNSgrep</a>"},{"type":"list_item","depth":3,"payload":{"lines":[9,10]},"content":"<a href=\"https://chaziyu.com/\">查子域</a>"},{"type":"list_item","depth":3,"payload":{"lines":[10,11]},"content":"Subfinder 开源工具 <a href=\"https://github.com/projectdiscovery/subfinder\">Github</a>"}]},{"type":"list_item","depth":2,"payload":{"lines":[11,12]},"content":"CDN绕过","children":[{"type":"list_item","depth":3,"payload":{"lines":[12,13]},"content":"识别CDN-<a href=\"https://www.itdog.cn/ping/\">多地ping</a>"},{"type":"list_item","depth":3,"payload":{"lines":[13,14]},"content":"title=&quot;网站标题&quot;"},{"type":"list_item","depth":3,"payload":{"lines":[14,15]},"content":"cert=&quot;一级域名&quot;"},{"type":"list_item","depth":3,"payload":{"lines":[15,16]},"content":"让服务器主动请求 (邮件原文、SSRF)"}]}]},{"type":"heading","depth":1,"payload":{"lines":[16,17]},"content":"IP资产","children":[{"type":"list_item","depth":2,"payload":{"lines":[17,18]},"content":"IP反查旁站","children":[{"type":"list_item","depth":3,"payload":{"lines":[18,19]},"content":"<a href=\"https://chapangzhan.com/\">查旁站</a>"},{"type":"list_item","depth":3,"payload":{"lines":[19,20]},"content":"<a href=\"https://c.webscan.cc/\">Webscan</a>"}]},{"type":"list_item","depth":2,"payload":{"lines":[20,21]},"content":"C段资产扫描"},{"type":"list_item","depth":2,"payload":{"lines":[21,22]},"content":"目标开放的端口服务"},{"type":"list_item","depth":2,"payload":{"lines":[22,23]},"content":"Web指纹（目标使用的开发框架）"},{"type":"list_item","depth":2,"payload":{"lines":[23,24]},"content":"目录扫描（用于发现备份文件、源码泄露、网站后台）"},{"type":"list_item","depth":2,"payload":{"lines":[24,25]},"content":"未授权接口","children":[{"type":"list_item","depth":3,"payload":{"lines":[25,26]},"content":"网页js源码搜 location.href 跳转"},{"type":"list_item","depth":3,"payload":{"lines":[26,27]},"content":"JSFinder工具"}]}]},{"type":"heading","depth":1,"payload":{"lines":[27,28]},"content":"敏感信息","children":[{"type":"list_item","depth":2,"payload":{"lines":[28,29]},"content":"文档信息","children":[{"type":"list_item","depth":3,"payload":{"lines":[29,30]},"content":"<a href=\"https://www.lingfengyun.com/\">凌风云</a>"},{"type":"list_item","depth":3,"payload":{"lines":[30,31]},"content":"Google（filetype:doc）"}]},{"type":"list_item","depth":2,"payload":{"lines":[31,32]},"content":"系统源码（Github）&quot;xxx.com&quot; in:file,path"},{"type":"list_item","depth":2,"payload":{"lines":[32,33]},"content":"Google hacker","children":[{"type":"list_item","depth":3,"payload":{"lines":[33,34]},"content":"intitle:网站标题"},{"type":"list_item","depth":3,"payload":{"lines":[34,35]},"content":"allintitle:标题1 标题2"},{"type":"list_item","depth":3,"payload":{"lines":[35,36]},"content":"intext:网页内容"},{"type":"list_item","depth":3,"payload":{"lines":[36,37]},"content":"奥林匹克 site:.gov（在顶级域名搜索某内容）"},{"type":"list_item","depth":3,"payload":{"lines":[37,38]},"content":"加双引号精准搜索"}]}]}]},{})</script>
+</body>
+</html>
