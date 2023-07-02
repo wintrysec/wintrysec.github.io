@@ -4,23 +4,25 @@
 - 域名 [Whois查询](https://www.hostinger.com.hk/whois)
 - 微信小程序、APP
 - 供应链-软件开发商（社工、获取源码）
-## 子域名资产
+## 子域名资产收集
 - 子域名枚举
-  - 开源工具：被动收集+DNS爆破
-  - [FindSubs](https://github.com/wintrysec/FindSubs)
+  - FindSubs(自研工具)
 - CDN绕过
   - 识别CDN-[多地ping](https://www.itdog.cn/ping/)
+  - 让服务器主动请求 (邮件原文、SSRF)
   - title="网站标题"
   - cert="一级域名"
-  - 让服务器主动请求 (邮件原文、SSRF)
-## IP资产
+  - icon_hash="xxx"
+  - site:xxx.com(搜索引擎)
+  
+## IP资产梳理
 - IP反查旁站
   - [查旁站](https://chapangzhan.com/)
-  - [Webscan](https://c.webscan.cc/)
-  - [DNSgrep](https://www.dnsgrep.cn/ip)
-- C段资产扫描
-- 目标开放的端口服务
-- Web指纹（目标使用的开发框架）
+  - [Netlas](https://app.netlas.io/host/)
+  - [RapidDNS](https://rapiddns.io/)
+- C段IP资产扫描,拓展攻击面
+- 端口扫描用于发现目标开放的服务
+- Web应用指纹（目标使用的开发框架和中间件）
 - 目录扫描（用于发现备份文件、源码泄露、网站后台）
 - 未授权接口
   - 网页js源码搜 location.href 跳转
