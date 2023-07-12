@@ -18,7 +18,6 @@
 ## IP资产梳理
 - IP反查旁站
   - [查旁站](https://chapangzhan.com/)
-  - [Netlas](https://app.netlas.io/host/)
   - [RapidDNS](https://rapiddns.io/)
 - C段IP资产扫描,拓展攻击面
 - 端口扫描用于发现目标开放的服务
@@ -30,8 +29,10 @@
 ## 敏感信息
 - 文档信息
   - [凌风云](https://www.lingfengyun.com/)
-  - Google（filetype:doc）
-- 系统源码（Github）"xxx.com" in:file,path
+  - [语雀](https://www.yuque.com/search?tab=public&q=boe)
+- 系统源码
+  - [Github](https://github.com/) "xxx.com" in:file,path
+  - [Gitee](https://search.gitee.com/?type=code&q=passwd)
 - Google hacker
   - intitle:网站标题
   - allintitle:标题1 标题2
