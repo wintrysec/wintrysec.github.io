@@ -1,30 +1,30 @@
 # 信息收集
-## 组织架构（[天眼查](https://www.tianyancha.com/)）
-- 分支机构（[IPC备案](https://beian.miit.gov.cn/#/Integrated/recordQuery) 查域名）
-- 域名 [Whois查询](https://www.hostinger.com.hk/whois)
-- 微信小程序、APP
-- 供应链-软件开发商（社工、获取源码）
+## 组织架构
+- 分支机构、对外投资 - [爱企查](https://aiqicha.baidu.com/) 
+- 根域名信息 
+  - [Whois查询1](https://www.hostinger.com.hk/whois)
+  - [Whois查询2](https://www.861.cn/Domain/whois.aspx)
+  - [ICP备案查询](https://beian.miit.gov.cn/#/Integrated/recordQuery)
+- 移动端安全（微信小程序、APP）
+- 供应链-软件开发商（获取源码）
+
 ## 子域名资产收集
-- 子域名枚举
-  - FindSubs(自研工具)
+- 子域名枚举 - [Defender](https://ti.defender.microsoft.com/search/data/subdomains?query=wgpsec.org)
 - CDN绕过
-  - 识别CDN-[多地ping](https://www.itdog.cn/ping/)
-  - 让服务器主动请求 (邮件原文、SSRF)
+  - 识别CDN - [多地ping](https://www.itdog.cn/ping/)
   - title="网站标题"
   - cert="一级域名"
   - icon_hash="xxx"
   - site:xxx.com(搜索引擎)
+  - 让服务器主动请求 (邮件原文、SSRF)
   
 ## IP资产梳理
-- IP反查旁站
-  - [查旁站](https://chapangzhan.com/)
-  - [RapidDNS](https://rapiddns.io/)
 - C段IP资产扫描,拓展攻击面
 - 端口扫描用于发现目标开放的服务
 - Web应用指纹（目标使用的开发框架和中间件）
 - 目录扫描（用于发现备份文件、源码泄露、网站后台）
 - 未授权接口
-  - 网页js源码搜 location.href 跳转
+  - FindSomething工具
   - URLFinder工具
 ## 敏感信息
 - 文档信息
