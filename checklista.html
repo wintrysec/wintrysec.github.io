@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>安全测试ToDoList</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f2f5;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            padding: 15px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 0;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .section-header:hover {
+            background: #f8f9fa;
+        }
+
+        .section-title {
+            font-size: 1.2em;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .section-content {
+            padding-left: 15px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+
+        /* 进度统计面板样式 */
+        .progress-panel {
+            margin-bottom: 20px;
+            background: #e9ecef;
+            padding: 15px;
+            border-radius: 8px;
+        }
+
+        .progress-panel .progress-text {
+            margin: 0;
+            font-size: 1.1em;
+        }
+
+        .progress-panel .percentage {
+            font-weight: bold;
+            color: #17a2b8;
+        }
+
+        .task-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .task-item {
+            padding: 10px;
+            border-bottom: 1px solid #e8e8e8;
+            cursor: pointer;
+        }
+
+        .task-item:last-child {
+            border-bottom: none;
+        }
+
+        .task-checkbox {
+            appearance: none;
+            width: 24px;
+            height: 24px;
+            background-color: #f8f9fa;
+            border: 2px solid #ced4da;
+            border-radius: 4px;
+            cursor: pointer;
+            vertical-align: middle;
+            margin-right: 10px;
+        }
+
+        .task-checkbox:checked {
+            background-color: #17a2b8;
+            border-color: #17a2b8;
+        }
+
+        .task-checkbox:checked::after {
+            content: '';
+            display: block;
+            width: 12px;
+            height: 12px;
+            background: white;
+            transform: rotate(45deg);
+            position: absolute;
+            top: 4px;
+            left: 6px;
+        }
+
+        .task-description {
+            display: inline-block;
+            vertical-align: middle;
+            font-size: 0.9em;
+        }
+
+        .task-description strong {
+            font-weight: 600;
+        }
+
+        .subtask {
+            margin-left: 20px;
+            padding-left: 10px;
+            border-left: 2px solid #ced4da;
+        }
+
+        .completed {
+            text-decoration: line-through;
+            color: #6c757d;
+        }
+
+        @media (max-width: 768px) {
+            .section-content {
+                padding-left: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 进度统计面板 -->
+        <div class="progress-panel">
+            <h3 class="progress-text">进度统计</h3>
+            <div class="progress-details">
+                <p>已完成任务: <span class="completed-count">0</span>/<span class="total-count">0</span></p>
+                <p>完成进度: <span class="percentage">0%</span></p>
+            </div>
+        </div>
+
+        <!-- 配置不当 -->
+        <div class="section">
+            <div class="section-header" onclick="toggleSection('config')">
+                <h3 class="section-title">配置不当</h3>
+                <span class="arrow">▼</span>
+            </div>
+            <div class="section-content" id="config-content">
+                <ul class="task-list">
+                    <li class="task-item">
+                        <input type="checkbox" class="task-checkbox" data-task="检查网站备份文件..." onchange="updateTaskStatus(this)">
+                        <span class="task-description">检查网站备份文件和配置文件路径，是否有敏感信息泄露</span>
+                    </li>
+                    <li class="task-item">
+                        <input type="checkbox" class="task-checkbox" data-task="确保安全 HTTP标头..." onchange="updateTaskStatus(this)">
+                        <span class="task-description">确保安全 HTTP标头（例如 CSP、X-Frame-Options、HSTS）正确配置</span>
+                    </li>
+                    <li class="task-item">
+                        <input type="checkbox" class="task-checkbox" data-task="敏感信息泄露检查..." onchange="updateTaskStatus(this)">
+                        <span class="task-description">敏感信息泄露（检查API接口和变量参数，遍历ID获取用户敏感信息）</span>
+                    </li>
+                    <li class="task-item">
+                        <input type="checkbox" class="task-checkbox" data-task="Github泄露源码..." onchange="updateTaskStatus(this)">
+                        <span class="task-description">Github 泄露应用程序的源码和用户凭证（JS、报错、html）</span>
+                    </li>
+                    <li class="task-item">
+                        <input type="checkbox" class="task-checkbox" data-task="云文档泄露..." onchange="updateTaskStatus(this)">
+                        <span class="task-description">云文档泄露网站运维信息和使用手册（例如语雀、百度文库）</span>
+                    </li>
+                    <li class="task-item">
+                        <input type="checkbox" class="task-checkbox" data-task="客户端代码敏感数据..." onchange="updateTaskStatus(this)">
+                        <span class="task-description">检查客户端代码中的敏感数据（例如 API 密钥、凭据）</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- SSL/TLS安全 -->
+        <div class="section">
+            <div class="section-header" onclick="toggleSection('ssl')">
+                <h3 class="section-title">SSL/TLS安全</h3>
+                <span class="arrow">▼</span>
+            </div>
+            <div class="section-content" id="ssl-content">
+                <ul class="task-list">
+                    <li class="task-item">
+                        <input type="checkbox" class="task-checkbox" data-task="验证SSL/TLS版本..." onchange="updateTaskStatus(this)">
+                        <span class="task-description">验证使用的SSL/TLS版本，确保为最新版本</span>
+                    </li>
+                    <li class="task-item">
+                        <input type="checkbox" class="task-checkbox" data-task="确保HTTPS传输..." onchange="updateTaskStatus(this)">
+                        <span class="task-description">确保所有凭据通过HTTPS传输</span>
+                    </li>
+                    <li class="task-item">
+                        <input type="checkbox" class="task-checkbox" data-task="启用HSTS..." onchange="updateTaskStatus(this)">
+                        <span class="task-description">确认启用了HTTP严格传输安全（HSTS）</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 认证机制 -->
+        <div class="section">
+            <div class="section-header" onclick="toggleSection('auth')">
+                <h3 class="section-title">认证机制</h3>
+                <span class="arrow">▼</span>
+            </div>
+            <div class="section-content" id="auth-content">
+                <ul class="task-list">
+                    <li class="task-item">
+                        <input type="checkbox" class="task-checkbox" data-task="检查默认凭证..." onchange="updateTaskStatus(this)">
+                        <span class="task-description">检查默认凭证和查找硬编码登陆</span>
+                    </li>
+                    <li class="task-item">
+                        <input type="checkbox" class="task-checkbox" data-task="检查用户枚举..." onchange="updateTaskStatus(this)">
+                        <span class="task-description">检查用户枚举，防止泄露用户存在信息</span>
+                    </li>
+                    <li class="task-item">
+                        <input type="checkbox" class="task-checkbox" data-task="暴力破解保护..." onchange="updateTaskStatus(this)">
+                        <span class="task-description">检查暴力破解保护措施</span>
+                    </li>
+                    <li class="task-item">
+                        <input type="checkbox" class="task-checkbox" data-task="绕过认证测试..." onchange="updateTaskStatus(this)">
+                        <span class="task-description">测试可否绕过认证机制</span>
+                    </li>
+                    <li class="task-item">
+                        <input type="checkbox" class="task-checkbox" data-task="密码重置流程..." onchange="updateTaskStatus(this)">
+                        <span class="task-description">测试密码重置/恢复流程的安全性</span>
+                    </li>
+                    <li class="task-item">
+                        <input type="checkbox" class="task-checkbox" data-task="测试CAPTCHA..." onchange="updateTaskStatus(this)">
+                        <span class="task-description">测试CAPTCHA的有效性和绕过可能性</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 会话管理 -->
+        <div class="section">
+            <div class="section-header" onclick="toggleSection('session')">
+                <h3 class="section-title">会话管理</h3>
+                <span class="arrow">▼</span>
+            </div>
+            <div class="section-content" id="session-content">
+                <ul class="task-list">
+                    <li class="task-item">
+                        <input type="checkbox" class="task-checkbox" data-task="检查会话Cookie标志..." onchange="updateTaskStatus(this)">
+                        <span class="task-description">检查会话Cookie标志（httpOnly、secure）是否存在</span>
+                    </li>
+                    <li class="task-item">
+                        <input type="checkbox" class="task-checkbox" data-task="检查Cookie时效..." onchange="updateTaskStatus(this)">
+                        <span class="task-description">检查Cookie时效，注销登录后凭证是否失效</span>
+                    </li>
+                    <li class="task-item">
+                        <input type="checkbox" class="task-checkbox" data-task="会话固定测试..." onchange="updateTaskStatus(this)">
+                        <span class="task-description">会话固定（测试用户登录前后SESSIONID是否一样，是否可以同时进行多个会话）</span>
+                    </li>
+                    <li class="task-item">
+                        <input type="checkbox" class="task-checkbox" data-task="测试CSRF和点击劫持..." onchange="updateTaskStatus(this)">
+                        <span class="task-description">测试CSRF和点击劫持（Burp）</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 访问控制 -->
+        <div class="section">
+            <div class="section-header" onclick="toggleSection('access')">
+                <h3 class="section-title">访问控制</h3>
+                <span class="arrow">▼</span>
+            </div>
+            <div class="section-content" id="access-content">
+                <ul class="task-list">
+                    <li class="task-item">
+                        <input type="checkbox" class="task-checkbox" data-task="未授权访问测试..." onchange="updateTaskStatus(this)">
+                        <span class="task-description">未授权访问（JS代码泄露API接口路径，并且不需要登录即可访问）</span>
+                    </li>
+                    <li class="task-item">
+                        <input type="checkbox" class="task-checkbox" data-task="路径遍历漏洞测试..." onchange="updateTaskStatus(this)">
+                        <span class="task-description">测试路径遍历漏洞</span>
+                    </li>
+                    <li class="task-item">
+                        <input type="checkbox" class="task-checkbox" data-task="垂直越权测试..." onchange="updateTaskStatus(this)">
+                        <span class="task-description">检查垂直越权问题（特权升级）</span>
+                    </li>
+                    <li class="task-item">
+                        <input type="checkbox" class="task-checkbox" data-task="水平越权测试..." onchange="updateTaskStatus(this)">
+                        <span class="task-description">检查水平越权问题（访问其他用户数据）</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 文件操作 -->
+        <div class="section">
+            <div class="section-header" onclick="toggleSection('file')">
+                <h3 class="section-title">文件操作</h3>
+                <span class="arrow">▼</span>
+            </div>
+            <div class="section-content" id="file-content">
+                <ul class="task-list">
+                    <li class="task-item">
+                        <h4 class="subtask">任意文件上传</h4>
+                        <ul class="task-list">
+                            <li class="task-item">
+                                <input type="checkbox" class="task-checkbox" data-task="注册上传证件..." onchange="updateTaskStatus(this)">
+                                <span class="task-description">注册时需要上传证件</span>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" class="task-checkbox" data-task="登录后上传点..." onchange="updateTaskStatus(this)">
+                                <span class="task-description">登录后有上传点</span>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" class="task-checkbox" data-task="未授权上传接口..." onchange="updateTaskStatus(this)">
+                                <span class="task-description">未授权的上传接口</span>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="task-item">
+                        <h4 class="subtask">任意文件下载</h4>
+                        <ul class="task-list">
+                            <li class="task-item">
+                                <input type="checkbox" class="task-checkbox" data-task="路径遍历下载..." onchange="updateTaskStatus(this)">
+                                <span class="task-description">修改下载文件的地址为系统内敏感文件（路径遍历）</span>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- OWASP TOP10 -->
+        <div class="section">
+            <div class="section-header" onclick="toggleSection('owasp')">
+                <h3 class="section-title">OWASP TOP10</h3>
+                <span class="arrow">▼</span>
+            </div>
+            <div class="section-content" id="owasp-content">
+                <ul class="task-list">
+                    <li class="task-item">
+                        <h4 class="subtask">SQL注入</h4>
+                        <ul class="task-list">
+                            <li class="task-item">
+                                <input type="checkbox" class="task-checkbox" data-task="数据交互输入框..." onchange="updateTaskStatus(this)">
+                                <span class="task-description">有数据交互的输入框</span>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" class="task-checkbox" data-task="数据查询参数..." onchange="updateTaskStatus(this)">
+                                <span class="task-description">数据查询参数变量（ID=-1'）</span>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" class="task-checkbox" data-task="可控的HTTP Header..." onchange="updateTaskStatus(this)">
+                                <span class="task-description">可控的HTTP Header</span>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" class="task-checkbox" data-task="Fuzz SQL注入..." onchange="updateTaskStatus(this)">
+                                <span class="task-description">遇到Asp和PHP的网站，在以上位置用BurpSuite Fuzz Payload</span>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="task-item">
+                        <h4 class="subtask">XSS跨站脚本攻击</h4>
+                        <ul class="task-list">
+                            <li class="task-item">
+                                <input type="checkbox" class="task-checkbox" data-task="可控的前端输出点..." onchange="updateTaskStatus(this)">
+                                <span class="task-description">可控的前端输出点</span>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" class="task-checkbox" data-task="Fuzz XSS..." onchange="updateTaskStatus(this)">
+                                <span class="task-description">用BurpSuite Fuzz XSS Payload</span>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="task-item">
+                        <h4 class="subtask">XXE外部实体注入</h4>
+                        <ul class="task-list">
+                            <li class="task-item">
+                                <input type="checkbox" class="task-checkbox" data-task="引入外部XML..." onchange="updateTaskStatus(this)">
+                                <span class="task-description">引入外部实体的XML点</span>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" class="task-checkbox" data-task="Fuzz XXE..." onchange="updateTaskStatus(this)">
+                                <span class="task-description">用BurpSuite Fuzz Payload</span>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="task-item">
+                        <h4 class="subtask">CSRF客户端请求伪造</h4>
+                        <ul class="task-list">
+                            <li class="task-item">
+                                <input type="checkbox" class="task-checkbox" data-task="修改信息CSRF..." onchange="updateTaskStatus(this)">
+                                <span class="task-description">登录后修改信息</span>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" class="task-checkbox" data-task="Fuzz CSRF..." onchange="updateTaskStatus(this)">
+                                <span class="task-description">用BurpSuite Fuzz Payload</span>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="task-item">
+                        <h4 class="subtask">SSRF服务端请求伪造</h4>
+                        <ul class="task-list">
+                            <li class="task-item">
+                                <input type="checkbox" class="task-checkbox" data-task="远程图片上传SSRF..." onchange="updateTaskStatus(this)">
+                                <span class="task-description">远程图片上传</span>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" class="task-checkbox" data-task="注册远程地址..." onchange="updateTaskStatus(this)">
+                                <span class="task-description">用户注册填写远程地址</span>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" class="task-checkbox" data-task="URL转换标题..." onchange="updateTaskStatus(this)">
+                                <span class="task-description">输入网址转换成标题</span>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" class="task-checkbox" data-task="URL参数测试..." onchange="updateTaskStatus(this)">
+                                <span class="task-description">任何带有URL参数的地方都值得一试</span>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 逻辑漏洞 -->
+        <div class="section">
+            <div class="section-header" onclick="toggleSection('logic')">
+                <h3 class="section-title">逻辑漏洞</h3>
+                <span class="arrow">▼</span>
+            </div>
+            <div class="section-content" id="logic-content">
+                <ul class="task-list">
+                    <li class="task-item">
+                        <h4 class="subtask">注册功能</h4>
+                        <ul class="task-list">
+                            <li class="task-item">
+                                <input type="checkbox" class="task-checkbox" data-task="任意注册..." onchange="updateTaskStatus(this)">
+                                <span class="task-description">任意用户注册（不设注册条件）</span>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" class="task-checkbox" data-task="用户名枚举..." onchange="updateTaskStatus(this)">
+                                <span class="task-description">用户名枚举（网站返回用户已存在）</span>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" class="task-checkbox" data-task="注册覆盖..." onchange="updateTaskStatus(this)">
+                                <span class="task-description">注册覆盖（可注册重复的用户名）</span>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" class="task-checkbox" data-task="短信炸弹..." onchange="updateTaskStatus(this)">
+                                <span class="task-description">短信炸弹（不限制验证码获取时间间隔）</span>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="task-item">
+                        <h4 class="subtask">登录功能</h4>
+                        <ul class="task-list">
+                            <li class="task-item">
+                                <input type="checkbox" class="task-checkbox" data-task="登录绕过..." onchange="updateTaskStatus(this)">
+                                <span class="task-description">登录绕过（本地验证，修改响应包绕过登录验证，false->true）</span>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" class="task-checkbox" data-task="无效验证码..." onchange="updateTaskStatus(this)">
+                                <span class="task-description">验证码无效（验证码使用一次不过期、其他登录接口不需要验证码）</span>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" class="task-checkbox" data-task="暴力破解..." onchange="updateTaskStatus(this)">
+                                <span class="task-description">用户密码暴力破解（用户凭证明文传输，或加密算法简单）</span>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" class="task-checkbox" data-task="Token可预测..." onchange="updateTaskStatus(this)">
+                                <span class="task-description">Token可预测（token生成规则简单可爆破，比如基于username、id关键字段或时间戳生成）</span>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="task-item">
+                        <h4 class="subtask">登录账号后</h4>
+                        <ul class="task-list">
+                            <li class="task-item">
+                                <input type="checkbox" class="task-checkbox" data-task="水平越权..." onchange="updateTaskStatus(this)">
+                                <span class="task-description">水平越权（遍历ID泄露其他人的敏感信息）</span>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" class="task-checkbox" data-task="垂直越权..." onchange="updateTaskStatus(this)">
+                                <span class="task-description">垂直越权（观察cookie中的session字段，可能某些字段或者参数代表身份，修改后获得管理权限）</span>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="task-item">
+                        <h4 class="subtask">忘记密码</h4>
+                        <ul class="task-list">
+                            <li class="task-item">
+                                <input type="checkbox" class="task-checkbox" data-task="任意密码修改..." onchange="updateTaskStatus(this)">
+                                <span class="task-description">任意密码修改（不验证旧密码）</span>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" class="task-checkbox" data-task="水平越权修改..." onchange="updateTaskStatus(this)">
+                                <span class="task-description">水平越权（根据user ID越权修改他人密码）</span>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" class="task-checkbox" data-task="跳步找回..." onchange="updateTaskStatus(this)">
+                                <span class="task-description">跳步找回（找回3步，最后一步有user参数，用自己账号到第二步，第3步修改user参数跳过验证）</span>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" class="task-checkbox" data-task="可控手机号..." onchange="updateTaskStatus(this)">
+                                <span class="task-description">找回密码的手机号可修改（用可控的手机号码修改别人的密码）</span>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" class="task-checkbox" data-task="本地验证绕过..." onchange="updateTaskStatus(this)">
+                                <span class="task-description">本地验证，修改HTTP返回值（同登录绕过）</span>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" class="task-checkbox" data-task="密码枚举..." onchange="updateTaskStatus(this)">
+                                <span class="task-description">用户名枚举（网站返回用户不存在）</span>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="task-item">
+                        <h4 class="subtask">支付逻辑</h4>
+                        <ul class="task-list">
+                            <li class="task-item">
+                                <input type="checkbox" class="task-checkbox" data-task="修改订单价格..." onchange="updateTaskStatus(this)">
+                                <span class="task-description">修改订单价格（最小支付1元，最大支付2147483648元整数溢出）</span>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" class="task-checkbox" data-task="修改支付状态..." onchange="updateTaskStatus(this)">
+                                <span class="task-description">修改支付状态（观察参数把商品状态改为已付款）</span>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" class="task-checkbox" data-task="修改购买商品..." onchange="updateTaskStatus(this)">
+                                <span class="task-description">修改购买商品（用10元商品的数据包去买1000元的商品）</span>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" class="task-checkbox" data-task="修改商品数量..." onchange="updateTaskStatus(this)">
+                                <span class="task-description">修改商品数量（把商品数量改成-1，实现0元购）</span>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" class="task-checkbox" data-task="收货地址遍历..." onchange="updateTaskStatus(this)">
+                                <span class="task-description">收货地址遍历（更改用户参数，越权查看他人的收货地址）</span>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 进度统计初始化
+        let totalTasks = document.querySelectorAll('.task-checkbox').length;
+        let completedCount = 0;
+        document.querySelector('.total-count').textContent = totalTasks;
+
+        // 折叠面板切换
+        function toggleSection(sectionId) {
+            const content = document.getElementById(`${sectionId}-content`);
+            const arrow = document.querySelector(`[onclick="toggleSection('${sectionId}')"] .arrow`);
+            
+            content.style.maxHeight = content.style.maxHeight ? null : content.scrollHeight + "px";
+            arrow.textContent = arrow.textContent === "▼" ? "▲" : "▼";
+        }
+
+        // 更新任务状态
+        function updateTaskStatus(checkbox) {
+            const taskDescription = checkbox.nextElementSibling;
+            taskDescription.classList.toggle('completed', checkbox.checked);
+            
+            // 更新进度统计
+            const taskKey = checkbox.getAttribute('data-task');
+            localStorage.setItem(taskKey, checkbox.checked);
+            calculateProgress();
+        }
+
+        // 计算进度
+        function calculateProgress() {
+            const checkboxes = document.querySelectorAll('.task-checkbox:checked');
+            completedCount = checkboxes.length;
+            document.querySelector('.completed-count').textContent = completedCount;
+            const percentage = Math.round((completedCount / totalTasks) * 100);
+            document.querySelector('.percentage').textContent = percentage + '%';
+        }
+
+        // 初始化状态
+        document.querySelectorAll('.task-checkbox').forEach(checkbox => {
+            const taskKey = checkbox.getAttribute('data-task');
+            const storedStatus = localStorage.getItem(taskKey);
+            if (storedStatus === 'true') {
+                checkbox.checked = true;
+                checkbox.nextElementSibling.classList.add('completed');
+            }
+        });
+
+        // 初始化进度统计
+        calculateProgress();
+    </script>
+</body>
+</html>
