@@ -145,14 +145,13 @@
                 </div>
                 <div class="code-block p-4 mb-4 relative">
                     <button class="copy-btn" onclick="copyCode(this)"><i class="fas fa-copy mr-1"></i>复制</button>
-                    <code>fscan -skip -t 150 -time 8 -p service -h 192.168.0.0/16</code>
+                    <code>fscan -t 150 -time 5 -h 192.168.0.0/16</code>
                 </div>
                 
                 <h4 class="font-medium text-slate-700 mb-2">参数解释</h4>
                 <div class="flex flex-wrap">
-                    <span class="param-tag"><span class="font-semibold">-skip</span>：跳过某些不必要的检查，提高扫描速度</span>
                     <span class="param-tag"><span class="font-semibold">-t 150</span>：设置扫描的线程数为150</span>
-                    <span class="param-tag"><span class="font-semibold">-time 8</span>：设置扫描的超时时间为8秒</span>
+                    <span class="param-tag"><span class="font-semibold">-time 5</span>：设置扫描的超时时间为5秒</span>
                     <span class="param-tag"><span class="font-semibold">-p service</span>：指定扫描的服务类型为常规服务</span>
                     <span class="param-tag"><span class="font-semibold">-h 192.168.0.0/16</span>：指定扫描的目标网络范围</span>
                 </div>
@@ -169,13 +168,12 @@
                 
                 <div class="code-block p-4 mb-4 relative">
                     <button class="copy-btn" onclick="copyCode(this)"><i class="fas fa-copy mr-1"></i>复制</button>
-                    <code>fscan -skip -t 100 -time 5 -wt 15 -nobr -p web -h 192.168.221.0/24</code>
+                    <code>fscan -t 100 -time 5 -wt 8 -p web -h 192.168.0.1/24</code>
                 </div>
                 
                 <h4 class="font-medium text-slate-700 mb-2">参数解释</h4>
                 <div class="flex flex-wrap">
-                    <span class="param-tag"><span class="font-semibold">-wt 15</span>：设置Web服务探测的超时时间为15秒</span>
-                    <span class="param-tag"><span class="font-semibold">-nobr</span>：不进行暴力破解，仅进行服务探测</span>
+                    <span class="param-tag"><span class="font-semibold">-wt 8</span>：设置Web服务探测的超时时间为15秒</span>
                     <span class="param-tag"><span class="font-semibold">-p web</span>：指定扫描的服务类型为Web服务</span>
                 </div>
             </div>
@@ -194,7 +192,7 @@
                     <h3 class="font-medium text-slate-700 mb-2">服务检测</h3>
                     <div class="code-block p-4 mb-2 relative">
                         <button class="copy-btn" onclick="copyCode(this)"><i class="fas fa-copy mr-1"></i>复制</button>
-                        <code>fscan -skip -t 100 -time 5 -p service -nobr -noredis -np -hf ips.txt</code>
+                        <code>fscan -t 100 -time 5 -p service -nobr -noredis -np -hf ips.txt</code>
                     </div>
                     
                     <h5 class="text-slate-600 mb-2">参数解释</h5>
@@ -209,7 +207,7 @@
                     <h3 class="font-medium text-slate-700 mb-2">密码喷洒</h3>
                     <div class="code-block p-4 mb-2 relative">
                         <button class="copy-btn" onclick="copyCode(this)"><i class="fas fa-copy mr-1"></i>复制</button>
-                        <code>fscan -time 5 -m rdp -user administrator -pwd P@ssword -hf rdp.txt</code>
+                        <code>fscan -m rdp -user administrator -pwd P@ssword -hf rdp.txt</code>
                     </div>
                     
                     <h5 class="text-slate-600 mb-2">参数解释</h5>
@@ -225,7 +223,7 @@
                     <h3 class="font-medium text-slate-700 mb-2">弱口令检测</h3>
                     <div class="code-block p-4 mb-2 relative">
                         <button class="copy-btn" onclick="copyCode(this)"><i class="fas fa-copy mr-1"></i>复制</button>
-                        <code>fscan -time 5 -m ssh -hf ssh.txt</code>
+                        <code>fscan -m ssh -hf ssh.txt</code>
                     </div>
                 </div>
 
@@ -255,7 +253,7 @@
                     <h4 class="font-medium text-slate-700 mb-2">Redis写公钥</h4>
                     <div class="code-block p-4 mb-2 relative">
                         <button class="copy-btn" onclick="copyCode(this)"><i class="fas fa-copy mr-1"></i>复制</button>
-                        <code>fscan -skip -p 6379 -rf /root/.ssh/id_rsa.pub -hf redis.txt</code>
+                        <code>fscan -p 6379 -rf /root/.ssh/id_rsa.pub -hf redis.txt</code>
                     </div>
                 </div>
 
@@ -266,7 +264,7 @@
                     
                     <div class="code-block p-4 mb-2 relative">
                         <button class="copy-btn" onclick="copyCode(this)"><i class="fas fa-copy mr-1"></i>复制</button>
-                        <code>fscan -h 192.168.88.141 -m ms17010 -sc add</code>
+                        <code>fscan -h 192.168.1.1 -m ms17010 -sc add</code>
                     </div>
                 </div>
             </div>
